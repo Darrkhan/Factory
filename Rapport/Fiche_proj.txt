@@ -2,10 +2,30 @@
 TITRE: Factor'Isen
 
 
-MESSAGE:
+TYPE:
+        Jeu de co-opération de 1 à 4 joueurs.
+        Mode survie
+        Mode co-op
 
+GROUPE:
+        Bonnafous Antoine (alias ParZival)
+        Colin Vincent     (alias Pelo)
+        Cuisinier Paul    (alias Tassadar)
+        Marliot Paul      (alias Darrkhan)
+        Quivron Martin    (alias MRSPmonkey)
+        Verbeke Maxence   (alias IfleeXyZz)
+
+
+MESSAGE:
+        
 
 CIBLE:
+        Jeunes (à partir de 7 ans).
 
 
 DESCRIPTION:
+
+
+
+BIBLIOTHEQUE:
+        Three.js
