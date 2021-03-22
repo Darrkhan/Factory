@@ -29,6 +29,7 @@ CIBLE:
 
 
 DESCRIPTION:
+
         Factor'Isen est un jeu de coopération jouable seul ou a plusieurs( jusque 4 joueurs en simultané).
         Il y auras 2 modes de jeu: 
           - Mode survie : Le but est de maintenir l'objectif de production dans le vert pendant 5 minutes et de remplir les objectifs secondaire
