@@ -1,0 +1,127 @@
+﻿Scénario
+
+
+Partie 1 : (Niveau difficile)
+
+
+Il y a 4 joueurs (2 filles et 2 garçons) : Lisa, Victoria, David et Bob. Le jeu aura 4 niveaux qui dureront 5 minutes. Pour ce 1er niveau, ils doivent regrouper tous les éléments pour fabriquer la première partie de cette bière. Les parties se réunissent en thème.
+
+
+Usine traditionnelle (régionale)
+Usine de production de masse (nationale)
+Usine avec ajouts des robots (internationale)
+Usine surdéveloppé (les robots sont intelligents), avec robots et protection du personnels(internationale) 
+
+
+Matières premières :
+
+
+* Malt d’orge
+* Eau
+* Levure
+* Houblon
+
+
+Les différentes étapes pour fabriquer une bière sont :
+
+
+* Brassage
+* Fermentation
+* Filtration
+* Conditionnement
+ 
+Premier thème : La mécanisation - Usine traditionnelle 
+
+
+Ils doivent aller chercher tout seul les matières premières afin de de produire la bière.
+
+
+Lisa : Brassage. Elle va devoir concasser le malt puis le mettre dans la cuve à matières.
+
+
+David : Fermentation. Il met la bière dans le réfrigérant puis dans la cuve de fermentation. 
+
+
+Bob : Filtration. Il doit filtrer la bière puis la mettre dans la chaudière à houblonner. 
+
+
+Victoria : Conditionnement. Elle met la mise en fûts des bières puis emballer dans les cartons les bières
+
+
+La production de bière pour ce niveau est régionale.
+
+
+Bonus de récompense : ( fin de partie ) 
+
+
+Si la partie se finit à 4:30 - 5:00 : + 45 or 
+                        4:00 - 4:30 : + 40 or
+                        3:30 - 4:00 : + 35 or
+                        3:00 - 3:30 : + 30 or 
+                        2:30 - 3:00 : + 25 or
+                        2:00 - 2:30 : + 20 or
+                        1:30 - 2:00 : + 15 or 
+                        1:00 - 1:30 : + 10 or 
+                        0:30 - 1:00 : + 5 or 
+                        0:00 - 0:30 : + 0 or
+
+
+Ce gain on pourra le consommer sur le menu afin d’améliorer le timer. 
+
+
+
+
+ Partie 2 : (Niveau vétéran) 
+
+
+
+
+Deuxième partie : La production de masse (Usine de production de masse) 
+
+
+La production de bière est nationale.
+
+
+Dans ce niveau il n’y pas encore l’usine qui est robotisée. Ils font tous un travail à la chaîne. Pour ces tâches, ils le font ensemble.  Les matières premières viennent à eux grâce à un tapis roulant qui leur amène les différentes matières premières. Dans ce niveau ils pourront ne pas se déplacer pour chercher les matières. Plus facile et plus rapide pour la production de bière.
+
+
+Ils font les mêmes étapes que le niveau d’avant.
+
+
+
+
+ Partie 3 : (Niveau intermédiaire) 
+
+
+
+
+Troisième partie : Usine avec l’ajouts des robots (Usine robotisée)
+
+
+La production se fait à l'international. On automatise l’usine pour qu’elle se rapproche de l’usine 4.0. On ajoute des robots pour chaque étape de la production. Il y a 1 robot pour chaque joueur. Ils devront par contre vérifier le travail des robots pour s’assurer de la bonne production de la bière. Grâce aux bonus de récompense qu’ils ont eu ils pourront améliorer la vitesse de la production des robots.
+
+
+Durant cette partie le timer va s'accélérer afin de terminer à temps la production. Donc plus on a gagné d’or aux parties d’avant plus on va pouvoir passer à la partie d’après.  Il y aura un nombre de bières à produire pour pouvoir l'exporter à l'international.
+
+
+
+
+ Partie 4 : (Niveau facile) 
+
+
+Quatrième partie : Usine surdéveloppé (Usine robotisée)
+
+
+Ce dernier niveau permet aux joueurs de ne plus rien faire à part de s’occuper des pannes des robots s' il y en a. Les robots font tout. Ce sont des robots intelligents qui permettent de faire la production de la bière mais aussi de relier les robots entre eux pour qu’ils puissent communiquer. 
+
+
+Si un robot à fini sa partie, il donne son travail au prochain robot grâce à l’intelligence artificielle. Le brassage, le conditionnement, la fermentation et le conditionnement se feront qu’avec des robots. On y ajoute la nouvelle technologie qui est la protection des robots afin qu’ils ne se cassent pas ou encore qu’il n’y ait pas de panne. Tous les objets sont connectés entre eux donc cela permettra la fluidité de la production. Il y a aussi la protection des joueurs si un robot prend feu il y aura des barrières qui protégeront les joueurs pour pas qu’ils meurent et pour pas qu’ils recommencent à 0 les parties. 
+
+
+
+
+Le jeu (Game Over)  :
+
+
+* Si un employé meurt durant la partie, la partie se finit avec un Game Over et ils devront recommencer au tout début
+* S' ils n’ont pas réussi à finir la partie, ils pourront recommencer la même partie.
