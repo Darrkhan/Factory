@@ -46,8 +46,9 @@ MOTEUR DE JEU:
         
 Descriptions structure:
 
-    ./Site : contient tout les fichier liés au développement du site (sauf les images).
-    ./Game : contient tout les fichier liés au développement du jeu avec babylonjs.
+    ./Site : contient tout les fichiers liés au développement du site (sauf les images).
+    ./Game : contient tout les fichiers liés au développement du jeu avec babylonjs.
     ./Img  : contient toutes les images utilisées par le site et le jeu. 
     ./Old  : contient tout les anciennes fonctions, les tests, etc...
+    ./Doc  : contient tout les documents liés au scénarios, dialogue, etc... 
 
