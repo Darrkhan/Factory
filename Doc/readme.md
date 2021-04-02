@@ -2,7 +2,7 @@
 
 
                           Utilisation:
-        Répertories tout les documents du jeu type scénarios, aides, etc ...
+        Répertories tout les documents du jeu type scénarios, aides, etc . ..
 
 
 ############################################################################
