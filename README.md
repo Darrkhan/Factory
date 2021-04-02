@@ -44,7 +44,8 @@ DESCRIPTION:
 MOTEUR DE JEU:
         Babylonjs
         
-Descriptions structure: 
+Descriptions structure:
+
     ./Site : contient tout les fichier liés au développement du site (sauf les images).
     ./Game : contient tout les fichier liés au développement du jeu avec babylonjs.
     ./Img  : contient toutes les images utilisées par le site et le jeu. 
