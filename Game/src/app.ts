@@ -30,6 +30,7 @@ class App {
             }
         });
         // run the main render loop
+        //nique ete mere
         engine.runRenderLoop(() => {
             scene.render();
         });
