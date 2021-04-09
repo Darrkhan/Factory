@@ -1,7 +1,7 @@
 const path = require("path");
 const fs = require("fs");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+//const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const appDirectory = fs.realpathSync(process.cwd());
 module.exports = {
     entry: path.resolve(appDirectory, "Game/src/app.ts"), //path to the main .ts file
@@ -33,7 +33,7 @@ module.exports = {
             inject: true,
             template: path.resolve(appDirectory, "Game/public/index.html"),
         }),
-        new CleanWebpackPlugin(),
+        //new CleanWebpackPlugin(),
     ],
     mode: "development",
 };
