@@ -266,7 +266,7 @@
   "devDependencies": {},
   "scripts": {
     "build": "webpack",
-  "start": "webpack --watch & live-server --port=8085"
+    "start": "webpack --watch & live-server --port=8085"
   },
   "author": "",
   "license": "ISC"
