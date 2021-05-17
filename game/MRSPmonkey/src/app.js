@@ -10,22 +10,38 @@ const config = {
         update: update
     }
 };
-var player;
+
+var pad1;
+var pad2;
+
+var player1;
+var player2;
+
+var indicator1;
+var indicator2;
 var game = new Phaser.Game(config);
-
 var cursors;
-
 
 function preload (){
   this.load.image('fond', 'assets/fond.png');
   this.load.image('star', 'assets/star.png');
   this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
+  //this.load.spritesheet('controller-indicator', 'assets/dude1.png', 16,16);
 }
 
 function create (){
   this.add.image(960, 540,'fond');
   this.add.image(400, 300, 'star');
-  player = this.add.sprite(500, 450, 'dude');
+  player1 = this.add.sprite(500, 450, 'dude');
+  //indicator1 = this.add.sprite(10,10, 'controller-indicator');
+  //indicator1.scale.x = indicator1.scale.y = 2;
+  //indicator1.animations.frame = 1;
+
+  //indicator2 = this.add.sprite(10,50, 'controller-indicator');
+  //indicator2.scale.x = indicator2.scale.y = 2;
+  //indicator2.animations.frame = 1;
+  pad1 = this.input.gamepad.pad1;
+  pad2 = this.input.gamepad.pad2;
   this.anims.create({
       key: 'left',
       frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
@@ -61,31 +77,43 @@ function create (){
 }
 
 function update (){
+    //if(game.input.gamepad.supported && game.input.gamepad.active && game.input.gamepad.pad1.connected) {
+      //indicator1.animations.frame = 0;
+  //} else {
+      //indicator1.animations.frame = 1;
+  //}
+  //if(game.input.gamepad.supported && game.input.gamepad.active && game.input.gamepad.pad2.connected) {
+      //indicator2.animations.frame = 0;
+  //} else {
+    //  indicator2.animations.frame = 1;
+  //}
+
+
   if(cursors.left.isDown || cursors.right.isDown || cursors.up.isDown || cursors.down.isDown){
-    if (cursors.left.isDown)
+    if (cursors.left.isDown || pad1.isDown(Phaser.Gamepad.XBOX360_DPAD_LEFT) || pad1.axis(Phaser.Gamepad.XBOX360_STICK_LEFT_X) < -0.1)
     {
-        player.x -= 10;
-        player.anims.play('left', true);
+        player1.x -= 10;
+        player1.anims.play('left', true);
     }
-    if (cursors.right.isDown)
+    if (cursors.right.isDown || pad1.isDown(Phaser.Gamepad.XBOX360_DPAD_RIGHT) || pad1.axis(Phaser.Gamepad.XBOX360_STICK_LEFT_X) > 0.1)
     {
-        player.x += 10;
-        player.anims.play('right', true);
+        player1.x += 10;
+        player1.anims.play('right', true);
     }
-    if (cursors.up.isDown)
+    if (cursors.up.isDown || pad1.isDown(Phaser.Gamepad.XBOX360_DPAD_UP) || pad1.axis(Phaser.Gamepad.XBOX360_STICK_LEFT_Y) < -0.1)
     {
-        player.y -= 10;
-        player.anims.play('up', true);
+        player1.y -= 10;
+        player1.anims.play('up', true);
     }
-    if (cursors.down.isDown)
+    if (cursors.down.isDown || pad1.isDown(Phaser.Gamepad.XBOX360_DPAD_DOWN) || pad1.axis(Phaser.Gamepad.XBOX360_STICK_LEFT_Y) > 0.1)
     {
-        player.y += 10;
-        player.anims.play('down', true);
+        player1.y += 10;
+        player1.anims.play('down', true);
     }
   }
   else
   {
-      player.anims.play('turn');
+      player1.anims.play('turn');
   }
 }
 function render() {
