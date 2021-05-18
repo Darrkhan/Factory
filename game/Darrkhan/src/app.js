@@ -7,6 +7,16 @@ var config = {
     scene: {
         preload: preload,
         create: create,
+        physics:{
+          arcade:{
+            debug : true,
+            gravity:{y : 100}
+          },
+          matter:{
+            debug : true,
+            gravity:{y : 0.5}
+          }
+        },
         update: update
     }
 };
@@ -15,13 +25,15 @@ var game = new Phaser.Game(config);
 
 function preload ()
 {
-  this.load.image('sky', 'bg.jpg');
+  this.load.image('block', 'block.png');
 
 }
 
 function create ()
 {
-  this.add.image(1800, 1600, 'sky');
+  this.matter.add.image(10, 170, 'block', null, { isStatic: true });
+  var block = this.matter.add.image(100, 100, 'block');
+  block.setVelocity(0,0);
 }
 
 function update ()
