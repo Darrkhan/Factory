@@ -10,7 +10,6 @@ const config = {
         update: update
     }
 };
-
 var pad1;
 var pad2;
 
