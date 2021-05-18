@@ -63,13 +63,13 @@ function create (){
       repeat: -1
   });
   this.anims.create({
-      key: 'down',
+      key: 'up',
       frames: this.anims.generateFrameNumbers('dude', { start: 12, end: 15 }),
       frameRate: 10,
       repeat: -1
   });
   this.anims.create({
-      key: 'up',
+      key: 'down',
       frames: this.anims.generateFrameNumbers('dude', { start: 0, end: 3 }),
       frameRate: 10,
       repeat: -1
@@ -100,19 +100,19 @@ function update (){
     {
         var axisH = pad1.axes[0].getValue();
         var axisV = pad1.axes[1].getValue();
-        if(-1 < axisH <= 0 && -0.5 < axisV <= 0.5){
+        if((axisH > -1) && (axisH < 0) && (axisV > -0.5) && (axisV <= 0.5)){
+          player1.anims.play('left',true);
+        }
+        else if((axisH > 0) && (axisH <= 1) && (axisV > -0.5) && (axisV <= 0.5)){
+          player1.anims.play('left',true);
+        }
+        else if((axisV > -1) && (axisV < 0) && (axisH > -0.5) && (axisH <= 0.5)){
           player1.anims.play('up',true);
         }
-        else if(-1 < axisV <= 0 && -0.5 < axisH <= 0.5){
-          player1.anims.play('right',true);
+        else if((axisV > 0) && (axisV <= 1) && (axisH > -0.5) && (axisH <= 0.5)){
+          player1.anims.play('down', true);
         }
-        else if(0 < axisH <= 1 && -0.5 < axisV <= 0.5){
-          player1.anims.play('down',true);
-        }
-        else if(0 < axisV <= 1 && -0.5 < axisH <= 0.5){
-          player1.anims.play('left', true);
-        }
-        else {
+        else if(axisV == 0 && axisH == 0){
           player1.anims.play('turn');
         }
         player1.x += 4 * axisH;
@@ -122,7 +122,7 @@ function update (){
     }
   }
 
-
+/*
   if(cursors.left.isDown || cursors.right.isDown || cursors.up.isDown || cursors.down.isDown){
     if (cursors.left.isDown)
     {
@@ -147,7 +147,7 @@ function update (){
   }
   else{
       player1.anims.play('turn');
-  }
+  }*/
 function render() {
     game.debug.spriteInfo(s, 20, 32);
 
