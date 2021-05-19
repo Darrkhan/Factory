@@ -7,6 +7,17 @@ const config = {
     input: {
       gamepad: true
     },
+    physics:{
+      default : 'arcade',
+      arcade:{
+        debug : true,
+        gravity: { y: 200 }
+      },
+      matter:{
+        debug : true,
+        gravity: {y: 0.5}
+      }
+    },
     scene: {
         preload: preload,
         create: create,
@@ -25,16 +36,38 @@ var game = new Phaser.Game(config);
 var cursors;
 
 function preload (){
+  //preload MAP
+  this.load.image('sol', 'assets/images/sol.png');
+  this.load.image('Carrefour01', 'assets/images/Carrefour01.png');
+  this.load.image('Carrefour02', 'assets/images/Carrefour02.png');
+  this.load.image('Carrefour03', 'assets/images/Carrefour03.png');
+  this.load.image('Carrefour04', 'assets/images/Carrefour04.png');
+
+  this.load.image('tiles', 'assets/tilesets/Maptest_pack.png');
+
+  this.load.tilemapTiledJSON('map', 'assets/tilemaps/Maptest.json');
+
+
+
+  ///////////
+
   this.load.image('fond', 'assets/fond.png');
   this.load.image('star', 'assets/star.png');
+  //var block = this.load.matter.image('block', 'assets/block.png', null, {isStatic: true});
   //this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
   this.load.spritesheet('dude', 'assets/perso.png', { frameWidth: 64, frameHeight: 64 });
   //this.load.spritesheet('controller-indicator', 'assets/dude1.png', 16,16);
 }
 
 function create (){
-  this.add.image(960, 540,'fond');
-  this.add.image(400, 300, 'star');
+  //this.add.image(960, 540,'fond');
+  //this.add.image(400, 300, 'star');
+
+  const backgroundImage = this.add.image(0, 0, 'sol').setOrigin(0, 0);
+  const map = this.make.tilemap({ key: 'map'});
+  const tileset = map.addTilesetImage('Maptest','tiles');
+
+
   player1 = this.add.sprite(500, 450, 'dude');
   this.anims.create({
       key: 'left',
