@@ -37,7 +37,7 @@ var cursors;
 function preload (){
   //PRELOAD MAP TITLED
   this.load.image('sol', 'assets/images/sol.png');
-  this.load.image('tiles', 'assets/tilesets/Maptest_pack.png');
+  this.load.image('tiles', 'assets/tilesets/Mapbis_pack.png');
 
   //RCH
   this.load.image('RCH1', 'assets/images/RCroutehorizon01.png');
@@ -88,10 +88,9 @@ function create (){
 //  const backgroundImage = this.add.image(0,0, 'sol').setOrigin(0,0);
   //backgroundImage.setScale(2, 0.8);
   const map = this.make.tilemap({ key : 'map'});
-  const tilset = map.addTilesetImage('Test', 'tiles');
-  const platforms = map.createStaticLayer('Platforms', tilset, 0, 200);
-
-
+  const tileset = map.addTilesetImage('Test', 'tiles');
+  map.createStaticLayer('Test', tileset)
+  //const platforms = map.createStaticLayer('Platforms', tilset, 0, 200);
 
 //  this.add.image(960, 540,'fond');
   player1.img = this.add.sprite(500, 450, 'dude');
