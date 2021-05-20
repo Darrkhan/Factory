@@ -36,6 +36,7 @@ var cursors;
 
 function preload (){
   //PRELOAD MAP TITLED
+  this.load.image('block', 'assets/block.png');
   this.load.image('sol', 'assets/images/sol.png');
   this.load.image('tiles', 'assets/tilesets/Mapbis_pack.png');
 
@@ -83,13 +84,17 @@ function preload (){
 }
 
 function create (){
-
+  var block = this.add.image(200, 200, 'block');
   //Mapbis
 //  const backgroundImage = this.add.image(0,0, 'sol').setOrigin(0,0);
   //backgroundImage.setScale(2, 0.8);
-  const map = this.make.tilemap({ key : 'map'});
-  const tileset = map.addTilesetImage('Test', 'tiles');
-  map.createStaticLayer('Test', tileset)
+  /*const map = this.make.tilemap({ key : 'map'});
+  const tileset = map.addTilesetImage('Maptest_pack', 'tiles');
+  map.createStaticLayer('Route', tileset);
+  map.createStaticLayer('Fin de route', tileset);
+  map.createStaticLayer('Collision', tileset);*/
+
+
   //const platforms = map.createStaticLayer('Platforms', tilset, 0, 200);
 
 //  this.add.image(960, 540,'fond');
