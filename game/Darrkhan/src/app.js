@@ -2,10 +2,23 @@ import Phaser from 'phaser'
 const {player} = require("./class.js");
 const config = {
     type: Phaser.AUTO,
-    width: 1920,
-    height: 1080,
+    scale: {
+        mode: Phaser.Scale.FIT,
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+        width: 1920,
+        height: 1080
+    },
     input: {
       gamepad: true
+    },
+    physics: {
+        default: 'matter',
+        matter: {
+            gravity: {
+                x: 0,
+                y: 0
+            }
+        }
     },
     scene: {
         preload: preload,
@@ -68,7 +81,7 @@ function preload (){
   this.load.image('Carr3', 'assets/images/Carrefour03.png');
   this.load.image('Carr4', 'assets/images/Carrefour04.png');
 
-  this.load.tilemapTiledJSON('map', 'assets/tilemaps/TESTING.json')
+  this.load.tilemapTiledJSON('map', 'assets/tilemaps/Teste.json');
 
   this.load.image('fond', 'assets/fond.png');
   //this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
@@ -84,25 +97,26 @@ function preload (){
 }
 
 function create (){
-  var block = this.add.image(200, 200, 'block');
+  var block = this.matter.add.image(200, 200, 'block').setStatic(true);
   //Mapbis
 //  const backgroundImage = this.add.image(0,0, 'sol').setOrigin(0,0);
   //backgroundImage.setScale(2, 0.8);
-  /*const map = this.make.tilemap({ key : 'map'});
+  const map = this.make.tilemap({ key : 'map'});
   const tileset = map.addTilesetImage('Maptest_pack', 'tiles');
-  map.createStaticLayer('Route', tileset);
-  map.createStaticLayer('Fin de route', tileset);
-  map.createStaticLayer('Collision', tileset);*/
+  const firstlayer = map.createStaticLayer('Sol', tileset);
+  firstlayer.scaleX = 1.065;
+  firstlayer.scaleY = 1.025;
+  //map.createStaticLayer('EndRoute', tileset);
 
 
   //const platforms = map.createStaticLayer('Platforms', tilset, 0, 200);
 
 //  this.add.image(960, 540,'fond');
-  player1.img = this.add.sprite(500, 450, 'dude');
+  player1.img = this.matter.add.sprite(500, 450, 'dude');
 
-  player2.img = this.add.sprite(500, 600, 'dude1');
-  player3.img = this.add.sprite(500, 750, 'dude2');
-  player4.img = this.add.sprite(500, 900, 'dude3');
+  player2.img = this.matter.add.sprite(500, 600, 'dude1');
+  player3.img = this.matter.add.sprite(500, 750, 'dude2');
+  player4.img = this.matter.add.sprite(500, 900, 'dude3');
   control1 = this.add.sprite(35, 30, 'control1');
   control2 = this.add.sprite(75, 30, 'control2');
   control3 = this.add.sprite(115, 30, 'control3');
