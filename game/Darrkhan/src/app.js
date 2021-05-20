@@ -40,7 +40,7 @@ var control1;
 var control2;
 var control3;
 var control4;
-
+var car;
 console.log(player1.type, player2.type, player3.type, player4.type);
 var indicator1;
 var indicator2;
@@ -50,9 +50,7 @@ var cursors;
 function preload (){
   //PRELOAD MAP TITLED
   this.load.image('block', 'assets/block.png');
-  this.load.image('sol', 'assets/images/sol.png');
   this.load.image('tiles', 'assets/tilesets/Mapbis_pack.png');
-
   //RCH
   this.load.image('RCH1', 'assets/images/RCroutehorizon01.png');
   this.load.image('RCH2', 'assets/images/RCroutehorizon02.png');
@@ -84,7 +82,6 @@ function preload (){
   this.load.tilemapTiledJSON('map', 'assets/tilemaps/Teste.json');
 
   this.load.image('fond', 'assets/fond.png');
-  //this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
   this.load.spritesheet('dude', 'assets/perso.png', { frameWidth: 64, frameHeight: 64 });
   this.load.spritesheet('dude1', 'assets/persoB.png', { frameWidth: 64, frameHeight: 64 });
   this.load.spritesheet('dude2', 'assets/persoC.png', { frameWidth: 64, frameHeight: 64 });
@@ -97,23 +94,34 @@ function preload (){
 }
 
 function create (){
-  var block = this.matter.add.image(200, 200, 'block').setStatic(true);
-  //Mapbis
-//  const backgroundImage = this.add.image(0,0, 'sol').setOrigin(0,0);
-  //backgroundImage.setScale(2, 0.8);
   const map = this.make.tilemap({ key : 'map'});
   const tileset = map.addTilesetImage('Maptest_pack', 'tiles');
-  const firstlayer = map.createStaticLayer('Sol', tileset);
+  const firstlayer = map.createLayer('Sol', tileset);
+  const slayer = map.createLayer('Carrefour', tileset);
+  const tlayer = map.createLayer('Route', tileset);
+  const qlayer = map.createLayer('Mur', tileset);
+  const clayer = map.createLayer('Decor', tileset);
+  const sixlayer = map.createLayer('Collision', tileset);
+  //var block = this.matter.add.image(200, 200, 'block').setStatic(true);
   firstlayer.scaleX = 1.065;
   firstlayer.scaleY = 1.025;
-  //map.createStaticLayer('EndRoute', tileset);
 
+  slayer.scaleX = 1.065;
+  slayer.scaleY = 1.025;
 
-  //const platforms = map.createStaticLayer('Platforms', tilset, 0, 200);
+  tlayer.scaleX = 1.065;
+  tlayer.scaleY = 1.025;
 
-//  this.add.image(960, 540,'fond');
+  qlayer.scaleX = 1.065;
+  qlayer.scaleY = 1.025;
+
+  clayer.scaleX = 1.065;
+  clayer.scaleY = 1.025;
+
+  sixlayer.scaleX = 1.065;
+  sixlayer.scaleY = 1.025;
+
   player1.img = this.matter.add.sprite(500, 450, 'dude');
-
   player2.img = this.matter.add.sprite(500, 600, 'dude1');
   player3.img = this.matter.add.sprite(500, 750, 'dude2');
   player4.img = this.matter.add.sprite(500, 900, 'dude3');
