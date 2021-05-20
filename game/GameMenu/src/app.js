@@ -1,66 +1,168 @@
 import Phaser from 'phaser'
-import { setOriginalNode } from 'typescript';
+import { setOriginalNode, textSpanContainsTextSpan } from 'typescript';
 
-var config = {
+window.onload = function() {
+    var config = {
+        type: Phaser.AUTO,
+        width: 1920,
+        height: 1080,
+        physics: {
+            default: 'arcade',
+            arcade: {
+                gravity: { y: 300 },
+                debug: false
+            }
+        },
+        scene: [scene1,scene2]
+    };
+
+    game= new Phaser.Game(config);
+    game.scene.start("scene1");
+}
+
+var dab
+
+class scene1 extends Phaser.Scene {
+
+    constructor() {
+
+        super({ key : 'scene1'});
+       
+        
+    }
+
+
+    preload() {
+
+        this.load.image('sky', 'AMOGUSTRUE.jpg');
+        this.load.image('button', 'PlayGameNot.png');
+        this.load.image('dab', 'bg.jpg');
+    }
+
+    create() {
+        
+        this.add.image(850,500,'sky');
+ 
+        this.face = this.add.image(450,500, 'button');
+        this.face.setInteractive();
+
+        this.input.on('gameobjectdown', this.onObjectClicked);
+
+
+
+        
+
+    }
+
+    onObjectClicked(pointer, gameObject) {
+
+        console.log("Fortnite");
+        dab = 1;
+    }
+    update() {
+
+       if(dab == 1) {
+
+        console.log("dab");
+
+        this.scene.start("scene2");
+       }
+    }
+}
+
+class scene2 extends Phaser.Scene {
+
+    constructor() {
+
+        super({ key : 'scene2'});
+        var button;
+        var dab = 0;
+    }
+
+
+    preload() {
+
+        //this.load.image('sky', 'AMOGUSTRUE.jpg');
+        //this.load.image('button', 'PlayGameNot.png');
+        //this.load.image('dab', 'bg.jpg');
+    }
+
+    create() {
+        
+        this.add.image(800,450, 'dab');
+        /*this.add.image(850,500,'sky');
+ 
+        var sprite = this.add.sprite(900, 475, 'button').setInteractive();
+
+        sprite.on('')
+
+        sprite.on('pointerdown', function (pointer) {
+
+            console.log("TA GUEUELE");
+
+        })
+
+        sprite.on('pointerout', function (pointer) {
+
+            console.log("TA GUEUELE 1");
+
+        });
+
+        sprite.on('pointerup', function (pointer) {
+
+            dab = 1;
+
+        });*/
+
+    }
+
+    update() {
+
+        
+    }
+
+    onObjectClicked(pointer, gameObject) {
+
+        console.log("fortnite");
+    }
+}
+
+
+
+/*var config = {
     type: Phaser.AUTO,
     width: 1900,
     height: 1100,
     scene: {
-        preload: preload,
-        create: create,
-        update: update,
+        preload : preload,
+        create : create,
+        update : update,
     }
-};
-
-var game = new Phaser.Game(config);
-var button;
-var dab = 0;
-
-function preload ()
-{
-  this.load.image('sky', 'AMOGUSTRUE.jpg')
-  this.load.image('button', 'PlayGameNot.png');
-  this.load.image('test', 'bg.jpg')
-
-  
-
-}
-
-function create ()
-{
-    this.add.image(850,500,'sky');
- 
-    var sprite = this.add.sprite(900, 475, 'button').setInteractive();
-
-    sprite.on('pointerdown', function (pointer) {
-
-        console.log("TA GUEUELE");
-
-    })
-
-    sprite.on('pointerout', function (pointer) {
-
-        console.log("TA GUEUELE 1");
-
-    });
-
-    sprite.on('pointerup', function (pointer) {
-
-        dab = 1;
-
-    });
+};*/
 
 
-}
 
-function update ()
-{
-   if(dab == 1) {
 
-        this.add.image(150,200,'test');
-       
-       
-   }
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
