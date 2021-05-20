@@ -1,5 +1,5 @@
 import Phaser from 'phaser'
-
+const {player} = require("./class.js");
 const config = {
     type: Phaser.AUTO,
     width: 1920,
@@ -7,33 +7,78 @@ const config = {
     input: {
       gamepad: true
     },
+    physics: {
+        default: 'matter',
+        matter: {
+            gravity: {
+                x: 0,
+                y: 0
+            }
+        }
+    },
     scene: {
         preload: preload,
         create: create,
         update: update
     }
 };
-var pad1;
-var pad2;
-var pad3;
-var pad4;
 
-var player1;
-var player2;
-var player3;
-var player4;
+/*var player1.pad;
+var player2.pad;
+var player3.pad;
+var player4.pad;*/
+
+var player1 = new player(1, "");
+var player2 = new player(2, "");
+var player3 = new player(3, "");
+var player4 = new player(4, "");
 
 var control1;
 var control2;
 var control3;
 var control4;
 
+console.log(player1.type, player2.type, player3.type, player4.type);
 var indicator1;
 var indicator2;
 var game = new Phaser.Game(config);
 var cursors;
 
 function preload (){
+  /*//PRELOAD MAP TITLED
+  this.load.image('sol', 'assets/images/sol.png');
+  this.load.image('tiles', 'assets/tilesets/Maptest_pack.png');
+
+  //RCH
+  this.load.image('RCH1', 'assets/images/RCroutehorizon01.png');
+  this.load.image('RCH2', 'assets/images/RCroutehorizon02.png');
+
+  //RCN
+  this.load.image('RCN2', 'assets/images/RCrouteNode02.png');
+  this.load.image('RCN1', 'assets/images/RCrouteNode01.png');
+  this.load.image('RCN3', 'assets/images/RCrouteNode03.png');
+  this.load.image('RCN4', 'assets/images/RCrouteNode04.png');
+  this.load.image('RCN5', 'assets/images/RCrouteNode05.png');
+  this.load.image('RCN6', 'assets/images/RCrouteNode06.png');
+
+  //RCB
+  this.load.image('RCB1', 'assets/images/RCroutebas01.png');
+  this.load.image('RCB2', 'assets/images/RCroutebas02.png');
+
+  //RCBARR
+  this.load.image('RCBarr1', 'assets/images/RCroutebarriere01.png');
+  this.load.image('RCBarr2', 'assets/images/RCroutebarriere02.png');
+  this.load.image('RCBarr3', 'assets/images/RCroutebarriere03.png');
+  this.load.image('RCBarr4', 'assets/images/RCroutebarriere04.png');
+
+  //Carr
+  this.load.image('Carr1', 'assets/images/Carrefour01.png');
+  this.load.image('Carr2', 'assets/images/Carrefour02.png');
+  this.load.image('Carr3', 'assets/images/Carrefour03.png');
+  this.load.image('Carr4', 'assets/images/Carrefour04.png');
+
+  this.load.tilemapTiledJSON('map', 'assets/tilemaps/TESTING.json')*/
+
   this.load.image('fond', 'assets/fond.png');
   //this.load.spritesheet('dude', 'assets/dude.png', { frameWidth: 32, frameHeight: 48 });
   this.load.spritesheet('dude', 'assets/perso.png', { frameWidth: 64, frameHeight: 64 });
@@ -44,20 +89,39 @@ function preload (){
   this.load.spritesheet('control2', 'assets/controlPersoB.png', { frameWidth: 35, frameHeight: 35 });
   this.load.spritesheet('control3', 'assets/controlPersoC.png', { frameWidth: 35, frameHeight: 35 });
   this.load.spritesheet('control4', 'assets/controlPersoD.png', { frameWidth: 35, frameHeight: 35 });
+  this.load.image('carre', 'assets/carre.jpg');
   //this.load.spritesheet('controller-indicator', 'assets/dude1.png', 16,16);
 }
 
 function create (){
-  this.add.image(960, 540,'fond');
-  player1 = this.add.sprite(500, 450, 'dude');
-  player2 = this.add.sprite(500, 600, 'dude1');
-  player3 = this.add.sprite(500, 750, 'dude2');
-  player4 = this.add.sprite(500, 900, 'dude3');
+
+  //Mapbis
+//  const backgroundImage = this.add.image(0,0, 'sol').setOrigin(0,0);
+  //backgroundImage.setScale(2, 0.8);
+/*  const map = this.make.tilemap({ key : 'map'});
+  const tilset = map.addTilesetImage('Test', 'tiles');
+  const platforms = map.createStaticLayer('Platforms', tilset, 0, 200);
+*/
+//  this.add.image(960, 540,'fond');
+  player1.img = this.matter.add.sprite(500, 450, 'dude');
+  player2.img = this.matter.add.sprite(500, 600, 'dude1');
+  player3.img = this.matter.add.sprite(500, 750, 'dude2');
+  player4.img = this.matter.add.sprite(500, 900, 'dude3');
   control1 = this.add.sprite(35, 30, 'control1');
   control2 = this.add.sprite(75, 30, 'control2');
   control3 = this.add.sprite(115, 30, 'control3');
-  control4 = this.add.sprite(155, 30, 'control4');
-
+  control4 = this.add.sprite(155, 30, 'control4');;
+  var image;
+  var carre1 = this.matter.add.image(100, 100, 'carre').setStatic(true);
+  var coco = false;
+  this.matter.world.on('collisionstart', function (event, player1, carre1, image){
+    console.log("ok", player1.inv);
+    carre1.destroy()
+    //player1.img =  this.matter.add.sprite(500, 900, 'dude3');
+  });
+  if(coco == true){
+    this.add.image(400, 400, 'carre');
+  }
   this.anims.create({
       key: 'manette1',
       frames: this.anims.generateFrameNumbers('control1', { start: 0, end: 1 }),
@@ -242,56 +306,46 @@ function create (){
 }
 
 function update (){
-    //if(game.input.gamepad.supported && game.input.gamepad.active && game.input.gamepad.pad1.connected) {
-      //indicator1.animations.frame = 0;
-  //} else {
-      //indicator1.animations.frame = 1;
-  //}
-  //if(game.input.gamepad.supported && game.input.gamepad.active && game.input.gamepad.pad2.connected) {
-      //indicator2.animations.frame = 0;
-  //} else {
-    //  indicator2.animations.frame = 1;
-  //}
 
   if (this.input.gamepad.total === 0){
         return;
     }
 
-    var pad1 = this.input.gamepad.getPad(0);
-    var pad2 = this.input.gamepad.getPad(1);
-    var pad3 = this.input.gamepad.getPad(2);
-    var pad4 = this.input.gamepad.getPad(3);
+    player1.pad = this.input.gamepad.getPad(0);
+    player2.pad = this.input.gamepad.getPad(1);
+    player3.pad = this.input.gamepad.getPad(2);
+    player4.pad = this.input.gamepad.getPad(3);
 
 control1.anims.play('manette1',true);
 control2.anims.play('manette2',true);
 control3.anims.play('manette3',true);
 control4.anims.play('manette4',true);
 //------------------------PLAYER 1---------------------------------------------------------
-  if(pad1 != undefined){
+  if(player1.pad != undefined){
     control1.anims.play('manette11');
-    if (pad1.axes.length)
+    if (player1.pad.axes.length)
     {
-        var axisH = pad1.axes[0].getValue();
-        var axisV = pad1.axes[1].getValue();
+        var axisH = player1.pad.axes[0].getValue();
+        var axisV = player1.pad.axes[1].getValue();
         if((axisH > -1) && (axisH < 0) && (axisV > -0.5) && (axisV <= 0.5)){
-          player1.anims.play('left',true);
+          player1.img.anims.play('left',true);
         }
         else if((axisH > 0) && (axisH <= 1) && (axisV > -0.5) && (axisV <= 0.5)){
-          player1.anims.play('left',true);
+          player1.img.anims.play('left',true);
         }
         else if((axisV > -1) && (axisV < 0) && (axisH > -0.5) && (axisH <= 0.5)){
-          player1.anims.play('up',true);
+          player1.img.anims.play('up',true);
         }
         else if((axisV > 0) && (axisV <= 1) && (axisH > -0.5) && (axisH <= 0.5)){
-          player1.anims.play('down', true);
+          player1.img.anims.play('down', true);
         }
         else if(axisV == 0 && axisH == 0){
-          player1.anims.play('turn');
+          player1.img.anims.play('turn');
         }
-        player1.x += 4 * axisH;
-        player1.y += 4 * axisV;
+        player1.img.x += 4 * axisH;
+        player1.img.y += 4 * axisV;
 
-        player1.flipX = (axisH > 0);
+        player1.img.flipX = (axisH > 0);
     }
   }
   else {
@@ -299,31 +353,31 @@ control4.anims.play('manette4',true);
   }
 
 //------------------------PLAYER 2---------------------------------------------------------
-  if(pad2 != undefined){
+  if(player2.pad != undefined){
     control2.anims.play('manette22');
-    if (pad2.axes.length)
+    if (player2.pad.axes.length)
     {
-        var axisH = pad2.axes[0].getValue();
-        var axisV = pad2.axes[1].getValue();
+        var axisH = player2.pad.axes[0].getValue();
+        var axisV = player2.pad.axes[1].getValue();
         if((axisH > -1) && (axisH < 0) && (axisV > -0.5) && (axisV <= 0.5)){
-          player2.anims.play('left1',true);
+          player2.img.anims.play('left1',true);
         }
         else if((axisH > 0) && (axisH <= 1) && (axisV > -0.5) && (axisV <= 0.5)){
-          player2.anims.play('left1',true);
+          player2.img.anims.play('left1',true);
         }
         else if((axisV > -1) && (axisV < 0) && (axisH > -0.5) && (axisH <= 0.5)){
-          player2.anims.play('up1',true);
+          player2.img.anims.play('up1',true);
         }
         else if((axisV > 0) && (axisV <= 1) && (axisH > -0.5) && (axisH <= 0.5)){
-          player2.anims.play('down1', true);
+          player2.img.anims.play('down1', true);
         }
         else if(axisV == 0 && axisH == 0){
-          player2.anims.play('turn1');
+          player2.img.anims.play('turn1');
         }
-        player2.x += 4 * axisH;
-        player2.y += 4 * axisV;
+        player2.img.  x += 4 * axisH;
+        player2.img.y += 4 * axisV;
 
-        player2.flipX = (axisH > 0);
+        player2.img.flipX = (axisH > 0);
     }
   }
   else {
@@ -331,31 +385,31 @@ control4.anims.play('manette4',true);
   }
 
 //------------------------PLAYER 3---------------------------------------------------------
-  if (pad3 != undefined){
+  if (player3.pad != undefined){
     control3.anims.play('manette33');
-    if (pad3.axes.length)
+    if (player3.pad.axes.length)
     {
-        var axisH = pad3.axes[0].getValue();
-        var axisV = pad3.axes[1].getValue();
+        var axisH = player3.pad.axes[0].getValue();
+        var axisV = player3.pad.axes[1].getValue();
         if((axisH > -1) && (axisH < 0) && (axisV > -0.5) && (axisV <= 0.5)){
-          player3.anims.play('left2',true);
+          player3.img.anims.play('left2',true);
         }
         else if((axisH > 0) && (axisH <= 1) && (axisV > -0.5) && (axisV <= 0.5)){
-          player3.anims.play('left2',true);
+          player3.img.anims.play('left2',true);
         }
         else if((axisV > -1) && (axisV < 0) && (axisH > -0.5) && (axisH <= 0.5)){
-          player3.anims.play('up2',true);
+          player3.img.anims.play('up2',true);
         }
         else if((axisV > 0) && (axisV <= 1) && (axisH > -0.5) && (axisH <= 0.5)){
-          player3.anims.play('down2', true);
+          player3.img.anims.play('down2', true);
         }
         else if(axisV == 0 && axisH == 0){
-          player3.anims.play('turn2');
+          player3.img.anims.play('turn2');
         }
-        player3.x += 4 * axisH;
-        player3.y += 4 * axisV;
+        player3.img.x += 4 * axisH;
+        player3.img.y += 4 * axisV;
 
-        player3.flipX = (axisH > 0);
+        player3.img.flipX = (axisH > 0);
     }
   }
   else {
@@ -363,31 +417,31 @@ control4.anims.play('manette4',true);
   }
 
 //------------------------PLAYER 4---------------------------------------------------------
-  if (pad4 != undefined){
+  if (player4.pad != undefined){
     control4.anims.play('manette44');
-    if (pad4.axes.length)
+    if (player4.pad.axes.length)
     {
-        var axisH = pad4.axes[0].getValue();
-        var axisV = pad4.axes[1].getValue();
+        var axisH = player4.pad.axes[0].getValue();
+        var axisV = player4.pad.axes[1].getValue();
         if((axisH > -1) && (axisH < 0) && (axisV > -0.5) && (axisV <= 0.5)){
-          player4.anims.play('left3',true);
+          player4.img.anims.play('left3',true);
         }
         else if((axisH > 0) && (axisH <= 1) && (axisV > -0.5) && (axisV <= 0.5)){
-          player4.anims.play('left3',true);
+          player4.img.anims.play('left3',true);
         }
         else if((axisV > -1) && (axisV < 0) && (axisH > -0.5) && (axisH <= 0.5)){
-          player4.anims.play('up3',true);
+          player4.img.anims.play('up3',true);
         }
         else if((axisV > 0) && (axisV <= 1) && (axisH > -0.5) && (axisH <= 0.5)){
-          player4.anims.play('down3', true);
+          player4.img.anims.play('down3', true);
         }
         else if(axisV == 0 && axisH == 0){
-          player4.anims.play('turn3');
+          player4.img.anims.play('turn3');
         }
-        player4.x += 4 * axisH;
-        player4.y += 4 * axisV;
+        player4.img.x += 4 * axisH;
+        player4.img.y += 4 * axisV;
 
-        player4.flipX = (axisH > 0);
+        player4.img.flipX = (axisH > 0);
     }
   }
   else {
