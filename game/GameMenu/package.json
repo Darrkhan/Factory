@@ -1,5 +1,5 @@
 {
-  "name": "darrkhan",
+  "name": "GameMenu",
   "version": "1.0.0",
   "description": "",
   "main": "game.js",
@@ -268,6 +268,6 @@
     "build": "webpack",
     "start": "webpack --watch & live-server --port=8085"
   },
-  "author": "",
+  "author": "AntoineBonnafous-ParZivaL",
   "license": "ISC"
 }

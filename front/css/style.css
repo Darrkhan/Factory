@@ -109,10 +109,10 @@ header {
 }
 
 @keyframes fondu{
-  0%{background: url("Fortnite1.jpg") top center / cover;}
-  33.33%{background: url("Fortnite2.jpg") top center / cover;}
-  66.67%{background: url("Fortnite3.jpg") top center / cover;}
-  100%{background: url("Fortnite4.jpg") top center / cover;}
+  0%{background: url("./Fortnite1.jpg") top center / cover;}
+  33.33%{background: url("./Fortnite2.jpg") top center / cover;}
+  66.67%{background: url("./Fortnite3.jpg") top center / cover;}
+  100%{background: url("./Fortnite4.jpg") top center / cover;}
 }
 .overlay {
   position: absolute;
