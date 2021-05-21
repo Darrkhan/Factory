@@ -38,11 +38,19 @@ var control2;
 var control3;
 var control4;
 
+var manet1;
+var manet2;
+var manet3;
+var manet4;
+
 console.log(player1.type, player2.type, player3.type, player4.type);
 var indicator1;
 var indicator2;
 var game = new Phaser.Game(config);
 var cursors;
+
+var carre1;
+var carre2;
 
 function preload (){
   /*//PRELOAD MAP TITLED
@@ -107,18 +115,18 @@ function create (){
   player2.img = this.matter.add.sprite(500, 600, 'dude1');
   player3.img = this.matter.add.sprite(500, 750, 'dude2');
   player4.img = this.matter.add.sprite(500, 900, 'dude3');
+  player1.inv = 0;
+  player2.inv = 0;
+  player3.inv = 0;
+  player4.inv = 0;
   control1 = this.add.sprite(35, 30, 'control1');
   control2 = this.add.sprite(75, 30, 'control2');
   control3 = this.add.sprite(115, 30, 'control3');
   control4 = this.add.sprite(155, 30, 'control4');;
   var image;
-  var carre1 = this.matter.add.image(100, 100, 'carre').setStatic(true);
+  carre1 = this.matter.add.image(100, 100, 'carre').setStatic(true);
+  carre2 = this.matter.add.image(100, 700, 'carre').setStatic(true);
   var coco = false;
-  this.matter.world.on('collisionstart', function (event, player1, carre1, image){
-    console.log("ok", player1.inv);
-    carre1.destroy()
-    //player1.img =  this.matter.add.sprite(500, 900, 'dude3');
-  });
   if(coco == true){
     this.add.image(400, 400, 'carre');
   }
@@ -303,15 +311,70 @@ function create (){
       frameRate: 10,
       repeat: -1
   });
+
+
+  console.log('inventaire : ', player1.inv);
+  this.matter.world.on('collisionstart', function (event) {
+    for (var i = 0; i < event.pairs.length; i++) {
+      var bodyA = getRootBody(event.pairs[i].bodyA);
+      var bodyB = getRootBody(event.pairs[i].bodyB);
+      console.log(bodyA.id);
+      console.log(bodyB.id);
+      if ((bodyA.id == '1' && bodyB.id == '5') || (bodyB.id == '1' && bodyA.id == '5')) {
+        if (player1.inv == 0) {
+          player1.inv = "chaussure";
+          console.log('inventaire : ', player1.inv);
+          carre1.destroy()
+        }
+      }
+      if ((bodyA.id == '1' && bodyB.id == '6') || (bodyB.id == '1' && bodyA.id == '6')) {
+        if (player1.inv != 0) {
+          player1.inv = 0;
+          console.log('inventaire : ', player1.inv);
+        }
+      }
+    }
+  }, this);
+
+  //Fonction pour récup qui touche
+  function getRootBody(body) {
+      if (body.parent === body) {
+          return body;
+      }
+      while (body.parent !== body) {
+          body = body.parent;
+      }
+      return body;
+  }
+  if (manet1.isDown(Phaser.Gamepad.BUTTON_2)){
+    console.log(carre1.id);
+    console.log(carre2.id);
+    carre1.destroy();
+  }
 }
 
+
+
 function update (){
+/*  this.matter.world.on('collisionstart', function (event, player1, carre1){
+    if(carre1.id == 5){
+      console.log(player1);
+      console.log("FORTNITE FORTNITE");
+      //var car = carre1.id{5};
+      //console.log(car);
+      carre1.destroy();
+      carre1 = null;
+
+    }
+    //player1.img =  this.matter.add.sprite(500, 900, 'dude3');
+  });*/
 
   if (this.input.gamepad.total === 0){
         return;
     }
 
     player1.pad = this.input.gamepad.getPad(0);
+    manet1 = player1.pad;
     player2.pad = this.input.gamepad.getPad(1);
     player3.pad = this.input.gamepad.getPad(2);
     player4.pad = this.input.gamepad.getPad(3);
@@ -448,7 +511,6 @@ control4.anims.play('manette4',true);
     control4.anims.play('manette4',true);
   }
 
-
 /*
   if(cursors.left.isDown || cursors.right.isDown || cursors.up.isDown || cursors.down.isDown){
     if (cursors.left.isDown)
@@ -474,8 +536,4 @@ control4.anims.play('manette4',true);
   else{
       player1.anims.play('turn');
   }*/
-  function render() {
-      game.debug.spriteInfo(s, 20, 32);
-
-  }
 }
