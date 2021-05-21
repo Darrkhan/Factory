@@ -48,7 +48,15 @@ class scene1 extends Phaser.Scene {
 
         this.input.on('gameobjectdown', this.onObjectClicked);
 
-
+        this.face.on('pointerover',function(pointer){
+           //this.face.setFrame(1);
+           console.log("dab");
+        })
+        
+        this.face.on('pointerout',function(pointer){
+            //this.face.setFrame(0);
+            console.log("dab2");
+        })
 
         
 
@@ -89,7 +97,7 @@ class scene2 extends Phaser.Scene {
 
     create() {
         
-        this.add.image(800,450, 'dab');
+        this.add.image(850,500,'sky');
         /*this.add.image(850,500,'sky');
  
         var sprite = this.add.sprite(900, 475, 'button').setInteractive();
