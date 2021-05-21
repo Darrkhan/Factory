@@ -15,7 +15,6 @@ window.onload = function() {
         },
         scene: [scene1,scene2]
     };
-
     game= new Phaser.Game(config);
     game.scene.start("scene1");
 }
@@ -37,6 +36,7 @@ class scene1 extends Phaser.Scene {
         this.load.image('sky', 'AMOGUSTRUE.jpg');
         this.load.image('button', 'PlayGameNot.png');
         this.load.image('dab', 'bg.jpg');
+        this.load.image('button2', 'PlayGameYES.png');
     }
 
     create() {
@@ -49,14 +49,13 @@ class scene1 extends Phaser.Scene {
         this.input.on('gameobjectdown', this.onObjectClicked);
 
         this.face.on('pointerover',function(pointer){
-           //this.face.setFrame(1);
-           console.log("dab");
+            
+            this.destroy();
+            dab = 2
         })
         
-        this.face.on('pointerout',function(pointer){
-            //this.face.setFrame(0);
-            console.log("dab2");
-        })
+        
+       
 
         
 
@@ -67,13 +66,50 @@ class scene1 extends Phaser.Scene {
         console.log("Fortnite");
         dab = 1;
     }
+
     update() {
 
        if(dab == 1) {
 
         console.log("dab");
 
+        dab = 0
+
         this.scene.start("scene2");
+        
+       }
+
+       if(dab == 2 ) {
+
+        
+        this.face = this.add.image(450,500,'button2')
+        this.face.setInteractive();
+
+        dab = 0
+
+        this.face.on('pointerout',function(pointer){
+            
+            this.destroy();
+            console.log("dab125")
+            dab = 3;
+            
+        })
+
+       }
+
+       if(dab == 3) {
+
+        this.face = this.add.image(450,500,'button');
+        this.face.setInteractive();
+
+        dab = 0
+        
+        this.face.on('pointerover',function(pointer){
+            
+            this.destroy();
+            dab = 2
+        })
+
        }
     }
 }
