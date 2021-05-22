@@ -35,7 +35,7 @@ var player1 = new player(1, "");
 var player2 = new player(2, "");
 var player3 = new player(3, "");
 var player4 = new player(4, "");
-
+var r1;
 var control1;
 var control2;
 var control3;
@@ -50,36 +50,9 @@ var cursors;
 function preload (){
   //PRELOAD MAP TITLED
   this.load.image('block', 'assets/block.png');
-  this.load.image('tiles', 'assets/tilesets/Mapbis_pack.png');
-  //RCH
-  this.load.image('RCH1', 'assets/images/RCroutehorizon01.png');
-  this.load.image('RCH2', 'assets/images/RCroutehorizon02.png');
+  this.load.image('tiles', 'assets/tilesets/asset.png');
 
-  //RCN
-  this.load.image('RCN2', 'assets/images/RCrouteNode02.png');
-  this.load.image('RCN1', 'assets/images/RCrouteNode01.png');
-  this.load.image('RCN3', 'assets/images/RCrouteNode03.png');
-  this.load.image('RCN4', 'assets/images/RCrouteNode04.png');
-  this.load.image('RCN5', 'assets/images/RCrouteNode05.png');
-  this.load.image('RCN6', 'assets/images/RCrouteNode06.png');
-
-  //RCB
-  this.load.image('RCB1', 'assets/images/RCroutebas01.png');
-  this.load.image('RCB2', 'assets/images/RCroutebas02.png');
-
-  //RCBARR
-  this.load.image('RCBarr1', 'assets/images/RCroutebarriere01.png');
-  this.load.image('RCBarr2', 'assets/images/RCroutebarriere02.png');
-  this.load.image('RCBarr3', 'assets/images/RCroutebarriere03.png');
-  this.load.image('RCBarr4', 'assets/images/RCroutebarriere04.png');
-
-  //Carr
-  this.load.image('Carr1', 'assets/images/Carrefour01.png');
-  this.load.image('Carr2', 'assets/images/Carrefour02.png');
-  this.load.image('Carr3', 'assets/images/Carrefour03.png');
-  this.load.image('Carr4', 'assets/images/Carrefour04.png');
-
-  this.load.tilemapTiledJSON('map', 'assets/tilemaps/Teste.json');
+  this.load.tilemapTiledJSON('map', 'assets/tilemaps/1erMonde.json');
 
   this.load.image('fond', 'assets/fond.png');
   this.load.spritesheet('dude', 'assets/perso.png', { frameWidth: 64, frameHeight: 64 });
@@ -94,15 +67,72 @@ function preload (){
 }
 
 function create (){
+  /***************************************WALL*********************************************/
+
+  /*###########################top######################*/
+  var w1 = this.add.rectangle(0, 0, 1700, 100, 0.2);
+  this.matter.add.gameObject(w1).setStatic(true);
+  var w2 = this.add.rectangle(825, 0, 55, 300, 0.2);
+  this.matter.add.gameObject(w2).setStatic(true);
+  var w3 = this.add.rectangle(983, 0, 55, 300, 0.2);
+  this.matter.add.gameObject(w3).setStatic(true);
+  var w4 = this.add.rectangle(1800, 0, 1650, 100, 0.2);
+  this.matter.add.gameObject(w4).setStatic(true);
+
+
+  /*###########################left######################*/
+  var w5 = this.add.rectangle(0, 0, 100, 1920, 0.2);
+  this.matter.add.gameObject(w5).setStatic(true);
+
+
+  /*###########################bot######################*/
+  var w6 = this.add.rectangle(0, 973, 3620, 100, 0);
+  this.matter.add.gameObject(w6).setStatic(true);
+
+  var w8 = this.add.rectangle(505, 842, 52, 155, 0.2);
+  this.matter.add.gameObject(w8).setStatic(true);
+
+
+  /*###########################right######################*/
+  var w9 = this.add.rectangle(1795, 0, 70, 1950, 0.2);
+  this.matter.add.gameObject(w9).setStatic(true);
+
+
+  /*###########################middle######################*/
+  var w7 = this.add.rectangle(505, 535, 52, 155, 0.2);
+  this.matter.add.gameObject(w7).setStatic(true);
+  var w10 = this.add.rectangle(1149, 483, 1335, 55, 0.2);
+  this.matter.add.gameObject(w10).setStatic(true);
+
+
+  /*###########################table######################*/
+  var t1 = this.add.rectangle(1155, 83, 70, 60, 0.2);
+  this.matter.add.gameObject(t1).setStatic(true);
+  var t2 = this.add.rectangle(1708, 371, 100, 100, 0.2);
+  this.matter.add.gameObject(t2).setStatic(true);
+
+
+  /*###########################machines######################*/
+  var m1 = this.add.rectangle(720, 540, 160, 70, 0.2);
+  this.matter.add.gameObject(m1).setStatic(true);
+  var m2 = this.add.rectangle(1200, 540, 160, 70, 0.2);
+  this.matter.add.gameObject(m2).setStatic(true);
+  var m3 = this.add.rectangle(1680, 540, 160, 70, 0.2);
+  this.matter.add.gameObject(m3).setStatic(true);
+  var pipe = this.add.rectangle(1149, 540, 1335, 20, 0.2);
+  this.matter.add.gameObject(pipe).setStatic(true);
+
+  /*-----------------pointer coord---------------------*/
+  this.pointer = this.input.activePointer;
+
+  /***************************************MAP**********************************************/
   const map = this.make.tilemap({ key : 'map'});
-  const tileset = map.addTilesetImage('Maptest_pack', 'tiles');
+  const tileset = map.addTilesetImage('asset', 'tiles');
   const firstlayer = map.createLayer('Sol', tileset);
-  const slayer = map.createLayer('Carrefour', tileset);
-  const tlayer = map.createLayer('Route', tileset);
-  const qlayer = map.createLayer('Mur', tileset);
+  const slayer = map.createLayer('Mur', tileset);
+  const tlayer = map.createLayer('Mur Jardin', tileset);
+  const qlayer = map.createLayer('Machine', tileset);
   const clayer = map.createLayer('Decor', tileset);
-  const sixlayer = map.createLayer('Collision', tileset);
-  //var block = this.matter.add.image(200, 200, 'block').setStatic(true);
   firstlayer.scaleX = 1.065;
   firstlayer.scaleY = 1.025;
 
@@ -118,17 +148,25 @@ function create (){
   clayer.scaleX = 1.065;
   clayer.scaleY = 1.025;
 
-  sixlayer.scaleX = 1.065;
-  sixlayer.scaleY = 1.025;
-
-  player1.img = this.matter.add.sprite(500, 450, 'dude');
-  player2.img = this.matter.add.sprite(500, 600, 'dude1');
-  player3.img = this.matter.add.sprite(500, 750, 'dude2');
-  player4.img = this.matter.add.sprite(500, 900, 'dude3');
+  player1.img = this.matter.add.sprite(200, 420, 'dude');
+  player2.img = this.matter.add.sprite(200, 570, 'dude1');
+  player3.img = this.matter.add.sprite(200, 720, 'dude2');
+  player4.img = this.matter.add.sprite(200, 870, 'dude3');
   control1 = this.add.sprite(35, 30, 'control1');
   control2 = this.add.sprite(75, 30, 'control2');
   control3 = this.add.sprite(115, 30, 'control3');
   control4 = this.add.sprite(155, 30, 'control4');
+
+  /***************************************test wall*******************************************************/
+
+
+  /*var t3 = this.add.rectangle(505, 535, 52, 155, 0.2);
+  this.matter.add.gameObject(t3).setStatic(true);
+  var t4 = this.add.rectangle(1149, 483, 1335, 55, 0.2);
+  this.matter.add.gameObject(t4).setStatic(true);
+  var t5 = this.add.rectangle(505, 535, 52, 155, 0.2);
+  this.matter.add.gameObject(t5).setStatic(true);*/
+
 
   this.anims.create({
       key: 'manette1',
@@ -314,7 +352,9 @@ function create (){
 }
 
 function update (){
-
+  if(this.pointer.leftButtonDown()){
+    console.log('(x: ' + this.pointer.x + ', y: ' + this.pointer.y + ')');
+  }
   if (this.input.gamepad.total === 0){
         return;
     }
