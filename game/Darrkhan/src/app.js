@@ -110,6 +110,12 @@ function create (){
   this.matter.add.gameObject(t1).setStatic(true);
   var t2 = this.add.rectangle(1708, 371, 100, 100, 0.2);
   this.matter.add.gameObject(t2).setStatic(true);
+  var t3 = this.add.rectangle(716, 823, 136, 80, 0.2);
+  this.matter.add.gameObject(t3).setStatic(true);
+  var t4 = this.add.rectangle(1196, 823, 136, 80, 0.2);
+  this.matter.add.gameObject(t4).setStatic(true);
+  var t5 = this.add.rectangle(1675, 823, 136, 80, 0.2);
+  this.matter.add.gameObject(t5).setStatic(true);
 
 
   /*###########################machines######################*/
@@ -159,13 +165,6 @@ function create (){
 
   /***************************************test wall*******************************************************/
 
-
-  /*var t3 = this.add.rectangle(505, 535, 52, 155, 0.2);
-  this.matter.add.gameObject(t3).setStatic(true);
-  var t4 = this.add.rectangle(1149, 483, 1335, 55, 0.2);
-  this.matter.add.gameObject(t4).setStatic(true);
-  var t5 = this.add.rectangle(505, 535, 52, 155, 0.2);
-  this.matter.add.gameObject(t5).setStatic(true);*/
 
 
   this.anims.create({
