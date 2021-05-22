@@ -4,6 +4,7 @@
       <meta charset="UTF-8" />
       <title>Making your first Phaser 3 Game - Part 1</title>
       <script src="//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
+      
       <style type="text/css">
           body {
               margin: auto;
@@ -12,18 +13,6 @@
   </head>
   <body>
 
-    <script>
-        window.onload = function(){
-
-          var game = new Phaser.Game(800,600,Phaser.CANVAS,'');
-          game.state.add('Boot', Game.Boot);
-          game.state.add('Preloader', Game.Preloader);
-          game.state.add('MainMenu', Game.MainMenu);
-          game.state.add('Level1', Game.Level1);
-
-          game.state.start('Boot');
-        }
-    </script>
-    <script src="./dist/app.js"></script>
+    <script src="./dist/app.js"></script>   
   </body>
 </html>

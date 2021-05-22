@@ -2,6 +2,7 @@ const path = require('path');
 module.exports = {
   entry: './src/app.js',
   module: {
+    
     rules: [
       {
         exclude: /node_modules/
