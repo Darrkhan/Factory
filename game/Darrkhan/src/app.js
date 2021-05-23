@@ -381,6 +381,8 @@ m1 = 17 | m2 = 18 | m3 = 19
 t1 = 12 | t2 = 13 | t3 = 14 | t4 = 15 | t5 = 16
 exit = 5
 water = 25 | levure = 26 | houblon = 27 | malt = 28
+
+/!\ dans les if il faut mettre le plus petit id en premier (car phaser met le plus petit dans bodyA et le plus grand dans bodyB)
 */
   console.log('inventaire : ', player1.inv);
   this.matter.world.on('collisionstart', function (event) {
@@ -389,15 +391,14 @@ water = 25 | levure = 26 | houblon = 27 | malt = 28
       var bodyB = getRootBody(event.pairs[i].bodyB);
       console.log("body A: ", bodyA.id);
       console.log("Body B: ", bodyB.id);
-      console.log('inventaire boucle: ', player1.inv);
-      if ((bodyA.id == '20' && bodyB.id == '24')) {
+      if ((bodyA.id == '21' && bodyB.id == '25')) {
           if (player1.inv == 0) {
-            player1.inv = "chaussure";
+            player1.inv = "water";
             console.log('inventaire : ', player1.inv);
-            carre1.destroy()
+
           }
       }
-      if ((bodyA.id == '20' && bodyB.id == '25') || (bodyB.id == '1' && bodyA.id == '6')) {
+      if ((bodyA.id == '17' && bodyB.id == '21')) {
         if (player1.inv != 0) {
           player1.inv = 0;
           console.log('inventaire : ', player1.inv);
