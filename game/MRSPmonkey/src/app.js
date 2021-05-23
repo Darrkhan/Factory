@@ -323,13 +323,15 @@ function create (){
       var bodyB = getRootBody(event.pairs[i].bodyB);
       console.log("body A: ", bodyA.id);
       console.log("Body B: ", bodyB.id);
-      if ((bodyA.id == '1' && bodyB.id == '5')&& (player1.pad.buttons[2].onPressed)) {
+      this.input.gamepad.on('down', (index, value, button) => {
+        if ((bodyA.id == '1' && bodyB.id == '5')&& (player1.pad.buttons[2].pressed)) {
           if (player1.inv == 0) {
             player1.inv = "chaussure";
             console.log('inventaire : ', player1.inv);
             carre1.destroy()
           }
-      }
+        }
+      });
       if ((bodyA.id == '1' && bodyB.id == '6') || (bodyB.id == '1' && bodyA.id == '6')) {
         if (player1.inv != 0) {
           player1.inv = 0;

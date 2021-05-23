@@ -6,4 +6,12 @@ class player{
     this.pad = pad;
   }
 }
-module.exports = {player};
+
+class machine{
+  constructor(type, obj, img, pad){
+    this.type = type;
+    this.inv = obj;
+    this.img = img;
+  }
+}
+module.exports = {player, machine};
