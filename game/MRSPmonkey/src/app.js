@@ -321,8 +321,8 @@ function create (){
     for (var i = 0; i < event.pairs.length; i++) {
       var bodyA = getRootBody(event.pairs[i].bodyA);
       var bodyB = getRootBody(event.pairs[i].bodyB);
-      console.log(bodyA.id);
-      console.log(bodyB.id);
+      console.log("body A: ", bodyA.id);
+      console.log("Body B: ", bodyB.id);
       if ((bodyA.id == '1' && bodyB.id == '5')&& (player1.pad.buttons[2].onPressed)) {
           if (player1.inv == 0) {
             player1.inv = "chaussure";

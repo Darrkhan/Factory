@@ -26,16 +26,23 @@ const config = {
         update: update
     }
 };
-/*var player1.pad;
-var player2.pad;
-var player3.pad;
-var player4.pad;*/
+
 
 var player1 = new player(1, "");
 var player2 = new player(2, "");
 var player3 = new player(3, "");
 var player4 = new player(4, "");
-var r1;
+
+
+/**********************init collision**********************************/
+var w1, w2, w3, w4, w5, w6, w7, w8, w9, w10, exit;//mur
+var pipe, m1, m2, m3;//machines
+var t1, t2, t3, t4, t5;//tables
+var water, malt, levure, houblon;//ressources
+
+var carre1;
+var carre2;
+
 var control1;
 var control2;
 var control3;
@@ -63,69 +70,78 @@ function preload (){
   this.load.spritesheet('control2', 'assets/controlPersoB.png', { frameWidth: 35, frameHeight: 35 });
   this.load.spritesheet('control3', 'assets/controlPersoC.png', { frameWidth: 35, frameHeight: 35 });
   this.load.spritesheet('control4', 'assets/controlPersoD.png', { frameWidth: 35, frameHeight: 35 });
-  //this.load.spritesheet('controller-indicator', 'assets/dude1.png', 16,16);
+  this.load.image('carre', 'assets/carre.jpg');
+
+  /*'''''''''''''''''''ressources'''''''''''''''''*/
+  this.load.image('houblon', 'assets/images/pot_houblon.png');
+  this.load.image('levure', 'assets/images/pot_levure.png');
+  this.load.image('malt', 'assets/images/pot_malt.png');
+  this.load.image('water', 'assets/images/pot_eau.png');
 }
 
 function create (){
   /***************************************WALL*********************************************/
 
   /*###########################top######################*/
-  var w1 = this.add.rectangle(0, 0, 1700, 100, 0.2);
+  w1 = this.add.rectangle(0, 0, 1700, 100, 0.2);
   this.matter.add.gameObject(w1).setStatic(true);
-  var w2 = this.add.rectangle(825, 0, 55, 300, 0.2);
+  w2 = this.add.rectangle(825, 0, 55, 300, 0.2);
   this.matter.add.gameObject(w2).setStatic(true);
-  var w3 = this.add.rectangle(983, 0, 55, 300, 0.2);
+  w3 = this.add.rectangle(983, 0, 55, 300, 0.2);
   this.matter.add.gameObject(w3).setStatic(true);
-  var w4 = this.add.rectangle(1800, 0, 1650, 100, 0.2);
+  w4 = this.add.rectangle(1800, 0, 1650, 100, 0.2);
   this.matter.add.gameObject(w4).setStatic(true);
+  exit = this.add.rectangle(910, 0, 108, 100, 0.2);
+  this.matter.add.gameObject(exit).setStatic(true);
+
 
 
   /*###########################left######################*/
-  var w5 = this.add.rectangle(0, 0, 100, 1920, 0.2);
+  w5 = this.add.rectangle(0, 0, 100, 1920, 0.2);
   this.matter.add.gameObject(w5).setStatic(true);
 
 
   /*###########################bot######################*/
-  var w6 = this.add.rectangle(0, 973, 3620, 100, 0);
+  w6 = this.add.rectangle(0, 973, 3620, 100, 0);
   this.matter.add.gameObject(w6).setStatic(true);
 
-  var w8 = this.add.rectangle(505, 842, 52, 155, 0.2);
+  w8 = this.add.rectangle(505, 842, 52, 155, 0.2);
   this.matter.add.gameObject(w8).setStatic(true);
 
 
   /*###########################right######################*/
-  var w9 = this.add.rectangle(1795, 0, 70, 1950, 0.2);
+  w9 = this.add.rectangle(1795, 0, 70, 1950, 0.2);
   this.matter.add.gameObject(w9).setStatic(true);
 
 
   /*###########################middle######################*/
-  var w7 = this.add.rectangle(505, 535, 52, 155, 0.2);
+  w7 = this.add.rectangle(505, 535, 52, 155, 0.2);
   this.matter.add.gameObject(w7).setStatic(true);
-  var w10 = this.add.rectangle(1149, 483, 1335, 55, 0.2);
+  w10 = this.add.rectangle(1149, 483, 1335, 55, 0.2);
   this.matter.add.gameObject(w10).setStatic(true);
 
 
   /*###########################table######################*/
-  var t1 = this.add.rectangle(1155, 83, 70, 60, 0.2);
+  t1 = this.add.rectangle(1155, 83, 70, 60, 0.2);
   this.matter.add.gameObject(t1).setStatic(true);
-  var t2 = this.add.rectangle(1708, 371, 100, 100, 0.2);
+  t2 = this.add.rectangle(1708, 371, 100, 100, 0.2);
   this.matter.add.gameObject(t2).setStatic(true);
-  var t3 = this.add.rectangle(716, 823, 136, 80, 0.2);
+  t3 = this.add.rectangle(716, 823, 136, 80, 0.2);
   this.matter.add.gameObject(t3).setStatic(true);
-  var t4 = this.add.rectangle(1196, 823, 136, 80, 0.2);
+  t4 = this.add.rectangle(1196, 823, 136, 80, 0.2);
   this.matter.add.gameObject(t4).setStatic(true);
-  var t5 = this.add.rectangle(1675, 823, 136, 80, 0.2);
+  t5 = this.add.rectangle(1675, 823, 136, 80, 0.2);
   this.matter.add.gameObject(t5).setStatic(true);
 
 
   /*###########################machines######################*/
-  var m1 = this.add.rectangle(720, 540, 160, 70, 0.2);
+  m1 = this.add.rectangle(720, 540, 160, 70, 0.2);
   this.matter.add.gameObject(m1).setStatic(true);
-  var m2 = this.add.rectangle(1200, 540, 160, 70, 0.2);
+  m2 = this.add.rectangle(1200, 540, 160, 70, 0.2);
   this.matter.add.gameObject(m2).setStatic(true);
-  var m3 = this.add.rectangle(1680, 540, 160, 70, 0.2);
+  m3 = this.add.rectangle(1680, 540, 160, 70, 0.2);
   this.matter.add.gameObject(m3).setStatic(true);
-  var pipe = this.add.rectangle(1149, 540, 1335, 20, 0.2);
+  pipe = this.add.rectangle(1149, 540, 1335, 20, 0.2);
   this.matter.add.gameObject(pipe).setStatic(true);
 
   /*-----------------pointer coord---------------------*/
@@ -154,16 +170,26 @@ function create (){
   clayer.scaleX = 1.065;
   clayer.scaleY = 1.025;
 
-  player1.img = this.matter.add.sprite(200, 420, 'dude');
-  player2.img = this.matter.add.sprite(200, 570, 'dude1');
-  player3.img = this.matter.add.sprite(200, 720, 'dude2');
-  player4.img = this.matter.add.sprite(200, 870, 'dude3');
+  player1.img = this.matter.add.sprite(300, 420, 'dude');
+  player2.img = this.matter.add.sprite(300, 570, 'dude1');
+  player3.img = this.matter.add.sprite(300, 720, 'dude2');
+  player4.img = this.matter.add.sprite(300, 870, 'dude3');
+  player1.inv = 0;
+  player2.inv = 0;
+  player3.inv = 0;
+  player4.inv = 0;
   control1 = this.add.sprite(35, 30, 'control1');
   control2 = this.add.sprite(75, 30, 'control2');
   control3 = this.add.sprite(115, 30, 'control3');
   control4 = this.add.sprite(155, 30, 'control4');
 
   /***************************************test wall*******************************************************/
+  //carre1 = this.matter.add.image(100, 100, 'carre').setStatic(true);
+  //carre2 = this.matter.add.image(100, 700, 'carre').setStatic(true);
+  water = this.matter.add.image(100, 300, 'water').setStatic(true);
+  levure = this.matter.add.image(100, 450, 'levure').setStatic(true);
+  houblon = this.matter.add.image(100, 600, 'houblon').setStatic(true);
+  malt = this.matter.add.image(100, 750, 'malt').setStatic(true);
 
 
 
@@ -348,7 +374,51 @@ function create (){
       frameRate: 10,
       repeat: -1
   });
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ID COLLISIONS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+player1 = 21 | player2 = 22 | player3 = 23 | player4 = 24
+m1 = 17 | m2 = 18 | m3 = 19
+t1 = 12 | t2 = 13 | t3 = 14 | t4 = 15 | t5 = 16
+exit = 5
+water = 25 | levure = 26 | houblon = 27 | malt = 28
+*/
+  console.log('inventaire : ', player1.inv);
+  this.matter.world.on('collisionstart', function (event) {
+    for (var i = 0; i < event.pairs.length; i++) {
+      var bodyA = getRootBody(event.pairs[i].bodyA);
+      var bodyB = getRootBody(event.pairs[i].bodyB);
+      console.log("body A: ", bodyA.id);
+      console.log("Body B: ", bodyB.id);
+      console.log('inventaire boucle: ', player1.inv);
+      if ((bodyA.id == '20' && bodyB.id == '24')) {
+          if (player1.inv == 0) {
+            player1.inv = "chaussure";
+            console.log('inventaire : ', player1.inv);
+            carre1.destroy()
+          }
+      }
+      if ((bodyA.id == '20' && bodyB.id == '25') || (bodyB.id == '1' && bodyA.id == '6')) {
+        if (player1.inv != 0) {
+          player1.inv = 0;
+          console.log('inventaire : ', player1.inv);
+        }
+      }
+    }
+  }, this);
+
+  //Fonction pour récup qui touche
+  function getRootBody(body) {
+      if (body.parent === body) {
+          return body;
+      }
+      while (body.parent !== body) {
+          body = body.parent;
+      }
+      return body;
+  }
 }
+
+
 
 function update (){
   if(this.pointer.leftButtonDown()){
@@ -495,32 +565,6 @@ control4.anims.play('manette4',true);
     control4.anims.play('manette4',true);
   }
 
-
-/*
-  if(cursors.left.isDown || cursors.right.isDown || cursors.up.isDown || cursors.down.isDown){
-    if (cursors.left.isDown)
-    {
-        player1.x -= 10;
-        player1.anims.play('left', true);
-    }
-    if (cursors.right.isDown)
-    {
-        player1.x += 10;
-        player1.anims.play('right', true);
-    }
-    if (cursors.up.isDown)
-    {
-        player1.y -= 10;
-        player1.anims.play('up', true);
-    }
-    if (cursors.down.isDown)
-    {
-        player1.y += 10;
-        player1.anims.play('down', true);
-    }
-  else{
-      player1.anims.play('turn');
-  }*/
   function render() {
       game.debug.spriteInfo(s, 20, 32);
 
