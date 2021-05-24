@@ -14,4 +14,5 @@ class machine{
     this.img = img;
   }
 }
+
 module.exports = {player, machine};
