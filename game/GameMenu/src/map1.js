@@ -28,11 +28,12 @@ console.log(player1.type, player2.type, player3.type, player4.type);
 var indicator1, indicator2;
 var cursors;
 var liste = [];
-var commande1 = new commande("", 30);
-var commande2 = new commande("", 30);
-var commande3 = new commande("", 30);
-var commande4 = new commande("", 30);
+var commande1 = new commande("");
+var commande2 = new commande("");
+var commande3 = new commande("");
+var commande4 = new commande("");
 var probleme = 0;
+var score;
 
 class map1 extends Phaser.Scene{
   constructor(){
@@ -197,6 +198,7 @@ class map1 extends Phaser.Scene{
     player2.pad = this.input.gamepad.getPad(1);
     player3.pad = this.input.gamepad.getPad(2);
     player4.pad = this.input.gamepad.getPad(3);
+    score = 0;
 
     /***************************************test wall*******************************************************/
     water = this.matter.add.image(100, 300, 'water').setStatic(true);
@@ -1129,27 +1131,28 @@ class map1 extends Phaser.Scene{
     {
         this.initialTime -= 1; // One second
         text.setText(formatTime(this.initialTime));
+        if (commande1.nom != undefined){
+          commande1.temps -= 1; // One second
+          commande1.text.setText(formatTime(commande1.temps));
+        }
+        if (commande2.nom != undefined){
+          commande2.temps -= 1; // One second
+          commande2.text.setText(formatTime(commande2.temps));
+        }
+        if (commande3.nom != undefined){
+          commande3.temps -= 1; // One second
+          commande3.text.setText(formatTime(commande3.temps));
+        }
+        if (commande4.nom != undefined){
+          commande4.temps -= 1; // One second
+          commande4.text.setText(formatTime(commande4.temps));
+        }
     }
-    function onEvent1 ()
-    {
-        commande1.temps -= 1; // One second
-        commande1.text.setText(formatTime(commande1.temps));
-    }
-    function onEvent2 ()
-    {
-        commande2.temps -= 1; // One second
-        commande2.text.setText(formatTime(commande2.temps));
-    }
-    function onEvent3 ()
-    {
-        commande3.temps -= 1; // One second
-        commande3.text.setText(formatTime(commande3.temps));
-    }
-    function onEvent4 ()
-    {
-        commande4.temps -= 1; // One second
-        commande4.text.setText(formatTime(commande4.temps));
-    }
+
+    commande1.temps = 50;
+    commande2.temps = 0;
+    commande3.temps = 0;
+    commande4.temps = 0;
 
     this.initialTime = 180;
     var style = { font: "bold 150px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
@@ -1157,26 +1160,20 @@ class map1 extends Phaser.Scene{
     text.setFontSize(65);
     commande1.text = this.add.text(1200, 1040, formatTime(commande1.temps));
     commande1.text.setFontSize(30);
-    commande2.text = this.add.text(1800, 1040, formatTime(commande2.temps));
+    commande2.text = this.add.text(1400, 1040, formatTime(commande2.temps));
     commande2.text.setFontSize(30);
-    commande3.text = this.add.text(1400, 1040, formatTime(commande3.temps));
+    commande3.text = this.add.text(1600, 1040, formatTime(commande3.temps));
     commande3.text.setFontSize(30);
-    commande4.text = this.add.text(1600, 1040, formatTime(commande4.temps));
+    commande4.text = this.add.text(1800, 1040, formatTime(commande4.temps));
     commande4.text.setFontSize(30);
-    //text.setTextBounds(800, 1030, 800, 100);
 
     // Each 1000 ms call onEvent
     temps = this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, loop: true });
-    temps1 = this.time.addEvent({ delay: 1000, callback: onEvent1, callbackScope: this, loop: true });
-    temps2 = this.time.addEvent({ delay: 1000, callback: onEvent2, callbackScope: this, loop: true });
-    temps3 = this.time.addEvent({ delay: 1000, callback: onEvent3, callbackScope: this, loop: true });
-    temps4 = this.time.addEvent({ delay: 1000, callback: onEvent4, callbackScope: this, loop: true });
-
 
     function getRandomInt(max) {
       return Math.floor(Math.random() * max);
     }
-    for (let i = 0; i <= 20; i++){
+    function getRandomCommande(liste){
       random = getRandomInt(4);
       if(random == 0){
         liste.push("biereHoublonLevure");
@@ -1191,18 +1188,10 @@ class map1 extends Phaser.Scene{
         liste.push("biereNoHoublonNoLevure");
       }
     }
-    if (liste[0] == "biereHoublonLevure"){
-        commande1.img.setFrame(1);
-    }
-    if (liste[0] == "biereHoublonNoLevure"){
-        commande1.img.setFrame(2);
-    }
-    if (liste[0] == "biereNoHoublonLevure"){
-        commande1.img.setFrame(3);
-    }
-    if (liste[0] == "biereNoHoublonNoLevure"){
-        commande1.img.setFrame(4);
-    }
+
+    getRandomCommande(liste);
+    console.log(commande1.nom);
+
 
     console.log(liste);
     console.log(liste[1]);
@@ -1709,6 +1698,30 @@ class map1 extends Phaser.Scene{
               player1.inv = "0";
               console.log('inventaire joueur 1 : ', player1.inv);
               dispValid4.setFrame(1);
+              for(let i = 0; i < liste.length; i++){
+                if(liste[i] == "biereHoublonLevure"){
+                  if (i == 0){
+                    score += commande1.temps;
+                  }
+                  else if (i == 1){
+                    score += commande2.temps;
+                  }
+                  else if (i == 2){
+                    score += commande3.temps;
+                  }
+                  else if (i == 3){
+                    score += commande4.temps;
+                  }
+                  liste.splice(i, 1);
+                  commande1.temps = commande2.temps;
+                  commande2.temps = commande3.temps;
+                  commande3.temps = commande4.temps;
+                  commande4.temps = 0;
+                  commande4.img.setFrame(0);
+                  break;
+                }
+              }
+              console.log(score);
               setTimeout(
                 () => {
                   dispValid4.setFrame(0);
@@ -1720,6 +1733,30 @@ class map1 extends Phaser.Scene{
               player1.inv = "0";
               console.log('inventaire joueur 1 : ', player1.inv);
               dispValid4.setFrame(1);
+              for(let i = 0; i < liste.length; i++){
+                if(liste[i] == "biereNoHoublonNoLevure"){
+                  if (i == 0){
+                    score += commande1.temps;
+                  }
+                  else if (i == 1){
+                    score += commande2.temps;
+                  }
+                  else if (i == 2){
+                    score += commande3.temps;
+                  }
+                  else if (i == 3){
+                    score += commande4.temps;
+                  }
+                  liste.splice(i, 1);
+                  commande1.temps = commande2.temps;
+                  commande2.temps = commande3.temps;
+                  commande3.temps = commande4.temps;
+                  commande4.temps = 0;
+                  commande4.img.setFrame(0);
+                  break;
+                }
+              }
+              console.log(score);
               setTimeout(
                 () => {
                   dispValid4.setFrame(0);
@@ -1731,6 +1768,30 @@ class map1 extends Phaser.Scene{
               player1.inv = "0";
               console.log('inventaire joueur 1 : ', player1.inv);
               dispValid4.setFrame(1);
+              for(let i = 0; i < liste.length; i++){
+                if(liste[i] == "biereNoHoublonLevure"){
+                  if (i == 0){
+                    score += commande1.temps;
+                  }
+                  else if (i == 1){
+                    score += commande2.temps;
+                  }
+                  else if (i == 2){
+                    score += commande3.temps;
+                  }
+                  else if (i == 3){
+                    score += commande4.temps;
+                  }
+                  liste.splice(i, 1);
+                  commande1.temps = commande2.temps;
+                  commande2.temps = commande3.temps;
+                  commande3.temps = commande4.temps;
+                  commande4.temps = 0;
+                  commande4.img.setFrame(0);
+                  break;
+                }
+              }
+              console.log(score);
               setTimeout(
                 () => {
                   dispValid4.setFrame(0);
@@ -1742,6 +1803,30 @@ class map1 extends Phaser.Scene{
               player1.inv = "0";
               console.log('inventaire joueur 1 : ', player1.inv);
               dispValid4.setFrame(1);
+              for(let i = 0; i < liste.length; i++){
+                if(liste[i] == "biereHoublonNoLevure"){
+                  if (i == 0){
+                    score += commande1.temps;
+                  }
+                  else if (i == 1){
+                    score += commande2.temps;
+                  }
+                  else if (i == 2){
+                    score += commande3.temps;
+                  }
+                  else if (i == 3){
+                    score += commande4.temps;
+                  }
+                  liste.splice(i, 1);
+                  commande1.temps = commande2.temps;
+                  commande2.temps = commande3.temps;
+                  commande3.temps = commande4.temps;
+                  commande4.temps = 0;
+                  commande4.img.setFrame(0);
+                  break;
+                }
+              }
+              console.log(score);
               setTimeout(
                 () => {
                   dispValid4.setFrame(0);
@@ -3900,6 +3985,113 @@ class map1 extends Phaser.Scene{
     }
     else {
       control4.anims.play('manette4',true);
+    }
+    function getRandomInt(max) {
+      return Math.floor(Math.random() * max);
+    }
+    function getRandomCommande(liste){
+      random = getRandomInt(4);
+      if(random == 0){
+        liste.push("biereHoublonLevure");
+      }
+      else if(random == 1){
+        liste.push("biereHoublonNoLevure");
+      }
+      else if(random == 2){
+        liste.push("biereNoHoublonLevure");
+      }
+      else if(random == 3){
+        liste.push("biereNoHoublonNoLevure");
+      }
+    }
+    commande1.nom = liste[0];
+    commande2.nom = liste[1];
+    commande3.nom = liste[2];
+    commande4.nom = liste[3];
+    if(commande1.temps <= 0){
+      liste.shift();
+      score -= 5;
+      commande1.temps = commande2.temps;
+      commande2.temps = commande3.temps;
+      commande3.temps = commande4.temps;
+      commande4.temps = 0;
+      commande4.img.setFrame(0);
+    }
+    if (liste.length == 0){
+      getRandomCommande(liste);
+      commande1.temps = 50;
+    }
+    if ((liste.length == 1) && (commande1.temps <= 35)){
+      getRandomCommande(liste);
+      commande2.temps = 50;
+    }
+    if ((liste.length == 2) && (commande2.temps <= 35)){
+      getRandomCommande(liste);
+      commande3.temps = 50;
+    }
+    if ((liste.length == 3) && (commande3.temps <= 35)){
+      getRandomCommande(liste);
+      commande4.temps = 50;
+    }
+    if (commande1.nom == undefined){
+      commande1.img.setFrame(0);
+    }
+    else if (commande1.nom == "biereHoublonLevure"){
+        commande1.img.setFrame(1);
+    }
+    else if (commande1.nom == "biereHoublonNoLevure"){
+        commande1.img.setFrame(2);
+    }
+    else if (commande1.nom == "biereNoHoublonLevure"){
+        commande1.img.setFrame(3);
+    }
+    else if (commande1.nom == "biereNoHoublonNoLevure"){
+        commande1.img.setFrame(4);
+    }
+    if (commande2.nom == undefined){
+      commande2.img.setFrame(0);
+    }
+    else if (commande2.nom == "biereHoublonLevure"){
+        commande2.img.setFrame(1);
+    }
+    else if (commande2.nom == "biereHoublonNoLevure"){
+        commande2.img.setFrame(2);
+    }
+    else if (commande2.nom == "biereNoHoublonLevure"){
+        commande2.img.setFrame(3);
+    }
+    else if (commande2.nom == "biereNoHoublonNoLevure"){
+        commande2.img.setFrame(4);
+    }
+    if (commande3.nom == undefined){
+      commande3.img.setFrame(0);
+    }
+    else if (commande3.nom == "biereHoublonLevure"){
+        commande3.img.setFrame(1);
+    }
+    else if (commande3.nom == "biereHoublonNoLevure"){
+        commande3.img.setFrame(2);
+    }
+    else if (commande3.nom == "biereNoHoublonLevure"){
+        commande3.img.setFrame(3);
+    }
+    else if (commande3.nom == "biereNoHoublonNoLevure"){
+        commande3.img.setFrame(4);
+    }
+    if (commande4.nom == undefined){
+      commande4.img.setFrame(0);
+    }
+    else if (commande4.nom == "biereHoublonLevure"){
+        commande4.img.setFrame(1);
+    }
+    else if (commande4.nom == "biereHoublonNoLevure"){
+        commande4.img.setFrame(2);
+    }
+    else if (commande4.nom == "biereNoHoublonLevure"){
+        commande4.img.setFrame(3);
+    }
+    else if (commande4.nom == "biereNoHoublonNoLevure"){
+        commande4.img.setFrame(4);
     }
   }
 }

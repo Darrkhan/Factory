@@ -1194,15 +1194,52 @@ class map1 extends Phaser.Scene{
     if (liste[0] == "biereHoublonLevure"){
         commande1.img.setFrame(1);
     }
-    if (liste[0] == "biereHoublonNoLevure"){
+    else if (liste[0] == "biereHoublonNoLevure"){
         commande1.img.setFrame(2);
     }
-    if (liste[0] == "biereNoHoublonLevure"){
+    else if (liste[0] == "biereNoHoublonLevure"){
         commande1.img.setFrame(3);
     }
-    if (liste[0] == "biereNoHoublonNoLevure"){
+    else if (liste[0] == "biereNoHoublonNoLevure"){
         commande1.img.setFrame(4);
     }
+    if (liste[1] == "biereHoublonLevure"){
+        commande2.img.setFrame(1);
+    }
+    else if (liste[1] == "biereHoublonNoLevure"){
+        commande2.img.setFrame(2);
+    }
+    else if (liste[1] == "biereNoHoublonLevure"){
+        commande2.img.setFrame(3);
+    }
+    else if (liste[1] == "biereNoHoublonNoLevure"){
+        commande2.img.setFrame(4);
+    }
+    if (liste[2] == "biereHoublonLevure"){
+        commande3.img.setFrame(1);
+    }
+    else if (liste[2] == "biereHoublonNoLevure"){
+        commande3.img.setFrame(2);
+    }
+    else if (liste[2] == "biereNoHoublonLevure"){
+        commande3.img.setFrame(3);
+    }
+    else if (liste[2] == "biereNoHoublonNoLevure"){
+        commande3.img.setFrame(4);
+    }
+    if (liste[3] == "biereHoublonLevure"){
+        commande1.img.setFrame(1);
+    }
+    else if (liste[3] == "biereHoublonNoLevure"){
+        commande4.img.setFrame(2);
+    }
+    else if (liste[3] == "biereNoHoublonLevure"){
+        commande4.img.setFrame(3);
+    }
+    else if (liste[3] == "biereNoHoublonNoLevure"){
+        commande4.img.setFrame(4);
+    }
+
 
     console.log(liste);
     console.log(liste[1]);
