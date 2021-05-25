@@ -51,7 +51,7 @@ class map1 extends Phaser.Scene{
     this.load.spritesheet('control3', 'assets/images/controlPersoC.png', { frameWidth: 35, frameHeight: 35 });
     this.load.spritesheet('control4', 'assets/images/controlPersoD.png', { frameWidth: 35, frameHeight: 35 });
     this.load.image('machine3', 'assets/images/machine3.png');
-    this.load.image('poubelle', 'assets/images/poubelle.png');
+    this.load.image('poubelle1', 'assets/images/poubelle.png');
     this.load.spritesheet('timer', 'assets/images/chrono.png', { frameWidth: 44, frameHeight: 50 });
     this.load.spritesheet('dispEau', 'assets/images/dispEau.png', { frameWidth: 44, frameHeight: 50 });
     this.load.spritesheet('dispHoublon', 'assets/images/dispHoublon.png', { frameWidth: 44, frameHeight: 50 });
