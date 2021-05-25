@@ -7,9 +7,7 @@ export default class Selection_Niveaux extends Phaser.Scene {
 
     constructor() {
 
-        super("Selection_Niveaux");
-        
-        
+        super("Selection_Niveaux");    
     }
 
 
@@ -23,35 +21,81 @@ export default class Selection_Niveaux extends Phaser.Scene {
         this.load.image('Etape3Yes', 'Etape3Yes.png');
         this.load.image('Etape4Not', 'Etape4Not.png');
         this.load.image('Etape4Yes', 'Etape4Yes.png');
-        this.load.image('Home', 'Home.png');
+        this.load.image('tonneau', 'tonneau.png');
+        this.load.image('cagette', 'cagette.png');
+        //this.load.image('Home', 'Home.png');
     }
 
     create() {
         
-        this.add.image(850,500,'sky');
+        this.But_sound = this.sound.add('But_sound');
 
-        this.Home = this.add.sprite( 100, 100, 'Home')
+        this.back = this.add.image(0,0,'background');
+        this.back.setOrigin(0,0);
+
+        this.add.text(690, 500, "Selectionner un niveau : ", { fontSize: '64px', fill: '#000' }).setOrigin(0.20,5);
+
+        /*this.Home = this.add.sprite( 100, 100, 'Home')
 	    .setInteractive()
-	    .on('pointerdown', () => this.scene.start("Menu_Principal"));
+	    .on('pointerdown', () => {
+            this.But_sound.play();
+            this.scene.start("Menu_Principal");
+            }
+        );*/
 
-        this.Etape1 = this.add.sprite( 200, 500, 'Etape1Not')
+        this.add.image(200,300,'tonneau').setScale(2.3).setRotation(1);
+        this.add.image(670,740,'tonneau').setScale(2.3).setRotation(-1);
+        this.add.image(1200,760, 'tonneau').setScale(2.3).setRotation(-1);
+        this.add.image(1550,340,'tonneau').setScale(2.3).setRotation(1);
+        
+        this.add.image(600,325, 'cagette').setScale(2.3);
+        this.add.image(200,725, 'cagette').setScale(2.3);
+        this.add.image(1200,400,'cagette').setScale(2.3)
+        this.add.image(1608,710, 'cagette').setScale(2.3);
+
+        this.Etape1 = this.add.sprite(800, 500,'Etape1Not')
 	    .setInteractive()
-	    .on('pointerdown', () => Etat1 = 1);
+        .setScale(1.7)
+        .setOrigin(0,2)
+	    .on('pointerdown', () =>  { 
+            
+            this.But_sound.play();
+            Etat1 = 1 
+        });
 
 
-        this.Etape2 = this.add.sprite( 400, 500, 'Etape2Not')
+        this.Etape2 = this.add.sprite(800,500,'Etape2Not')
 	    .setInteractive()
-	    .on('pointerdown', () => Etat2 = 1);
+        .setScale(1.7)
+        .setOrigin(0,0.5)
+	    .on('pointerdown', () => {
+            
+            this.But_sound.play();
+            Etat2 = 1
+
+        });
 
 
-        this.Etape3 = this.add.sprite( 600, 500, 'Etape3Not')
+        this.Etape3 = this.add.sprite(800,500,'Etape3Not')
 	    .setInteractive()
-	    .on('pointerdown', () => Etat3 = 1);
+        .setScale(1.7)
+        .setOrigin(0,-1)
+	    .on('pointerdown', () => {
+
+            this.But_sound.play();
+            Etat3 = 1
+        
+        });
 
 
-        this.Etape4 = this.add.sprite( 800, 500, 'Etape4Not')
+        this.Etape4 = this.add.sprite(800,500,'Etape4Not')
 	    .setInteractive()
-	    .on('pointerdown', () => Etat4 = 1);
+        .setScale(1.7)
+        .setOrigin(0,-2.5)
+	    .on('pointerdown', () => {
+            
+            Etat4 = 1
+        });
 
 
         /////////////////////////////////////////////////////////
@@ -89,9 +133,15 @@ export default class Selection_Niveaux extends Phaser.Scene {
            
         if(Etat1 == 2) {
             
-            this.Etape1 = this.add.sprite( 200, 500, 'Etape1Yes')
+            this.Etape1 = this.add.sprite(800, 500,'Etape1Yes')
             .setInteractive()
-            .on('pointerdown', () => Etat1 = 1);
+            .setScale(1.7)
+            .setOrigin(0,2)
+            .on('pointerdown', () =>  { 
+                
+                this.But_sound.play();
+                Etat1 = 1 
+            });
     
             Etat1 = 0;
     
@@ -106,9 +156,15 @@ export default class Selection_Niveaux extends Phaser.Scene {
     
         if(Etat1 == 3) {
             
-            this.Etape1 = this.add.sprite( 200, 500, 'Etape1Not')
+            this.Etape1 = this.add.sprite(800, 500,'Etape1Not')
             .setInteractive()
-            .on('pointerdown', () => Etat1 = 1);
+            .setScale(1.7)
+            .setOrigin(0,2)
+            .on('pointerdown', () =>  { 
+                
+                this.But_sound.play();
+                Etat1 = 1 
+            });
     
             Etat1 = 0
             
@@ -124,9 +180,15 @@ export default class Selection_Niveaux extends Phaser.Scene {
 
         if(Etat2 == 2) {
             
-            this.Etape2 = this.add.sprite( 400, 500, 'Etape2Yes')
+            this.Etape2 = this.add.sprite(800,500,'Etape2Yes')
             .setInteractive()
-            .on('pointerdown', () => Etat2 = 1);
+            .setScale(1.7)
+            .setOrigin(0,0.5)
+            .on('pointerdown', () =>  { 
+                
+                this.But_sound.play();
+                Etat2 = 1 
+            });
     
             Etat2 = 0;
     
@@ -141,9 +203,15 @@ export default class Selection_Niveaux extends Phaser.Scene {
     
         if(Etat2 == 3) {
             
-            this.Etape2 = this.add.sprite( 400, 500, 'Etape2Not')
+            this.Etape2 = this.add.sprite(800,500,'Etape2Not')
             .setInteractive()
-            .on('pointerdown', () => Etat2 = 1);
+            .setScale(1.7)
+            .setOrigin(0,0.5)
+            .on('pointerdown', () =>  { 
+                
+                this.But_sound.play();
+                Etat2 = 1 
+            });
     
             Etat2 = 0
             
@@ -161,9 +229,15 @@ export default class Selection_Niveaux extends Phaser.Scene {
 
         if(Etat3 == 2) {
             
-            this.Etape3 = this.add.sprite( 600, 500, 'Etape3Yes')
+            this.Etape3 = this.add.sprite(800,500,'Etape3Yes')
             .setInteractive()
-            .on('pointerdown', () => Etat3= 1);
+            .setScale(1.7)
+            .setOrigin(0,-1)
+            .on('pointerdown', () =>  { 
+                
+                this.But_sound.play();
+                Etat3 = 1 
+            });
     
             Etat3 = 0;
     
@@ -178,9 +252,15 @@ export default class Selection_Niveaux extends Phaser.Scene {
     
         if(Etat3 == 3) {
             
-            this.Etape3 = this.add.sprite( 600, 500, 'Etape3Not')
-            .setInteractive()
-            .on('pointerdown', () => Etat3 = 1);
+            this.Etape3 = this.add.sprite(800,500,'Etape3Not')
+	        .setInteractive()
+            .setScale(1.7)
+            .setOrigin(0,-1)
+	        .on('pointerdown', () =>  { 
+            
+                this.But_sound.play();
+                Etat3 = 1 
+            });
     
             Etat3 = 0
             
@@ -197,9 +277,15 @@ export default class Selection_Niveaux extends Phaser.Scene {
  
         if(Etat4 == 2) {
             
-            this.Etape4 = this.add.sprite( 800, 500, 'Etape4Yes')
+            this.Etape4 = this.add.sprite(800,500,'Etape4Yes')
             .setInteractive()
-            .on('pointerdown', () => Etat4 = 1);
+            .setScale(1.7)
+            .setOrigin(0,-2.5)
+            .on('pointerdown', () =>  { 
+                
+                this.But_sound.play();
+                Etat4 = 1 
+            });
     
             Etat4 = 0;
     
@@ -214,9 +300,15 @@ export default class Selection_Niveaux extends Phaser.Scene {
     
         if(Etat4 == 3) {
             
-            this.Etape4 = this.add.sprite( 800, 500, 'Etape4Not')
+            this.Etape4 = this.add.sprite(800,500,'Etape4Not')
             .setInteractive()
-            .on('pointerdown', () => Etat4 = 1);
+            .setScale(1.7)
+            .setOrigin(0,-2.5)
+            .on('pointerdown', () =>  { 
+                
+                this.But_sound.play();
+                Etat4 = 1 
+            });
     
             Etat4 = 0
             
