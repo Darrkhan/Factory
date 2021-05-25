@@ -13,7 +13,7 @@ module.exports = {
     extensions: ['.js', '.jpg'],
   },
   output: {
-    filename: 'game.js',
+    filename: 'map1.js',
     path: path.resolve(__dirname, 'dist')
   },
   mode: 'development'

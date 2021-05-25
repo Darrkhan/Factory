@@ -2,6 +2,7 @@ import Phaser from 'phaser'
 const {player, machine} = require("./class.js");
 
 const {map1} = require('./map1.js');
+//const {map2} = require('./map2.js');
 
 
 window.onload = function(){
@@ -30,7 +31,4 @@ window.onload = function(){
 
   var game = new Phaser.Game(config);
   game.scene.start("map1");
-
-    /*game.scene.remove("map1");
-    game.scene.start("map2");*/
 }

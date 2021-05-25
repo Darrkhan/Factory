@@ -1214,6 +1214,7 @@ class map1 extends Phaser.Scene{
     console.log('inventaire machine 1 : ', m1.inv);
     console.log('inventaire machine 2 : ', m2.inv);
     console.log('inventaire machine 3 : ', m3.inv);
+
     this.matter.world.on('collisionstart', function (event) {
       for (var i = 0; i < event.pairs.length; i++) {
         var bodyA = getRootBody(event.pairs[i].bodyA);
@@ -1223,6 +1224,11 @@ class map1 extends Phaser.Scene{
 
   //-----------------------------------JOUEUR 1-----------------------------------------------------------------------------------------------------------------------------
         if(player1.pad != undefined){
+          if(player1.pad.buttons[3].pressed){
+            console.log('ok');
+            this.scene.start("map2");
+            this.scene.destroy("map1");
+          }
   //---------------------Poubelle----------------------------
           if ((bodyA.id == '21' && bodyB.id == '30') && (player1.pad.buttons[2].pressed)) {
               if (player1.inv != 0) {
