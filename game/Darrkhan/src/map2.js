@@ -34,7 +34,7 @@ var indicator2;
 var cursors;
 class map2 extends Phaser.Scene{
   constructor(){
-    super({key : 'map2'});
+    super("map2");
   }
 
   preload(){

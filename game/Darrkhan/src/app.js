@@ -26,11 +26,11 @@ window.onload = function(){
               }
           }
       },
-      scene: [map2]
+      scene: [map1, map2]
   };
 
   var game = new Phaser.Game(config);
-  game.scene.start("map2");
+  game.scene.start("map1");
 
     /*game.scene.remove("map1");
     game.scene.start("map2");*/
