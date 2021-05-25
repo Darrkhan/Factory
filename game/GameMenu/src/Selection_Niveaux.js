@@ -13,16 +13,16 @@ export default class Selection_Niveaux extends Phaser.Scene {
 
     preload() {
 
-        this.load.image('Etape1Not', 'Etape1Not.png');
-        this.load.image('Etape1Yes', 'Etape1Yes.png');
-        this.load.image('Etape2Not', 'Etape2Not.png');
-        this.load.image('Etape2Yes', 'Etape2Yes.png');
-        this.load.image('Etape3Not', 'Etape3Not.png');
-        this.load.image('Etape3Yes', 'Etape3Yes.png');
-        this.load.image('Etape4Not', 'Etape4Not.png');
-        this.load.image('Etape4Yes', 'Etape4Yes.png');
-        this.load.image('tonneau', 'tonneau.png');
-        this.load.image('cagette', 'cagette.png');
+        this.load.image('Etape1Not', '../Pictures/Etape1Not.png');
+        this.load.image('Etape1Yes', '../Pictures/Etape1Yes.png');
+        this.load.image('Etape2Not', '../Pictures/Etape2Not.png');
+        this.load.image('Etape2Yes', '../Pictures/Etape2Yes.png');
+        this.load.image('Etape3Not', '../Pictures/Etape3Not.png');
+        this.load.image('Etape3Yes', '../Pictures/Etape3Yes.png');
+        this.load.image('Etape4Not', '../Pictures/Etape4Not.png');
+        this.load.image('Etape4Yes', '../Pictures/Etape4Yes.png');
+        this.load.image('tonneau', '../Pictures/tonneau.png');
+        this.load.image('cagette', '../Pictures/cagette.png');
         //this.load.image('Home', 'Home.png');
     }
 
@@ -60,6 +60,7 @@ export default class Selection_Niveaux extends Phaser.Scene {
 	    .on('pointerdown', () =>  { 
             
             this.But_sound.play();
+            this.scene.start("map1");
             Etat1 = 1 
         });
 
@@ -140,6 +141,7 @@ export default class Selection_Niveaux extends Phaser.Scene {
             .on('pointerdown', () =>  { 
                 
                 this.But_sound.play();
+                this.scene.start("map1");
                 Etat1 = 1 
             });
     
@@ -163,6 +165,7 @@ export default class Selection_Niveaux extends Phaser.Scene {
             .on('pointerdown', () =>  { 
                 
                 this.But_sound.play();
+                this.scene.start("map1");
                 Etat1 = 1 
             });
     
