@@ -10,7 +10,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['.js', '.jpg','png', 'wav']
+    extensions: ['.js', '.jpg']
   },
   output: {
     filename: 'app.js',

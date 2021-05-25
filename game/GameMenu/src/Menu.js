@@ -1,7 +1,7 @@
 let PG_Hover = 0;
 let Option_Hover = 0;
 
-export default class Menu_Principal extends Phaser.Scene {
+class Menu_Principal extends Phaser.Scene {
 
     constructor() {
 
@@ -39,7 +39,7 @@ export default class Menu_Principal extends Phaser.Scene {
         this.back = this.add.image(0,0,'background');
         this.back.setOrigin(0,0);
 
-        this.add.text(800, 500, "NOM DU JEU", { fontSize: '64px', fill: '#000' }).setOrigin(0.20,5);
+        this.add.text(800, 500, "NOM DU JEU", { fontFamily: 'Zounderkite 3d', fontSize: '64px', fill: '#000' }).setOrigin(0.20,11);
 
         this.add.image(200,300,'tonneau').setScale(2.3).setRotation(1);
         this.add.image(670,740,'tonneau').setScale(2.3).setRotation(-1);
@@ -187,3 +187,5 @@ export default class Menu_Principal extends Phaser.Scene {
        }
     }
 }
+
+module.exports = {Menu_Principal};

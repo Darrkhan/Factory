@@ -8,11 +8,19 @@ class player{
 }
 
 class machine{
-  constructor(type, obj, img, pad){
+  constructor(type, obj, img){
     this.type = type;
     this.inv = obj;
     this.img = img;
   }
 }
 
-module.exports = {player, machine};
+class commande{
+  constructor(nom, temps, img, text){
+    this.nom = nom;
+    this.temps = temps;
+    this.img = img;
+    this.text = text;
+  }
+}
+module.exports = {player, machine, commande};

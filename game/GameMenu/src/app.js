@@ -1,10 +1,10 @@
 import Phaser from 'phaser'
-import Menu_Principal from './Menu.js';
-import Selection_Niveaux from './Selection_Niveaux.js';
 
-const {player, machine} = require("./class.js");
-
+const {player, machine, commande} = require("./class.js");
 const {map1} = require('./map1.js');
+const {Menu_Principal} = require("./Menu.js");
+const {Selection_Niveaux} = require("./Selection_Niveaux.js");
+
 
 window.onload = function(){
   const config = {
@@ -27,7 +27,7 @@ window.onload = function(){
               }
           }
       },
-      scene: [Menu_Principal, Selection_Niveaux,map1]
+      scene: [map1,Menu_Principal, Selection_Niveaux]
   };
 
   var game = new Phaser.Game(config);

@@ -3,7 +3,7 @@ var Etat2 = 0;
 var Etat3 = 0;
 var Etat4 = 0;
 
-export default class Selection_Niveaux extends Phaser.Scene {
+class Selection_Niveaux extends Phaser.Scene {
 
     constructor() {
 
@@ -324,3 +324,4 @@ export default class Selection_Niveaux extends Phaser.Scene {
         }           
     }
 }
+module.exports = {Selection_Niveaux};
