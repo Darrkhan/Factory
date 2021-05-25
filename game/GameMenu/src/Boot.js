@@ -18,11 +18,8 @@ var dab = 0;
 
 function preload ()
 {
-  this.load.image('sky', 'AMOGUSTRUE.jpg')
-  this.load.image('button', 'PlayGameNot.png');
-  this.load.image('test', 'bg.jpg')
-
-  
+  this.load.image('sky', './Pictures/AMOGUSTRUE.jpg')
+  this.load.image('button', './Pictures/PlayGameNot.png');
 
 }
 

@@ -12,16 +12,15 @@ export default class Menu_Principal extends Phaser.Scene {
     preload() {
 
         
-        this.load.audio('But_sound', 'sound_button.wav');
-        this.load.audio('Menu_sound', 'mainMenu.wav');
-        this.load.image('background', 'background.png');
-        this.load.image('button1', 'PlayGameNot.png');
-        this.load.image('dab', 'bg.jpg');
-        this.load.image('button2', 'PlayGameYES.png');
-        this.load.image('Option', 'OptionNOT.png');
-        this.load.image('Option2', 'OptionYESYes.png');
-        this.load.image('tonneau', 'tonneau.png');
-        this.load.image('cagette', 'cagette.png');
+        this.load.audio('But_sound', '../sound/sound_button.wav');
+        this.load.audio('Menu_sound', '../sound/mainMenu.wav');
+        this.load.image('background', '../Pictures/background.png');
+        this.load.image('button1', '../Pictures/PlayGameNot.png');
+        this.load.image('button2', '../Pictures/PlayGameYES.png');
+        this.load.image('Option', '../Pictures/OptionNOT.png');
+        this.load.image('Option2', '../Pictures/OptionYESYes.png');
+        this.load.image('tonneau', '../Pictures/tonneau.png');
+        this.load.image('cagette', '../Pictures/cagette.png');
         
         
     }

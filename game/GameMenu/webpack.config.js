@@ -1,6 +1,6 @@
 const path = require('path');
 module.exports = {
-  entry: './src/app.js',
+  entry: ['./src/app.js','./src/class.js','./src/map1.js','./src/Menu.js','./src/Selection_Niveaux.js'],
   module: {
     
     rules: [
@@ -10,7 +10,7 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['.js', '.jpg']
+    extensions: ['.js', '.jpg','png', 'wav']
   },
   output: {
     filename: 'app.js',
