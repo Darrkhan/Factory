@@ -32,6 +32,7 @@ var commande1 = new commande("", 30);
 var commande2 = new commande("", 30);
 var commande3 = new commande("", 30);
 var commande4 = new commande("", 30);
+var probleme = 0;
 class map1 extends Phaser.Scene{
   constructor(){
     super("map1");
