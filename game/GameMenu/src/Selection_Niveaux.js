@@ -60,6 +60,7 @@ export default class Selection_Niveaux extends Phaser.Scene {
 	    .on('pointerdown', () =>  { 
             
             this.But_sound.play();
+            this.scene.start("map1");
             Etat1 = 1 
         });
 
@@ -140,6 +141,7 @@ export default class Selection_Niveaux extends Phaser.Scene {
             .on('pointerdown', () =>  { 
                 
                 this.But_sound.play();
+                this.scene.start("map1");
                 Etat1 = 1 
             });
     
@@ -163,6 +165,7 @@ export default class Selection_Niveaux extends Phaser.Scene {
             .on('pointerdown', () =>  { 
                 
                 this.But_sound.play();
+                this.scene.start("map1");
                 Etat1 = 1 
             });
     
