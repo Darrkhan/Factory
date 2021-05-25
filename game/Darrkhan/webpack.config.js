@@ -6,10 +6,11 @@ module.exports = {
       {
         exclude: /node_modules/
       }
-    ]
+    ],
   },
+
   resolve: {
-    extensions: ['.js', '.jpg']
+    extensions: ['.js', '.jpg'],
   },
   output: {
     filename: 'game.js',

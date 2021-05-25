@@ -1,4 +1,5 @@
 const {player, machine} = require("./class.js");
+const socket = require('./app.js').socket;
 
 var player1 = new player(1, "");
 var player2 = new player(2, "");
@@ -397,6 +398,12 @@ class map1 extends Phaser.Scene{
         console.log("Body B: ", bodyB.id);
 
   //-----------------------------------JOUEUR 1-----------------------------------------------------------------------
+  //---------------------Map2--------------------------------
+        if ((bodyA.id == '6' && bodyB.id == '22')) {
+          console.log("changement de monde !")
+          game.scene.start(map2);
+          geme.scene.destroy(map1)
+        }
   //---------------------Poubelle----------------------------
         if ((bodyA.id == '21' && bodyB.id == '30')) {
             if (player1.inv != 0) {
