@@ -8,10 +8,11 @@ class player{
 }
 
 class machine{
-  constructor(type, obj, img){
+  constructor(type, obj, img, timer){
     this.type = type;
     this.inv = obj;
     this.img = img;
+    this.timer = timer;
   }
 }
 
