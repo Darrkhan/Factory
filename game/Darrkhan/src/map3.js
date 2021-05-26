@@ -8,8 +8,9 @@ var player4 = new player(4, "");
 
 /**********************init collision**********************************/
 var w1, w2, w3, w4, w5, w6, w7, w8, w9, w10, w11, w12, exit;//mur
-var robot1, robot2, robot3;
+var robot1, robot2, robot3, robot4;
 var pipe;
+var col1, col2, col3;
 var poubelle1, poubelle2, poubelle3;
 var m1 = new machine(1, "");
 var m2 = new machine(2, "");
@@ -43,6 +44,8 @@ class map3 extends Phaser.Scene{
   preload(){
     //PRELOAD MAP TITLED
     this.load.image('tiles', 'assets/tilesets/asset3.png');
+
+    this.load.image('reservoir', 'assets/images/Reservoir.png');
     this.load.tilemapTiledJSON('map', 'assets/tilemaps/Map3.json');
     this.load.spritesheet('dude', 'assets/images/perso.png', { frameWidth: 51.25, frameHeight: 54.67 });
     this.load.spritesheet('dude1', 'assets/images/persoB.png', { frameWidth: 51.25, frameHeight: 54.67 });
@@ -78,7 +81,12 @@ class map3 extends Phaser.Scene{
     /*###########################top######################*/
     w1 = this.add.rectangle(0, 0, 4000, 160, 0.2);
     this.matter.add.gameObject(w1).setStatic(true);
-
+    col1 = this.add.rectangle(0, 0, 4000, 160, 0.2);
+    this.matter.add.gameObject(col1).setStatic(true);
+    col2 = this.add.rectangle(0, 0, 4000, 160, 0.2);
+    this.matter.add.gameObject(col2).setStatic(true);
+    col3 = this.add.rectangle(0, 0, 4000, 160, 0.2);
+    this.matter.add.gameObject(col3).setStatic(true);
 
     /*###########################left######################*/
     w2 = this.add.rectangle(0, 470, 55, 950, 0.2);
@@ -156,8 +164,8 @@ class map3 extends Phaser.Scene{
     player3.img = this.matter.add.sprite(440, 270, 'dude2');
     player4.img = this.matter.add.sprite(490, 270, 'dude3');
     timer = this.add.sprite(450, 40, 'timer');
-    //timer1 = this.add.sprite(762, 520, 'timer');
-    //timer2 = this.add.sprite(1255, 520, 'timer');
+    timer1 = this.add.sprite(1280, 55, 'timer');
+    timer2 = this.add.sprite(455, 720, 'timer'); // table verif
     timer3 = this.add.sprite(1600, 55, 'timer');
     dispMalt = this.add.sprite(350, 40, 'dispMalt');
     ///dispEau = this.add.sprite(673, 520, 'dispEau');
@@ -165,8 +173,8 @@ class map3 extends Phaser.Scene{
     //dispSucre = this.add.sprite(1618, 540, 'dispSucre');
     //dispHoublon = this.add.sprite(1140, 540, 'dispHoublon');
     dispValid = this.add.sprite(450, 80, 'dispValid');
-    //dispValid1 = this.add.sprite(762, 560, 'dispValid');
-    //dispValid2 = this.add.sprite(1255, 560, 'dispValid');
+    dispValid1 = this.add.sprite(455, 760, 'dispValid'); //table verif
+    dispValid2 = this.add.sprite(1280, 95, 'dispValid');
     //dispValid3 = this.add.sprite(1735, 560, 'dispValid');
     dispValid4 = this.add.sprite(1600, 95, 'dispValid');
     //dispValid5 = this.add.sprite(1100, 540, 'dispValid');
@@ -195,18 +203,20 @@ class map3 extends Phaser.Scene{
     player4.pad = this.input.gamepad.getPad(3);
 
     /***************************************test wall*******************************************************/
-    
+
 
 
     robot1 = this.matter.add.image(130, 230, 'robot1').setStatic(true);
     robot2 = this.matter.add.image(250, 120, 'robot1').setStatic(true);
     robot3 = this.matter.add.image(1050, 160, 'robot1').setStatic(true);
-    water = this.matter.add.image(900, 270, 'water').setStatic(true);
-    water2 = this.matter.add.image(900, 220, 'water').setStatic(true);
+    robot4 = this.matter.add.image(700, 230, 'robot1').setStatic(true);
+    this.matter.add.image(728, 120, 'reservoir').setStatic(true);
+    water = this.matter.add.image(750, 270, 'water').setStatic(true);
+    water2 = this.matter.add.image(750, 220, 'water').setStatic(true);
     levure = this.matter.add.image(950, 220, 'levure').setStatic(true);
     levure2 = this.matter.add.image(950, 270, 'levure').setStatic(true);
-    houblon = this.matter.add.image(1000, 270, 'houblon').setStatic(true);
-    houblon2 = this.matter.add.image(1000, 220, 'houblon').setStatic(true);
+    houblon = this.matter.add.image(1000, 220, 'houblon').setStatic(true);
+    houblon2 = this.matter.add.image(1000, 270, 'houblon').setStatic(true);
     malt = this.matter.add.image(180, 270, 'malt').setStatic(true);
     malt2 = this.matter.add.image(230, 270, 'malt').setStatic(true);
     machine3.img = this.matter.add.image(400, 75, 'machine3').setStatic(true);
@@ -1112,10 +1122,10 @@ class map3 extends Phaser.Scene{
 
   /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ID COLLISIONS~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   player1 = 21 | player2 = 22 | player3 = 23 | player4 = 24
-  m1 = 17 | m2 = 18 | m3 = 19
-  t1 = 12 | t2 = 13 | t3 = 14 | t4 = 15 | t5 = 16
-  exit = 5
-  water = 25 | levure = 26 | houblon = 27 | malt = 28
+  m1 = 29 | m2 = 18 | m3 = 19
+  robot + concassage = 38 | robot3 = 27
+  table verif = 13
+  poubelle1 = 17 | poubelle2 = 15 | poubell3 = 16
   machine3 = 29
 
 
