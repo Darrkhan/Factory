@@ -1219,7 +1219,7 @@ class map2 extends Phaser.Scene{
         console.log("body A: ", bodyA.id);
         console.log("Body B: ", bodyB.id);
   //-----------------------------------JOUEUR 1-----------------------------------------------------------------------------------------------------------------------------
-        if(player1.pad == undefined){
+        if(player1.pad != undefined){
   //---------------------Poubelle----------------------------
           if ((bodyA.id == '22' && (bodyB.id == '31' || bodyB.id == '32')) && (player1.pad.buttons[2].pressed)) {
               if (player1.inv != 0) {

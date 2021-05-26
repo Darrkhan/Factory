@@ -30,7 +30,7 @@ window.onload = function(){
               }
           }
       },
-      scene: [map2,Menu_Principal, Selection_Niveaux]
+      scene: [map3,Menu_Principal, Selection_Niveaux]
   };
 
   var game = new Phaser.Game(config);
