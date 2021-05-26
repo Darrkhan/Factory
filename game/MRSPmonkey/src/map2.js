@@ -192,7 +192,7 @@ class map2 extends Phaser.Scene{
     player1.pad = this.input.gamepad.getPad(0);
     player2.pad = this.input.gamepad.getPad(1);
     player3.pad = this.input.gamepad.getPad(2);
-    player4.pad = this.input.gamepad.getPad(3);    
+    player4.pad = this.input.gamepad.getPad(3);
     player1.img = this.matter.add.sprite(200, 170, 'dude');
     player2.img = this.matter.add.sprite(300, 170, 'dude1');
     player3.img = this.matter.add.sprite(400, 170, 'dude2');
@@ -1119,8 +1119,6 @@ class map2 extends Phaser.Scene{
 
   /!\ dans les if il faut mettre le plus petit id en premier (car phaser met le plus petit dans bodyA et le plus grand dans bodyB)
   */
-    dispArrow.setFrame(1);
-    dispArrow1.setFrame(1);
     function formatTime(seconds){
       // Minutes
       var minutes = Math.floor(seconds/60);
