@@ -6,4 +6,22 @@ class player{
     this.pad = pad;
   }
 }
-module.exports = {player};
+
+class machine{
+  constructor(type, obj, img, timer){
+    this.type = type;
+    this.inv = obj;
+    this.img = img;
+    this.timer = timer;
+  }
+}
+
+class commande{
+  constructor(nom, temps, img, text){
+    this.nom = nom;
+    this.temps = temps;
+    this.img = img;
+    this.text = text;
+  }
+}
+module.exports = {player, machine, commande};
