@@ -1,6 +1,6 @@
 const path = require('path');
 module.exports = {
-  entry: ['./src/app.js', './src/class.js', './src/map3.js'],
+  entry: ['./src/app.js', './src/class.js', './src/map4.js'],
   module: {
     rules: [
       {
@@ -13,7 +13,7 @@ module.exports = {
     extensions: ['.js', '.jpg'],
   },
   output: {
-    filename: 'map3.js',
+    filename: 'map4.js',
     path: path.resolve(__dirname, 'dist')
   },
   mode: 'development'
