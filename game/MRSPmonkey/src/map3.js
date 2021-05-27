@@ -8,7 +8,7 @@ var player4 = new player(4, "");
 
 /**********************init collision**********************************/
 var w1, w2, w3, w4, w5, w6, w7, w8, w9, w10, w11, w12, exit;//mur
-var robot1, robot2, robot3, robot4;
+var robot1, robot2, robot3, robot4, robot5;
 var pipe;
 var col1, col2, col3;
 var poubelle1, poubelle2, poubelle3;
@@ -17,9 +17,9 @@ var m2 = new machine(2, "");
 var m3 = new machine(3, "");//machines
 var t1, t2, t3, t4, t5;//tables
 var water, water2, malt, malt2, levure, levure2, houblon, houblon2;//ressources
-var machine3 = new machine(4, ""); //machine broyage
-var timer, timer1, timer2 ,timer3;
-var dispEau, dispHoublon, dispMalt, dispSucre, dispMaltCon, dispValid, dispValid1, dispValid2, dispValid3, dispValid4, dispValid5, dispValid6, dispArrow, dispArrow1;
+var machine3 = new machine(4, "malt"); //machine broyage
+var timer, timer1, timer2 ,timer3, timer4;
+var dispEau, dispHoublon, dispMalt, dispSucre, dispMaltCon, dispValid, dispValid1, dispValid2, dispValid3, dispValid4, dispValid5, dispValid6, dispValid7, dispArrow, dispArrow1;
 var poubelle;
 var control1, control2, control3, control4;
 var car;
@@ -36,6 +36,7 @@ var commande2 = new commande("", 30);
 var commande3 = new commande("", 30);
 var commande4 = new commande("", 30);
 var probleme = 0;
+var score;
 
 class map3 extends Phaser.Scene{
   constructor(){
@@ -64,16 +65,16 @@ class map3 extends Phaser.Scene{
     this.load.spritesheet('dispMaltCon', 'assets/images/dispMaltCon.png', { frameWidth: 44, frameHeight: 50 });
     this.load.spritesheet('dispSucre', 'assets/images/dispSucre.png', { frameWidth: 44, frameHeight: 50 });
     this.load.spritesheet('dispValid', 'assets/images/dispValid.png', { frameWidth: 44, frameHeight: 50 });
+    this.load.spritesheet('dispValid2', 'assets/images/dispValid2.png', { frameWidth: 44, frameHeight: 50 });
     this.load.spritesheet('dispArrow', 'assets/images/dispArrow.png', { frameWidth: 50, frameHeight: 25 });
     this.load.spritesheet('dispChoice', 'assets/images/dispChoice.png', { frameWidth: 151.3, frameHeight: 80 });
-    this.load.image('robot1', 'assets/images/bras_2.png');
-    this.load.image('robot2', 'assets/images/bras_3.png');
-    this.load.image('robot3', 'assets/images/bras_4.png');
+    this.load.spritesheet('robot1', 'assets/images/bras.png', { frameWidth: 107, frameHeight: 103 });
     /*'''''''''''''''''''ressources'''''''''''''''''*/
     this.load.image('houblon', 'assets/images/caisse-houblon.png');
     this.load.image('levure', 'assets/images/caisse-levure.png');
     this.load.image('malt', 'assets/images/caisse_malt.png');
     this.load.image('water', 'assets/images/caisse_eau.png');
+    this.load.image('retour', 'assets/images/retour_menu.png');
   }
   create(){
     /***************************************WALL*********************************************/
@@ -164,23 +165,24 @@ class map3 extends Phaser.Scene{
     player3.img = this.matter.add.sprite(440, 270, 'dude2');
     player4.img = this.matter.add.sprite(490, 270, 'dude3');
     timer = this.add.sprite(450, 40, 'timer');
-    timer1 = this.add.sprite(1280, 55, 'timer');
-    timer2 = this.add.sprite(455, 720, 'timer'); // table verif
+    timer1 = this.add.sprite(750, 55, 'timer');
+    timer2 = this.add.sprite(1250, 55, 'timer');
     timer3 = this.add.sprite(1600, 55, 'timer');
     dispMalt = this.add.sprite(350, 40, 'dispMalt');
-    ///dispEau = this.add.sprite(673, 520, 'dispEau');
-    //dispMaltCon = this.add.sprite(673, 560, 'dispMaltCon');
-    //dispSucre = this.add.sprite(1618, 540, 'dispSucre');
-    //dispHoublon = this.add.sprite(1140, 540, 'dispHoublon');
+    dispEau = this.add.sprite(668, 55, 'dispEau');
+    dispMaltCon = this.add.sprite(708, 55, 'dispMaltCon');
+    dispSucre = this.add.sprite(1600, 235, 'dispSucre');
+    dispHoublon = this.add.sprite(1075, 235, 'dispHoublon');
     dispValid = this.add.sprite(450, 80, 'dispValid');
-    dispValid1 = this.add.sprite(455, 760, 'dispValid'); //table verif
-    dispValid2 = this.add.sprite(1280, 95, 'dispValid');
-    //dispValid3 = this.add.sprite(1735, 560, 'dispValid');
-    dispValid4 = this.add.sprite(1600, 95, 'dispValid');
-    //dispValid5 = this.add.sprite(1100, 540, 'dispValid');
-    //dispValid6 = this.add.sprite(1578, 540, 'dispValid');
-    //dispArrow = this.add.sprite(830, 540, 'dispArrow');
-    //dispArrow1 = this.add.sprite(1300, 540, 'dispArrow');
+    dispValid1 = this.add.sprite(790, 55, 'dispValid');
+    dispValid2 = this.add.sprite(1250, 95, 'dispValid');
+    dispValid3 = this.add.sprite(1600, 95, 'dispValid');
+    dispValid4 = this.add.sprite(550, 645, 'dispValid');
+    dispValid5 = this.add.sprite(1100, 75, 'dispValid');
+    dispValid6 = this.add.sprite(1422, 75, 'dispValid');
+    dispValid7 = this.add.sprite(455, 760, 'dispValid2'); //table verif
+    dispArrow = this.add.sprite(830, 540, 'dispArrow');
+    dispArrow1 = this.add.sprite(1300, 540, 'dispArrow');
     commande1.img = this.add.sprite(1200, 1000, 'dispChoice');
     commande2.img = this.add.sprite(1400, 1000, 'dispChoice');
     commande3.img = this.add.sprite(1600, 1000, 'dispChoice');
@@ -189,10 +191,14 @@ class map3 extends Phaser.Scene{
     player2.inv = 0;
     player3.inv = 0;
     player4.inv = 0;
-    m1.inv = 0;
+    m1.inv = "eau";
     m2.inv = 0;
     m3.inv = 0;
-    machine3.inv = 0;
+    m1.timer = 0;
+    m2.timer = 0;
+    m3.timer = 0;
+    machine3.timer = 0;
+    machine3.inv = "malt";
     control1 = this.add.sprite(25, 1025, 'control1');
     control2 = this.add.sprite(65, 1025, 'control2');
     control3 = this.add.sprite(105, 1025, 'control3');
@@ -201,27 +207,38 @@ class map3 extends Phaser.Scene{
     player2.pad = this.input.gamepad.getPad(1);
     player3.pad = this.input.gamepad.getPad(2);
     player4.pad = this.input.gamepad.getPad(3);
+    score = 0;
 
     /***************************************test wall*******************************************************/
-
-
-
-    robot1 = this.matter.add.image(130, 230, 'robot1').setStatic(true);
-    robot2 = this.matter.add.image(250, 120, 'robot1').setStatic(true);
-    robot3 = this.matter.add.image(1050, 160, 'robot1').setStatic(true);
-    robot4 = this.matter.add.image(700, 230, 'robot1').setStatic(true);
+    robot1 = this.matter.add.sprite(130, 240, 'robot1').setStatic(true);
+    robot2 = this.matter.add.sprite(250, 120, 'robot1').setStatic(true);
+    robot3 = this.matter.add.sprite(1050, 160, 'robot1').setStatic(true);
+    robot4 = this.matter.add.sprite(700, 230, 'robot1').setStatic(true);
     this.matter.add.image(728, 120, 'reservoir').setStatic(true);
     water = this.matter.add.image(750, 270, 'water').setStatic(true);
     water2 = this.matter.add.image(750, 220, 'water').setStatic(true);
-    levure = this.matter.add.image(950, 220, 'levure').setStatic(true);
-    levure2 = this.matter.add.image(950, 270, 'levure').setStatic(true);
+    levure = this.matter.add.image(1650, 220, 'levure').setStatic(true);
+    levure2 = this.matter.add.image(1650, 270, 'levure').setStatic(true);
     houblon = this.matter.add.image(1000, 220, 'houblon').setStatic(true);
     houblon2 = this.matter.add.image(1000, 270, 'houblon').setStatic(true);
     malt = this.matter.add.image(180, 270, 'malt').setStatic(true);
     malt2 = this.matter.add.image(230, 270, 'malt').setStatic(true);
     machine3.img = this.matter.add.image(400, 75, 'machine3').setStatic(true);
+    robot5 = this.matter.add.sprite(1600, 160, 'robot1').setStatic(true);
     //poubelle = this.matter.add.image(560, 70, 'poubelle').setStatic(true);
 
+    this.anims.create({
+        key: 'robotG',
+        frames: this.anims.generateFrameNumbers('robot1', { start: 2, end: 3 }),
+        frameRate: 3,
+        repeat: -1
+    });
+    this.anims.create({
+        key: 'robotD',
+        frames: this.anims.generateFrameNumbers('robot1', { start: 0, end: 1 }),
+        frameRate: 3,
+        repeat: -1
+    });
     this.anims.create({
         key: 'manette1',
         frames: this.anims.generateFrameNumbers('control1', { start: 0, end: 1 }),
@@ -1131,6 +1148,11 @@ class map3 extends Phaser.Scene{
 
   /!\ dans les if il faut mettre le plus petit id en premier (car phaser met le plus petit dans bodyA et le plus grand dans bodyB)
   */
+    robot1.anims.play('robotD',true);
+    robot2.anims.play('robotD',true);
+    robot3.anims.play('robotG',true);
+    robot4.anims.play('robotD',true);
+    robot5.anims.play('robotD',true);
     function formatTime(seconds){
       // Minutes
       var minutes = Math.floor(seconds/60);
@@ -1143,56 +1165,78 @@ class map3 extends Phaser.Scene{
     }
     function onEvent ()
     {
-        this.initialTime -= 1; // One second
-        text.setText(formatTime(this.initialTime));
-    }
-    function onEvent1 ()
-    {
-        commande1.temps -= 1; // One second
-        commande1.text.setText(formatTime(commande1.temps));
-    }
-    function onEvent2 ()
-    {
-        commande2.temps -= 1; // One second
-        commande2.text.setText(formatTime(commande2.temps));
-    }
-    function onEvent3 ()
-    {
-        commande3.temps -= 1; // One second
-        commande3.text.setText(formatTime(commande3.temps));
-    }
-    function onEvent4 ()
-    {
-        commande4.temps -= 1; // One second
-        commande4.text.setText(formatTime(commande4.temps));
+        if (this.initialTime != 0){
+          this.initialTime -= 1; // One second
+          text.setText(formatTime(this.initialTime));
+        }
+        else{
+          var r2 = this.add.rectangle(620, 200, 750, 550, 0xB9B9B9).setOrigin(0.0,0.0);
+          r2.setStrokeStyle(4, 0x0000);
+          var texto = this.add.text(650, 400, "Score : " + score, 128);
+          texto.setFill('#000');
+          texto.setFontSize(100);
+
+          this.noice = this.add.sprite(980, 650, "retour").setInteractive();
+          this.noice.on('pointerdown', () => {
+              this.scene.start("Menu_Principal");
+          })
+        }
+        if (commande1.temps != 0){
+          if (commande1.nom != undefined){
+            commande1.temps -= 1; // One second
+            commande1.text.setText(formatTime(commande1.temps));
+          }
+        }
+        if (commande2.temps != 0){
+          if (commande2.nom != undefined){
+            commande2.temps -= 1; // One second
+            commande2.text.setText(formatTime(commande2.temps));
+          }
+        }
+        if (commande3.temps != 0){
+          if (commande3.nom != undefined){
+            commande3.temps -= 1; // One second
+            commande3.text.setText(formatTime(commande3.temps));
+          }
+        }
+        if (commande4.temps != 0){
+          if (commande4.nom != undefined){
+            commande4.temps -= 1; // One second
+            commande4.text.setText(formatTime(commande4.temps));
+          }
+        }
     }
 
-    this.initialTime = 180;
-    var style = { font: "bold 150px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
-    text = this.add.text(800, 995, formatTime(this.initialTime));
+    commande1.temps = 50;
+    commande2.temps = 0;
+    commande3.temps = 0;
+    commande4.temps = 0;
+
+    this.initialTime = 240;
+    var style = { font: "bold 150px Arial" , fill: "#000", boundsAlignH: "center", boundsAlignV: "middle" };
+    text = this.add.text(800, 1000, formatTime(this.initialTime));
     text.setFontSize(65);
+    text.setFill('#000');
     commande1.text = this.add.text(1200, 1040, formatTime(commande1.temps));
     commande1.text.setFontSize(30);
-    commande2.text = this.add.text(1800, 1040, formatTime(commande2.temps));
+    commande1.text.setFill('#000');
+    commande2.text = this.add.text(1400, 1040, formatTime(commande2.temps));
     commande2.text.setFontSize(30);
-    commande3.text = this.add.text(1400, 1040, formatTime(commande3.temps));
+    commande2.text.setFill('#000');
+    commande3.text = this.add.text(1600, 1040, formatTime(commande3.temps));
     commande3.text.setFontSize(30);
-    commande4.text = this.add.text(1600, 1040, formatTime(commande4.temps));
+    commande3.text.setFill('#000');
+    commande4.text = this.add.text(1800, 1040, formatTime(commande4.temps));
     commande4.text.setFontSize(30);
-    //text.setTextBounds(800, 1030, 800, 100);
+    commande4.text.setFill('#000');
 
     // Each 1000 ms call onEvent
     temps = this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, loop: true });
-    temps1 = this.time.addEvent({ delay: 1000, callback: onEvent1, callbackScope: this, loop: true });
-    temps2 = this.time.addEvent({ delay: 1000, callback: onEvent2, callbackScope: this, loop: true });
-    temps3 = this.time.addEvent({ delay: 1000, callback: onEvent3, callbackScope: this, loop: true });
-    temps4 = this.time.addEvent({ delay: 1000, callback: onEvent4, callbackScope: this, loop: true });
-
 
     function getRandomInt(max) {
       return Math.floor(Math.random() * max);
     }
-    for (let i = 0; i <= 20; i++){
+    function getRandomCommande(liste){
       random = getRandomInt(4);
       if(random == 0){
         liste.push("biereHoublonLevure");
@@ -1207,21 +1251,27 @@ class map3 extends Phaser.Scene{
         liste.push("biereNoHoublonNoLevure");
       }
     }
-    if (liste[0] == "biereHoublonLevure"){
-        commande1.img.setFrame(1);
-    }
-    if (liste[0] == "biereHoublonNoLevure"){
-        commande1.img.setFrame(2);
-    }
-    if (liste[0] == "biereNoHoublonLevure"){
-        commande1.img.setFrame(3);
-    }
-    if (liste[0] == "biereNoHoublonNoLevure"){
-        commande1.img.setFrame(4);
-    }
+    getRandomCommande(liste);
+    console.log(commande1.nom);
 
+    function getRootBody(body) {
+        if (body.parent === body) {
+            return body;
+        }
+        while (body.parent !== body) {
+            body = body.parent;
+        }
+        return body;
+    }
+    if (machine3.inv == "malt") {
+      dispMalt.setFrame(1);
+    }
+    if (m1.inv == "eau") {
+      dispEau.setFrame(1);
+    }
     console.log(liste);
     console.log(liste[1]);
+    console.log(m1.timer);
     console.log('inventaire joueur 1 : ', player1.inv);
     console.log('inventaire joueur 2 : ', player2.inv);
     console.log('inventaire joueur 3 : ', player3.inv);
@@ -1230,60 +1280,27 @@ class map3 extends Phaser.Scene{
     console.log('inventaire machine 1 : ', m1.inv);
     console.log('inventaire machine 2 : ', m2.inv);
     console.log('inventaire machine 3 : ', m3.inv);
-
     this.matter.world.on('collisionstart', function (event) {
       for (var i = 0; i < event.pairs.length; i++) {
         var bodyA = getRootBody(event.pairs[i].bodyA);
         var bodyB = getRootBody(event.pairs[i].bodyB);
         console.log("body A: ", bodyA.id);
         console.log("Body B: ", bodyB.id);
-
   //-----------------------------------JOUEUR 1-----------------------------------------------------------------------------------------------------------------------------
         if(player1.pad != undefined){
-          if(player1.pad.buttons[3].pressed){
-            console.log('ok');
-            this.scene.start("map2");
-            this.scene.destroy("map1");
-          }
   //---------------------Poubelle----------------------------
-          if ((bodyA.id == '21' && bodyB.id == '30') && (player1.pad.buttons[2].pressed)) {
+          if (bodyB.id == '26' && (bodyA.id == '20' || bodyA.id == '21' || bodyA.id == '22') && (player1.pad.buttons[2].pressed)) {
               if (player1.inv != 0) {
                 player1.inv = 0;
                 console.log('inventaire joueur 1 : ', player1.inv);
               }
           }
-  //------------------matières premières----------------------
-          else if ((bodyA.id == '21' && bodyB.id == '28') && (player1.pad.buttons[2].pressed)) {
-            if (player1.inv == 0) {
-              player1.inv = "malt";
-              console.log('inventaire joueur 1 : ', player1.inv);
-              console.log(temps);
-            }
-          }
-          else if ((bodyA.id == '21' && bodyB.id == '25') && (player1.pad.buttons[2].pressed)) {
-              if (player1.inv == 0) {
-                player1.inv = "eau";
-                console.log('inventaire joueur 1 : ', player1.inv);
-              }
-          }
-          else if ((bodyA.id == '21' && bodyB.id == '26') && (player1.pad.buttons[2].pressed)) {
-              if (player1.inv == 0) {
-                player1.inv = "levure";
-                console.log('inventaire joueur 1 : ', player1.inv);
-              }
-          }
-          else if ((bodyA.id == '21' && bodyB.id == '27') && (player1.pad.buttons[2].pressed)) {
-              if (player1.inv == 0) {
-                player1.inv = "houblon";
-                console.log('inventaire joueur 1 : ', player1.inv);
-              }
-          }
+
   //-------------------Concassage machine1-----------------------
-          else if ((bodyA.id == '21' && bodyB.id == '29') && (player1.pad.buttons[2].pressed)) {
-            if (player1.inv == "malt") {
+          else if ((bodyA.id == '26' && bodyB.id == '43') && (player1.pad.buttons[2].pressed)) {
+            if (machine3.inv == "malt"  && machine3.timer == 0) {
               console.log("En préparation !!");
-              player1.inv = 0;
-              dispMalt.setFrame(1);
+              machine3.timer = 1;
               setTimeout(
                 () => {
                   timer.setFrame(1);
@@ -1302,6 +1319,7 @@ class map3 extends Phaser.Scene{
                                   dispValid.setFrame(1);
                                   console.log("Prêt !!");
                                   machine3.inv = "maltCon";
+                                  machine3.timer = 0;
                                   console.log('inventaire joueur 1 : ', player1.inv);
                                   console.log('inventaire broyeur : ', machine3.inv);
                                 },
@@ -1320,20 +1338,21 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (machine3.inv == "maltCon" && player1.inv == 0) {
+            else if (machine3.inv == "maltCon" && player1.inv == 0  && m1.timer == 0) {
               timer.setFrame(0);
               dispValid.setFrame(0);
-              dispMalt.setFrame(0);
+              dispMalt.setFrame(1);
               player1.inv = "maltCon";
-              machine3.inv = 0;
+              machine3.inv = "malt";
               console.log('inventaire joueur 1 : ', player1.inv);
               console.log('inventaire broyeur : ', machine3.inv);
             }
           }
   //-------------------Empatage----------------------------------
-          else if ((bodyA.id == '17' && bodyB.id == '21') && (player1.pad.buttons[2].pressed)) {
-            if ((player1.inv == "eau" && m1.inv == "maltCon")||(player1.inv == "maltCon" && m1.inv == "eau")){
+          else if ((bodyA.id == '26' && bodyB.id == '34') && (player1.pad.buttons[2].pressed)) {
+            if (player1.inv == "maltCon" && m1.inv == "eau" && m1.timer == 0){
               console.log("En préparation !!");
+              m1.timer = 1;
               player1.inv = 0;
               dispEau.setFrame(1);
               dispMaltCon.setFrame(1);
@@ -1355,6 +1374,7 @@ class map3 extends Phaser.Scene{
                                   console.log("Prêt !!");
                                   dispValid1.setFrame(1);
                                   m1.inv = "biereMachine2";
+                                  m1.timer = 0;
                                   console.log('inventaire joueur 1 : ', player1.inv);
                                   console.log('inventaire machine 1 : ', m1.inv);
                                 },
@@ -1373,13 +1393,13 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (m1.inv == "biereMachine2"){
+            else if (m1.inv == "biereMachine2" && m2.inv == 0 && m1.timer == 0){
               dispArrow.setFrame(1);
               dispValid1.setFrame(0);
-              dispEau.setFrame(0);
+              dispEau.setFrame(1);
               dispMaltCon.setFrame(0);
               timer1.setFrame(0);
-              m1.inv = 0;
+              m1.inv = "eau";
               m2.inv = "biereMachine2";
               dispValid5.setFrame(1);
               console.log('inventaire machine 1 : ', m1.inv);
@@ -1391,26 +1411,19 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (player1.inv == "eau" && m1.inv == 0){
-              player1.inv = 0;
-              m1.inv = "eau";
-              dispEau.setFrame(1);
-              console.log('inventaire joueur 1 : ', player1.inv);
-              console.log('inventaire machine 1 : ', m1.inv);
-            }
-            else if (player1.inv == "maltCon" && m1.inv == 0) {
-              player1.inv = 0;
-              dispMaltCon.setFrame(1);
-              m1.inv = "maltCon";
-              console.log('inventaire joueur 1 : ', player1.inv);
-              console.log('inventaire machine 1 : ', m1.inv);
-            }
+          }
+  //----------------------Choix Houblon---------------------------
+          else if ((bodyA.id == '26' && bodyB.id == '32') && (player1.pad.buttons[2].pressed)) {
+              if (m2.inv == "biereMachine2") {
+                m2.inv = "houblon";
+                dispHoublon.setFrame(1);
+              }
           }
   //-----------------------Réfrigérant---------------------------
-          else if ((bodyA.id == '18' && bodyB.id == '21') && (player1.pad.buttons[2].pressed)) {
-            if (player1.inv == 0 && m2.inv == "biereMachine2"){
-              player1.inv = 0;
+          else if ((bodyA.id == '24' && bodyB.id == '26') && (player1.pad.buttons[2].pressed)) {
+            if (m2.inv == "biereMachine2" && m2.timer == 0){
               console.log("En préparation !!");
+              m2.timer = 1;
               setTimeout(
                 () => {
                   timer2.setFrame(1);
@@ -1429,6 +1442,7 @@ class map3 extends Phaser.Scene{
                                   console.log("Prêt !!");
                                   dispValid2.setFrame(1);
                                   m2.inv = "biereNoHoublon";
+                                  m2.timer = 0;
                                   console.log('inventaire joueur 1 : ', player1.inv);
                                   console.log('inventaire machine 2 : ', m2.inv);
                                 },
@@ -1447,7 +1461,7 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (m2.inv == "biereNoHoublon"){
+            else if (m2.inv == "biereNoHoublon" && m3.inv == 0 && m2.timer == 0){
               m2.inv = 0;
               m3.inv = "biereNoHoublon";
               dispValid5.setFrame(0);
@@ -1465,9 +1479,9 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (player1.inv == "houblon" && m2.inv == "biereMachine2"){
-              player1.inv = 0;
+            else if (m2.inv == "houblon" && m2.timer == 0){
               console.log("En préparation !!");
+              m2.timer = 1;
               dispHoublon.setFrame(1);
               setTimeout(
                 () => {
@@ -1487,6 +1501,7 @@ class map3 extends Phaser.Scene{
                                   console.log("Prêt !!");
                                   dispValid2.setFrame(1);
                                   m2.inv = "biereHoublon";
+                                  m2.timer = 0;
                                   console.log('inventaire joueur 1 : ', player1.inv);
                                   console.log('inventaire machine 2 : ', m2.inv);
                                 },
@@ -1505,7 +1520,7 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (m2.inv == "biereHoublon"){
+            else if (m2.inv == "biereHoublon" && m3.inv == 0 && m2.timer == 0){
               m2.inv = 0;
               m3.inv = "biereHoublon";
               dispValid5.setFrame(0);
@@ -1524,11 +1539,22 @@ class map3 extends Phaser.Scene{
               );
             }
           }
+  //-----------------------Choix Levure--------------------------------
+          else if ((bodyA.id == '26' && bodyB.id == '44') && (player1.pad.buttons[2].pressed)) {
+              if (m3.inv == "biereHoublon") {
+                m3.inv = "biereHoublon1";
+                dispSucre.setFrame(1);
+              }
+              else if (m3.inv == "biereNoHoublon") {
+                m3.inv = "biereNoHoublon1";
+                dispSucre.setFrame(1);
+              }
+          }
   //-----------------------Filtrage--------------------------------
-          else if ((bodyA.id == '19' && bodyB.id == '21') && (player1.pad.buttons[2].pressed)) {
-            if (player1.inv == 0 && m3.inv == "biereNoHoublon"){
-              player1.inv = 0;
+          else if ((bodyA.id == '23' && bodyB.id == '26') && (player1.pad.buttons[2].pressed)) {
+            if (m3.inv == "biereNoHoublon" && m3.timer == 0){
               console.log("En préparation !!");
+              m3.timer = 1;
               setTimeout(
                 () => {
                   timer3.setFrame(1);
@@ -1547,6 +1573,7 @@ class map3 extends Phaser.Scene{
                                   dispValid3.setFrame(1);
                                   console.log("Prêt !!");
                                   m3.inv = "biereNoHoublonNoLevure";
+                                  m3.timer = 0;
                                   console.log('inventaire joueur 1 : ', player1.inv);
                                   console.log('inventaire machine 3 : ', m3.inv);
                                 },
@@ -1565,7 +1592,7 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (m3.inv == "biereNoHoublonNoLevure" && player1.inv == 0) {
+            else if (m3.inv == "biereNoHoublonNoLevure" && player1.inv == 0 && m3.timer == 0) {
               dispValid3.setFrame(0);
               timer3.setFrame(0);
               player1.inv = "biereNoHoublonNoLevure";
@@ -1575,9 +1602,9 @@ class map3 extends Phaser.Scene{
               console.log('inventaire machine 3 : ', m3.inv);
             }
 
-            else if (player1.inv == 0 && m3.inv == "biereHoublon"){
-              player1.inv = 0;
+            else if (m3.inv == "biereHoublon" && m3.timer == 0){
               console.log("En préparation !!");
+              m3.timer = 1;
               setTimeout(
                 () => {
                   timer3.setFrame(1);
@@ -1596,6 +1623,7 @@ class map3 extends Phaser.Scene{
                                   dispValid3.setFrame(1);
                                   console.log("Prêt !!");
                                   m3.inv = "biereHoublonNoLevure";
+                                  m3.timer = 0;
                                   console.log('inventaire joueur 1 : ', player1.inv);
                                   console.log('inventaire machine 3 : ', m3.inv);
                                 },
@@ -1614,7 +1642,7 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (m3.inv == "biereHoublonNoLevure" && player1.inv == 0) {
+            else if (m3.inv == "biereHoublonNoLevure" && player1.inv == 0 && m3.timer == 0) {
               dispValid3.setFrame(0);
               timer3.setFrame(0);
               player1.inv = "biereHoublonNoLevure";
@@ -1623,10 +1651,10 @@ class map3 extends Phaser.Scene{
               console.log('inventaire joueur 1 : ', player1.inv);
               console.log('inventaire machine 3 : ', m3.inv);
             }
-            else if (player1.inv == "levure" && m3.inv == "biereNoHoublon"){
+            else if (m3.inv == "biereNoHoublon1" && m3.timer == 0){
               player1.inv = 0;
-              dispSucre.setFrame(1);
               console.log("En préparation !!");
+              m3.timer = 1;
               setTimeout(
                 () => {
                   timer3.setFrame(1);
@@ -1645,6 +1673,7 @@ class map3 extends Phaser.Scene{
                                   dispValid3.setFrame(1);
                                   console.log("Prêt !!");
                                   m3.inv = "biereNoHoublonLevure";
+                                  m3.timer = 0;
                                   console.log('inventaire joueur 1 : ', player1.inv);
                                   console.log('inventaire machine 3 : ', m3.inv);
                                 },
@@ -1663,7 +1692,7 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (m3.inv == "biereNoHoublonLevure" && player1.inv == 0) {
+            else if (m3.inv == "biereNoHoublonLevure" && player1.inv == 0 && m3.timer == 0) {
               timer3.setFrame(0);
               dispValid3.setFrame(0);
               dispSucre.setFrame(0);
@@ -1674,10 +1703,11 @@ class map3 extends Phaser.Scene{
               console.log('inventaire broyeur : ', m3.inv);
             }
 
-            else if (player1.inv == "levure" && m3.inv == "biereHoublon"){
+            else if (m3.inv == "biereHoublon1" && m3.timer == 0){
               player1.inv = 0;
               dispSucre.setFrame(1);
               console.log("En préparation !!");
+              m3.timer = 1;
               setTimeout(
                 () => {
                   timer3.setFrame(1);
@@ -1696,6 +1726,7 @@ class map3 extends Phaser.Scene{
                                   timer3.setFrame(5);
                                   console.log("Prêt !!");
                                   m3.inv = "biereHoublonLevure";
+                                  m3.timer = 0;
                                   console.log('inventaire joueur 1 : ', player1.inv);
                                   console.log('inventaire machine 3 : ', m3.inv);
                                 },
@@ -1714,7 +1745,7 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (m3.inv == "biereHoublonLevure" && player1.inv == 0) {
+            else if (m3.inv == "biereHoublonLevure" && player1.inv == 0 && m3.timer == 0) {
               timer3.setFrame(0);
               dispValid3.setFrame(0);
               dispSucre.setFrame(0);
@@ -1725,12 +1756,131 @@ class map3 extends Phaser.Scene{
               console.log('inventaire machine 3 : ', m3.inv);
             }
           }
+  //-----------------------Controle qualité--------------------------------
+          else if ((bodyA.id == '18' && bodyB.id == '26') && (player1.pad.buttons[2].pressed)) {
+              if (player1.inv == "biereHoublonLevure") {
+                let good = getRandomInt(10);
+                if(good == 0){
+                  player1.inv = 0;
+                  dispValid7.setFrame(2);
+                  setTimeout(
+                    () => {
+                      dispValid7.setFrame(0);
+                    },
+                    1 * 1000
+                  );
+                }
+                else{
+                  player1.inv = "biereHoublonLevure2";
+                  dispValid7.setFrame(1);
+                  setTimeout(
+                    () => {
+                      dispValid7.setFrame(0);
+                    },
+                    1 * 1000
+                  );
+                }
+              }
+              else if (player1.inv == "biereNoHoublonLevure") {
+                let good = getRandomInt(10);
+                if(good == 0){
+                  player1.inv = 0;
+                  dispValid7.setFrame(2);
+                  setTimeout(
+                    () => {
+                      dispValid7.setFrame(0);
+                    },
+                    1 * 1000
+                  );
+                }
+                else{
+                  player1.inv = "biereNoHoublonLevure2";
+                  dispValid7.setFrame(1);
+                  setTimeout(
+                    () => {
+                      dispValid7.setFrame(0);
+                    },
+                    1 * 1000
+                  );
+                }
+              }
+              else if (player1.inv == "biereHoublonNoLevure") {
+                let good = getRandomInt(10);
+                if(good == 0){
+                  player1.inv = 0;
+                  dispValid7.setFrame(2);
+                  setTimeout(
+                    () => {
+                      dispValid7.setFrame(0);
+                    },
+                    1 * 1000
+                  );
+                }
+                else{
+                  player1.inv = "biereHoublonNoLevure2";
+                  dispValid7.setFrame(1);
+                  setTimeout(
+                    () => {
+                      dispValid7.setFrame(0);
+                    },
+                    1 * 1000
+                  );
+                }
+              }
+              else if (player1.inv == "biereNoHoublonNoLevure") {
+                let good = getRandomInt(10);
+                if(good == 0){
+                  dispValid7.setFrame(2);
+                  player1.inv = 0;
+                  setTimeout(
+                    () => {
+                      dispValid7.setFrame(0);
+                    },
+                    1 * 1000
+                  );
+                }
+                else{
+                  player1.inv = "biereNoHoublonNoLevure2";
+                  dispValid7.setFrame(1);
+                  setTimeout(
+                    () => {
+                      dispValid7.setFrame(0);
+                    },
+                    1 * 1000
+                  );
+                }
+              }
+          }
   //----------------------Livraison---------------------------------
-          else if ((bodyA.id == '12' && bodyB.id == '21')) {
-            if(player1.inv == "biereHoublonLevure"){
+          else if ((bodyA.id == '14' && bodyB.id == '26')) {
+            if(player1.inv == "biereHoublonLevure2"){
               player1.inv = "0";
               console.log('inventaire joueur 1 : ', player1.inv);
               dispValid4.setFrame(1);
+              for(let i = 0; i < liste.length; i++){
+                if(liste[i] == "biereHoublonLevure"){
+                  if (i == 0){
+                    score += commande1.temps;
+                  }
+                  else if (i == 1){
+                    score += commande2.temps;
+                  }
+                  else if (i == 2){
+                    score += commande3.temps;
+                  }
+                  else if (i == 3){
+                    score += commande4.temps;
+                  }
+                  liste.splice(i, 1);
+                  commande1.temps = commande2.temps;
+                  commande2.temps = commande3.temps;
+                  commande3.temps = commande4.temps;
+                  commande4.temps = 0;
+                  commande4.img.setFrame(0);
+                  break;
+                }
+              }
+              console.log(score);
               setTimeout(
                 () => {
                   dispValid4.setFrame(0);
@@ -1738,10 +1888,34 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if(player1.inv == "biereNoHoublonNoLevure"){
+            else if(player1.inv == "biereNoHoublonNoLevure2"){
               player1.inv = "0";
               console.log('inventaire joueur 1 : ', player1.inv);
               dispValid4.setFrame(1);
+              for(let i = 0; i < liste.length; i++){
+                if(liste[i] == "biereNoHoublonNoLevure"){
+                  if (i == 0){
+                    score += commande1.temps;
+                  }
+                  else if (i == 1){
+                    score += commande2.temps;
+                  }
+                  else if (i == 2){
+                    score += commande3.temps;
+                  }
+                  else if (i == 3){
+                    score += commande4.temps;
+                  }
+                  liste.splice(i, 1);
+                  commande1.temps = commande2.temps;
+                  commande2.temps = commande3.temps;
+                  commande3.temps = commande4.temps;
+                  commande4.temps = 0;
+                  commande4.img.setFrame(0);
+                  break;
+                }
+              }
+              console.log(score);
               setTimeout(
                 () => {
                   dispValid4.setFrame(0);
@@ -1749,10 +1923,34 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if(player1.inv == "biereNoHoublonLevure"){
+            else if(player1.inv == "biereNoHoublonLevure2"){
               player1.inv = "0";
               console.log('inventaire joueur 1 : ', player1.inv);
               dispValid4.setFrame(1);
+              for(let i = 0; i < liste.length; i++){
+                if(liste[i] == "biereNoHoublonLevure"){
+                  if (i == 0){
+                    score += commande1.temps;
+                  }
+                  else if (i == 1){
+                    score += commande2.temps;
+                  }
+                  else if (i == 2){
+                    score += commande3.temps;
+                  }
+                  else if (i == 3){
+                    score += commande4.temps;
+                  }
+                  liste.splice(i, 1);
+                  commande1.temps = commande2.temps;
+                  commande2.temps = commande3.temps;
+                  commande3.temps = commande4.temps;
+                  commande4.temps = 0;
+                  commande4.img.setFrame(0);
+                  break;
+                }
+              }
+              console.log(score);
               setTimeout(
                 () => {
                   dispValid4.setFrame(0);
@@ -1760,10 +1958,34 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if(player1.inv == "biereHoublonNoLevure"){
+            else if(player1.inv == "biereHoublonNoLevure2"){
               player1.inv = "0";
               console.log('inventaire joueur 1 : ', player1.inv);
               dispValid4.setFrame(1);
+              for(let i = 0; i < liste.length; i++){
+                if(liste[i] == "biereHoublonNoLevure"){
+                  if (i == 0){
+                    score += commande1.temps;
+                  }
+                  else if (i == 1){
+                    score += commande2.temps;
+                  }
+                  else if (i == 2){
+                    score += commande3.temps;
+                  }
+                  else if (i == 3){
+                    score += commande4.temps;
+                  }
+                  liste.splice(i, 1);
+                  commande1.temps = commande2.temps;
+                  commande2.temps = commande3.temps;
+                  commande3.temps = commande4.temps;
+                  commande4.temps = 0;
+                  commande4.img.setFrame(0);
+                  break;
+                }
+              }
+              console.log(score);
               setTimeout(
                 () => {
                   dispValid4.setFrame(0);
@@ -1773,47 +1995,21 @@ class map3 extends Phaser.Scene{
             }
           }
         }
-  //-----------------------------------JOUEUR 2-----------------------------------------------------------------------------------------------------------------------------------
+  //-----------------------------------JOUEUR 2-----------------------------------------------------------------------------------------------------------------------------
         if(player2.pad != undefined){
   //---------------------Poubelle----------------------------
-          if ((bodyA.id == '22' && bodyB.id == '30') && (player2.pad.buttons[2].pressed)) {
+          if (bodyB.id == '27' && (bodyA.id == '20' || bodyA.id == '21' || bodyA.id == '22') && (player2.pad.buttons[2].pressed)) {
               if (player2.inv != 0) {
                 player2.inv = 0;
                 console.log('inventaire joueur 2 : ', player2.inv);
               }
           }
-  //------------------matières premières----------------------
-          else if ((bodyA.id == '22' && bodyB.id == '28') && (player2.pad.buttons[2].pressed)) {
-            if (player2.inv == 0) {
-              player2.inv = "malt";
-              console.log('inventaire joueur 2 : ', player2.inv);
-              console.log(temps);
-            }
-          }
-          else if ((bodyA.id == '22' && bodyB.id == '25') && (player2.pad.buttons[2].pressed)) {
-              if (player2.inv == 0) {
-                player2.inv = "eau";
-                console.log('inventaire joueur 1 : ', player2.inv);
-              }
-          }
-          else if ((bodyA.id == '22' && bodyB.id == '26') && (player2.pad.buttons[2].pressed)) {
-              if (player2.inv == 0) {
-                player2.inv = "levure";
-                console.log('inventaire joueur 2 : ', player2.inv);
-              }
-          }
-          else if ((bodyA.id == '22' && bodyB.id == '27') && (player2.pad.buttons[2].pressed)) {
-              if (player2.inv == 0) {
-                player2.inv = "houblon";
-                console.log('inventaire joueur 2 : ', player2.inv);
-              }
-          }
+
   //-------------------Concassage machine1-----------------------
-          else if ((bodyA.id == '22' && bodyB.id == '29') && (player2.pad.buttons[2].pressed)) {
-            if (player2.inv == "malt") {
+          else if ((bodyA.id == '27' && bodyB.id == '43') && (player2.pad.buttons[2].pressed)) {
+            if (machine3.inv == "malt" && machine3.timer == 0) {
               console.log("En préparation !!");
-              player2.inv = 0;
-              dispMalt.setFrame(1);
+              machine3.timer = 1;
               setTimeout(
                 () => {
                   timer.setFrame(1);
@@ -1832,6 +2028,7 @@ class map3 extends Phaser.Scene{
                                   dispValid.setFrame(1);
                                   console.log("Prêt !!");
                                   machine3.inv = "maltCon";
+                                  machine3.timer = 0;
                                   console.log('inventaire joueur 2 : ', player2.inv);
                                   console.log('inventaire broyeur : ', machine3.inv);
                                 },
@@ -1850,20 +2047,21 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (machine3.inv == "maltCon" && player2.inv == 0) {
+            else if (machine3.inv == "maltCon" && player2.inv == 0 && machine3.timer == 0) {
               timer.setFrame(0);
               dispValid.setFrame(0);
-              dispMalt.setFrame(0);
+              dispMalt.setFrame(1);
               player2.inv = "maltCon";
-              machine3.inv = 0;
-              console.log('inventaire joueur 2 : ', player2.inv);
+              machine3.inv = "malt";
+              console.log('inventaire joueur 1 : ', player2.inv);
               console.log('inventaire broyeur : ', machine3.inv);
             }
           }
   //-------------------Empatage----------------------------------
-          else if ((bodyA.id == '17' && bodyB.id == '22') && (player2.pad.buttons[2].pressed)) {
-            if ((player2.inv == "eau" && m1.inv == "maltCon")||(player2.inv == "maltCon" && m1.inv == "eau")){
+          else if ((bodyA.id == '27' && bodyB.id == '34') && (player2.pad.buttons[2].pressed)) {
+            if (player2.inv == "maltCon" && m1.inv == "eau" && m1.timer == 0){
               console.log("En préparation !!");
+              m1.timer = 1;
               player2.inv = 0;
               dispEau.setFrame(1);
               dispMaltCon.setFrame(1);
@@ -1885,6 +2083,7 @@ class map3 extends Phaser.Scene{
                                   console.log("Prêt !!");
                                   dispValid1.setFrame(1);
                                   m1.inv = "biereMachine2";
+                                  m1.timer = 0;
                                   console.log('inventaire joueur 2 : ', player2.inv);
                                   console.log('inventaire machine 1 : ', m1.inv);
                                 },
@@ -1903,13 +2102,13 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (m1.inv == "biereMachine2"){
+            else if (m1.inv == "biereMachine2" && m2.inv == 0 && m1.timer == 0){
               dispArrow.setFrame(1);
               dispValid1.setFrame(0);
-              dispEau.setFrame(0);
+              dispEau.setFrame(1);
               dispMaltCon.setFrame(0);
               timer1.setFrame(0);
-              m1.inv = 0;
+              m1.inv = "eau";
               m2.inv = "biereMachine2";
               dispValid5.setFrame(1);
               console.log('inventaire machine 1 : ', m1.inv);
@@ -1921,27 +2120,19 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (player2.inv == "eau" && m1.inv == 0){
-              player2.inv = 0;
-              m1.inv = "eau";
-              dispEau.setFrame(1);
-              console.log('inventaire joueur 2 : ', player2.inv);
-              console.log('inventaire machine 1 : ', m1.inv);
-            }
-            else if (player2.inv == "maltCon" && m1.inv == 0) {
-              player2.inv = 0;
-              dispMaltCon.setFrame(1);
-              m1.inv = "maltCon";
-              console.log('inventaire joueur 2 : ', player2.inv);
-              console.log('inventaire machine 1 : ', m1.inv);
-            }
-
+          }
+  //----------------------Choix Houblon---------------------------
+          else if ((bodyA.id == '27' && bodyB.id == '32') && (player2.pad.buttons[2].pressed)) {
+              if (m2.inv == "biereMachine2") {
+                m2.inv = "houblon";
+                dispHoublon.setFrame(1);
+              }
           }
   //-----------------------Réfrigérant---------------------------
-          else if ((bodyA.id == '18' && bodyB.id == '22') && (player2.pad.buttons[2].pressed)) {
-            if (player2.inv == 0 && m2.inv == "biereMachine2"){
-              player2.inv = 0;
+          else if ((bodyA.id == '24' && bodyB.id == '27') && (player2.pad.buttons[2].pressed)) {
+            if (m2.inv == "biereMachine2" && m2.timer == 0){
               console.log("En préparation !!");
+              m2.timer = 1;
               setTimeout(
                 () => {
                   timer2.setFrame(1);
@@ -1960,6 +2151,7 @@ class map3 extends Phaser.Scene{
                                   console.log("Prêt !!");
                                   dispValid2.setFrame(1);
                                   m2.inv = "biereNoHoublon";
+                                  m2.timer = 0;
                                   console.log('inventaire joueur 2 : ', player2.inv);
                                   console.log('inventaire machine 2 : ', m2.inv);
                                 },
@@ -1978,7 +2170,7 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (m2.inv == "biereNoHoublon"){
+            else if (m2.inv == "biereNoHoublon" && m3.inv == 0 && m2.timer == 0){
               m2.inv = 0;
               m3.inv = "biereNoHoublon";
               dispValid5.setFrame(0);
@@ -1996,9 +2188,9 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (player2.inv == "houblon" && m2.inv == "biereMachine2"){
-              player2.inv = 0;
+            else if (m2.inv == "houblon" && m2.timer == 0){
               console.log("En préparation !!");
+              m2.timer = 1;
               dispHoublon.setFrame(1);
               setTimeout(
                 () => {
@@ -2018,6 +2210,7 @@ class map3 extends Phaser.Scene{
                                   console.log("Prêt !!");
                                   dispValid2.setFrame(1);
                                   m2.inv = "biereHoublon";
+                                  m2.timer = 0;
                                   console.log('inventaire joueur 2 : ', player2.inv);
                                   console.log('inventaire machine 2 : ', m2.inv);
                                 },
@@ -2036,7 +2229,7 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (m2.inv == "biereHoublon"){
+            else if (m2.inv == "biereHoublon" && m3.inv == 0 && m2.timer == 0){
               m2.inv = 0;
               m3.inv = "biereHoublon";
               dispValid5.setFrame(0);
@@ -2055,11 +2248,22 @@ class map3 extends Phaser.Scene{
               );
             }
           }
+  //-----------------------Choix Levure--------------------------------
+          else if ((bodyA.id == '27' && bodyB.id == '44') && (player2.pad.buttons[2].pressed)) {
+              if (m3.inv == "biereHoublon") {
+                m3.inv = "biereHoublon1";
+                dispSucre.setFrame(1);
+              }
+              else if (m3.inv == "biereNoHoublon") {
+                m3.inv = "biereNoHoublon1";
+                dispSucre.setFrame(1);
+              }
+          }
   //-----------------------Filtrage--------------------------------
-          else if ((bodyA.id == '19' && bodyB.id == '22') && (player2.pad.buttons[2].pressed)) {
-            if (player2.inv == 0 && m3.inv == "biereNoHoublon"){
-              player2.inv = 0;
+          else if ((bodyA.id == '23' && bodyB.id == '27') && (player2.pad.buttons[2].pressed)) {
+            if (m3.inv == "biereNoHoublon" && m3.timer == 0){
               console.log("En préparation !!");
+              m3.timer = 1;
               setTimeout(
                 () => {
                   timer3.setFrame(1);
@@ -2078,7 +2282,8 @@ class map3 extends Phaser.Scene{
                                   dispValid3.setFrame(1);
                                   console.log("Prêt !!");
                                   m3.inv = "biereNoHoublonNoLevure";
-                                  console.log('inventaire joueur 2 : ', player2.inv);
+                                  m3.timer = 0;
+                                  console.log('inventaire joueur 1 : ', player2.inv);
                                   console.log('inventaire machine 3 : ', m3.inv);
                                 },
                                 1 * 1000
@@ -2096,7 +2301,7 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (m3.inv == "biereNoHoublonNoLevure" && player2.inv == 0) {
+            else if (m3.inv == "biereNoHoublonNoLevure" && player2.inv == 0 && m3.timer == 0) {
               dispValid3.setFrame(0);
               timer3.setFrame(0);
               player2.inv = "biereNoHoublonNoLevure";
@@ -2106,9 +2311,9 @@ class map3 extends Phaser.Scene{
               console.log('inventaire machine 3 : ', m3.inv);
             }
 
-            else if (player2.inv == 0 && m3.inv == "biereHoublon"){
-              player2.inv = 0;
+            else if (m3.inv == "biereHoublon" && m3.timer == 0){
               console.log("En préparation !!");
+              m3.timer = 1;
               setTimeout(
                 () => {
                   timer3.setFrame(1);
@@ -2127,6 +2332,7 @@ class map3 extends Phaser.Scene{
                                   dispValid3.setFrame(1);
                                   console.log("Prêt !!");
                                   m3.inv = "biereHoublonNoLevure";
+                                  m3.timer = 0;
                                   console.log('inventaire joueur 2 : ', player2.inv);
                                   console.log('inventaire machine 3 : ', m3.inv);
                                 },
@@ -2145,7 +2351,7 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (m3.inv == "biereHoublonNoLevure" && player2.inv == 0) {
+            else if (m3.inv == "biereHoublonNoLevure" && player2.inv == 0 && m3.timer == 0) {
               dispValid3.setFrame(0);
               timer3.setFrame(0);
               player2.inv = "biereHoublonNoLevure";
@@ -2154,10 +2360,10 @@ class map3 extends Phaser.Scene{
               console.log('inventaire joueur 2 : ', player2.inv);
               console.log('inventaire machine 3 : ', m3.inv);
             }
-            else if (player2.inv == "levure" && m3.inv == "biereNoHoublon"){
+            else if (m3.inv == "biereNoHoublon1" && m3.timer == 0){
               player2.inv = 0;
-              dispSucre.setFrame(1);
               console.log("En préparation !!");
+              m3.timer = 1;
               setTimeout(
                 () => {
                   timer3.setFrame(1);
@@ -2176,6 +2382,7 @@ class map3 extends Phaser.Scene{
                                   dispValid3.setFrame(1);
                                   console.log("Prêt !!");
                                   m3.inv = "biereNoHoublonLevure";
+                                  m3.timer = 0;
                                   console.log('inventaire joueur 2 : ', player2.inv);
                                   console.log('inventaire machine 3 : ', m3.inv);
                                 },
@@ -2194,7 +2401,7 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (m3.inv == "biereNoHoublonLevure" && player2.inv == 0) {
+            else if (m3.inv == "biereNoHoublonLevure" && player2.inv == 0 && m3.timer == 0) {
               timer3.setFrame(0);
               dispValid3.setFrame(0);
               dispSucre.setFrame(0);
@@ -2205,10 +2412,11 @@ class map3 extends Phaser.Scene{
               console.log('inventaire broyeur : ', m3.inv);
             }
 
-            else if (player2.inv == "levure" && m3.inv == "biereHoublon"){
+            else if (m3.inv == "biereHoublon1" && m3.timer == 0){
               player2.inv = 0;
               dispSucre.setFrame(1);
               console.log("En préparation !!");
+              m3.timer = 1;
               setTimeout(
                 () => {
                   timer3.setFrame(1);
@@ -2227,6 +2435,7 @@ class map3 extends Phaser.Scene{
                                   timer3.setFrame(5);
                                   console.log("Prêt !!");
                                   m3.inv = "biereHoublonLevure";
+                                  m3.timer = 0;
                                   console.log('inventaire joueur 2 : ', player2.inv);
                                   console.log('inventaire machine 3 : ', m3.inv);
                                 },
@@ -2245,7 +2454,7 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (m3.inv == "biereHoublonLevure" && player2.inv == 0) {
+            else if (m3.inv == "biereHoublonLevure" && player2.inv == 0 && m3.timer == 0) {
               timer3.setFrame(0);
               dispValid3.setFrame(0);
               dispSucre.setFrame(0);
@@ -2256,12 +2465,131 @@ class map3 extends Phaser.Scene{
               console.log('inventaire machine 3 : ', m3.inv);
             }
           }
+  //-----------------------Controle qualité--------------------------------
+          else if ((bodyA.id == '18' && bodyB.id == '27') && (player2.pad.buttons[2].pressed)) {
+              if (player2.inv == "biereHoublonLevure") {
+                let good = getRandomInt(10);
+                if(good == 0){
+                  player2.inv = 0;
+                  dispValid7.setFrame(2);
+                  setTimeout(
+                    () => {
+                      dispValid7.setFrame(0);
+                    },
+                    1 * 1000
+                  );
+                }
+                else{
+                  player2.inv = "biereHoublonLevure2";
+                  dispValid7.setFrame(1);
+                  setTimeout(
+                    () => {
+                      dispValid7.setFrame(0);
+                    },
+                    1 * 1000
+                  );
+                }
+              }
+              else if (player2.inv == "biereNoHoublonLevure") {
+                let good = getRandomInt(10);
+                if(good == 0){
+                  player2.inv = 0;
+                  dispValid7.setFrame(2);
+                  setTimeout(
+                    () => {
+                      dispValid7.setFrame(0);
+                    },
+                    1 * 1000
+                  );
+                }
+                else{
+                  player2.inv = "biereNoHoublonLevure2";
+                  dispValid7.setFrame(1);
+                  setTimeout(
+                    () => {
+                      dispValid7.setFrame(0);
+                    },
+                    1 * 1000
+                  );
+                }
+              }
+              else if (player2.inv == "biereHoublonNoLevure") {
+                let good = getRandomInt(10);
+                if(good == 0){
+                  player2.inv = 0;
+                  dispValid7.setFrame(2);
+                  setTimeout(
+                    () => {
+                      dispValid7.setFrame(0);
+                    },
+                    1 * 1000
+                  );
+                }
+                else{
+                  player2.inv = "biereHoublonNoLevure2";
+                  dispValid7.setFrame(1);
+                  setTimeout(
+                    () => {
+                      dispValid7.setFrame(0);
+                    },
+                    1 * 1000
+                  );
+                }
+              }
+              else if (player2.inv == "biereNoHoublonNoLevure") {
+                let good = getRandomInt(10);
+                if(good == 0){
+                  dispValid7.setFrame(2);
+                  player2.inv = 0;
+                  setTimeout(
+                    () => {
+                      dispValid7.setFrame(0);
+                    },
+                    1 * 1000
+                  );
+                }
+                else{
+                  player2.inv = "biereNoHoublonNoLevure2";
+                  dispValid7.setFrame(1);
+                  setTimeout(
+                    () => {
+                      dispValid7.setFrame(0);
+                    },
+                    1 * 1000
+                  );
+                }
+              }
+          }
   //----------------------Livraison---------------------------------
-          else if ((bodyA.id == '12' && bodyB.id == '22')) {
-            if(player2.inv == "biereHoublonLevure"){
+          else if ((bodyA.id == '14' && bodyB.id == '27')) {
+            if(player2.inv == "biereHoublonLevure2"){
               player2.inv = "0";
               console.log('inventaire joueur 2 : ', player2.inv);
               dispValid4.setFrame(1);
+              for(let i = 0; i < liste.length; i++){
+                if(liste[i] == "biereHoublonLevure"){
+                  if (i == 0){
+                    score += commande1.temps;
+                  }
+                  else if (i == 1){
+                    score += commande2.temps;
+                  }
+                  else if (i == 2){
+                    score += commande3.temps;
+                  }
+                  else if (i == 3){
+                    score += commande4.temps;
+                  }
+                  liste.splice(i, 1);
+                  commande1.temps = commande2.temps;
+                  commande2.temps = commande3.temps;
+                  commande3.temps = commande4.temps;
+                  commande4.temps = 0;
+                  commande4.img.setFrame(0);
+                  break;
+                }
+              }
+              console.log(score);
               setTimeout(
                 () => {
                   dispValid4.setFrame(0);
@@ -2269,10 +2597,34 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if(player2.inv == "biereNoHoublonNoLevure"){
+            else if(player2.inv == "biereNoHoublonNoLevure2"){
               player2.inv = "0";
               console.log('inventaire joueur 2 : ', player2.inv);
               dispValid4.setFrame(1);
+              for(let i = 0; i < liste.length; i++){
+                if(liste[i] == "biereNoHoublonNoLevure"){
+                  if (i == 0){
+                    score += commande1.temps;
+                  }
+                  else if (i == 1){
+                    score += commande2.temps;
+                  }
+                  else if (i == 2){
+                    score += commande3.temps;
+                  }
+                  else if (i == 3){
+                    score += commande4.temps;
+                  }
+                  liste.splice(i, 1);
+                  commande1.temps = commande2.temps;
+                  commande2.temps = commande3.temps;
+                  commande3.temps = commande4.temps;
+                  commande4.temps = 0;
+                  commande4.img.setFrame(0);
+                  break;
+                }
+              }
+              console.log(score);
               setTimeout(
                 () => {
                   dispValid4.setFrame(0);
@@ -2280,10 +2632,34 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if(player2.inv == "biereNoHoublonLevure"){
+            else if(player2.inv == "biereNoHoublonLevure2"){
               player2.inv = "0";
               console.log('inventaire joueur 2 : ', player2.inv);
               dispValid4.setFrame(1);
+              for(let i = 0; i < liste.length; i++){
+                if(liste[i] == "biereNoHoublonLevure"){
+                  if (i == 0){
+                    score += commande1.temps;
+                  }
+                  else if (i == 1){
+                    score += commande2.temps;
+                  }
+                  else if (i == 2){
+                    score += commande3.temps;
+                  }
+                  else if (i == 3){
+                    score += commande4.temps;
+                  }
+                  liste.splice(i, 1);
+                  commande1.temps = commande2.temps;
+                  commande2.temps = commande3.temps;
+                  commande3.temps = commande4.temps;
+                  commande4.temps = 0;
+                  commande4.img.setFrame(0);
+                  break;
+                }
+              }
+              console.log(score);
               setTimeout(
                 () => {
                   dispValid4.setFrame(0);
@@ -2291,10 +2667,34 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if(player2.inv == "biereHoublonNoLevure"){
+            else if(player2.inv == "biereHoublonNoLevure2"){
               player2.inv = "0";
               console.log('inventaire joueur 2 : ', player2.inv);
               dispValid4.setFrame(1);
+              for(let i = 0; i < liste.length; i++){
+                if(liste[i] == "biereHoublonNoLevure"){
+                  if (i == 0){
+                    score += commande1.temps;
+                  }
+                  else if (i == 1){
+                    score += commande2.temps;
+                  }
+                  else if (i == 2){
+                    score += commande3.temps;
+                  }
+                  else if (i == 3){
+                    score += commande4.temps;
+                  }
+                  liste.splice(i, 1);
+                  commande1.temps = commande2.temps;
+                  commande2.temps = commande3.temps;
+                  commande3.temps = commande4.temps;
+                  commande4.temps = 0;
+                  commande4.img.setFrame(0);
+                  break;
+                }
+              }
+              console.log(score);
               setTimeout(
                 () => {
                   dispValid4.setFrame(0);
@@ -2304,47 +2704,21 @@ class map3 extends Phaser.Scene{
             }
           }
         }
-  //-----------------------------------JOUEUR 3------------------------------------------------------------------------------------------------------------------------------------------
-  //---------------------Poubelle----------------------------
+  //-----------------------------------JOUEUR 3-----------------------------------------------------------------------------------------------------------------------------
         if(player3.pad != undefined){
-          if ((bodyA.id == '23' && bodyB.id == '30') && (player3.pad.buttons[2].pressed)) {
+  //---------------------Poubelle----------------------------
+          if (bodyB.id == '28' && (bodyA.id == '20' || bodyA.id == '21' || bodyA.id == '22') && (player3.pad.buttons[2].pressed)) {
               if (player3.inv != 0) {
                 player3.inv = 0;
                 console.log('inventaire joueur 3 : ', player3.inv);
               }
           }
-  //------------------matières premières----------------------
-          else if ((bodyA.id == '23' && bodyB.id == '28') && (player3.pad.buttons[2].pressed)) {
-            if (player3.inv == 0) {
-              player3.inv = "malt";
-              console.log('inventaire joueur 3 : ', player3.inv);
-              console.log(temps);
-            }
-          }
-          else if ((bodyA.id == '23' && bodyB.id == '25') && (player3.pad.buttons[2].pressed)) {
-              if (player3.inv == 0) {
-                player3.inv = "eau";
-                console.log('inventaire joueur 3 : ', player3.inv);
-              }
-          }
-          else if ((bodyA.id == '23' && bodyB.id == '26') && (player3.pad.buttons[2].pressed)) {
-              if (player3.inv == 0) {
-                player3.inv = "levure";
-                console.log('inventaire joueur 3 : ', player3.inv);
-              }
-          }
-          else if ((bodyA.id == '23' && bodyB.id == '27') && (player3.pad.buttons[2].pressed)) {
-              if (player3.inv == 0) {
-                player3.inv = "houblon";
-                console.log('inventaire joueur 3 : ', player3.inv);
-              }
-          }
+
   //-------------------Concassage machine1-----------------------
-          else if ((bodyA.id == '23' && bodyB.id == '29') && (player3.pad.buttons[2].pressed)) {
-            if (player3.inv == "malt") {
+          else if ((bodyA.id == '28' && bodyB.id == '43') && (player3.pad.buttons[2].pressed)) {
+            if (machine3.inv == "malt" && machine3.timer == 0) {
               console.log("En préparation !!");
-              player3.inv = 0;
-              dispMalt.setFrame(1);
+              machine3.timer = 1;
               setTimeout(
                 () => {
                   timer.setFrame(1);
@@ -2363,6 +2737,7 @@ class map3 extends Phaser.Scene{
                                   dispValid.setFrame(1);
                                   console.log("Prêt !!");
                                   machine3.inv = "maltCon";
+                                  machine3.timer = 0;
                                   console.log('inventaire joueur 3 : ', player3.inv);
                                   console.log('inventaire broyeur : ', machine3.inv);
                                 },
@@ -2381,20 +2756,21 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (machine3.inv == "maltCon" && player3.inv == 0) {
+            else if (machine3.inv == "maltCon" && player3.inv == 0 && machine3.timer == 0) {
               timer.setFrame(0);
               dispValid.setFrame(0);
-              dispMalt.setFrame(0);
-              player3.inv = "maltCon";
-              machine3.inv = 0;
+              dispMalt.setFrame(1);
+              player1.inv = "maltCon";
+              machine3.inv = "malt";
               console.log('inventaire joueur 3 : ', player3.inv);
               console.log('inventaire broyeur : ', machine3.inv);
             }
           }
   //-------------------Empatage----------------------------------
-          else if ((bodyA.id == '17' && bodyB.id == '23') && (player3.pad.buttons[2].pressed)) {
-            if ((player3.inv == "eau" && m1.inv == "maltCon")||(player3.inv == "maltCon" && m1.inv == "eau")){
+          else if ((bodyA.id == '28' && bodyB.id == '34') && (player3.pad.buttons[2].pressed)) {
+            if (player3.inv == "maltCon" && m1.inv == "eau" && m1.timer == 0){
               console.log("En préparation !!");
+              m1.timer = 1;
               player3.inv = 0;
               dispEau.setFrame(1);
               dispMaltCon.setFrame(1);
@@ -2416,6 +2792,7 @@ class map3 extends Phaser.Scene{
                                   console.log("Prêt !!");
                                   dispValid1.setFrame(1);
                                   m1.inv = "biereMachine2";
+                                  m1.timer = 0;
                                   console.log('inventaire joueur 3 : ', player3.inv);
                                   console.log('inventaire machine 1 : ', m1.inv);
                                 },
@@ -2434,13 +2811,13 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (m1.inv == "biereMachine2"){
+            else if (m1.inv == "biereMachine2" && m2.inv == 0 && m1.timer == 0){
               dispArrow.setFrame(1);
               dispValid1.setFrame(0);
-              dispEau.setFrame(0);
+              dispEau.setFrame(1);
               dispMaltCon.setFrame(0);
               timer1.setFrame(0);
-              m1.inv = 0;
+              m1.inv = "eau";
               m2.inv = "biereMachine2";
               dispValid5.setFrame(1);
               console.log('inventaire machine 1 : ', m1.inv);
@@ -2452,27 +2829,19 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (player3.inv == "eau" && m1.inv == 0){
-              player3.inv = 0;
-              m1.inv = "eau";
-              dispEau.setFrame(1);
-              console.log('inventaire joueur 3 : ', player3.inv);
-              console.log('inventaire machine 1 : ', m1.inv);
-            }
-            else if (player3.inv == "maltCon" && m1.inv == 0) {
-              player3.inv = 0;
-              dispMaltCon.setFrame(1);
-              m1.inv = "maltCon";
-              console.log('inventaire joueur 1 : ', player3.inv);
-              console.log('inventaire machine 1 : ', m1.inv);
-            }
-
+          }
+  //----------------------Choix Houblon---------------------------
+          else if ((bodyA.id == '28' && bodyB.id == '32') && (player3.pad.buttons[2].pressed)) {
+              if (m2.inv == "biereMachine2") {
+                m2.inv = "houblon";
+                dispHoublon.setFrame(1);
+              }
           }
   //-----------------------Réfrigérant---------------------------
-          else if ((bodyA.id == '18' && bodyB.id == '23') && (player3.pad.buttons[2].pressed)) {
-            if (player3.inv == 0 && m2.inv == "biereMachine2"){
-              player3.inv = 0;
+          else if ((bodyA.id == '24' && bodyB.id == '28') && (player3.pad.buttons[2].pressed)) {
+            if (m2.inv == "biereMachine2" && m2.timer == 0){
               console.log("En préparation !!");
+              m2.timer = 1;
               setTimeout(
                 () => {
                   timer2.setFrame(1);
@@ -2491,6 +2860,7 @@ class map3 extends Phaser.Scene{
                                   console.log("Prêt !!");
                                   dispValid2.setFrame(1);
                                   m2.inv = "biereNoHoublon";
+                                  m2.timer = 0;
                                   console.log('inventaire joueur 3 : ', player3.inv);
                                   console.log('inventaire machine 2 : ', m2.inv);
                                 },
@@ -2509,7 +2879,7 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (m2.inv == "biereNoHoublon"){
+            else if (m2.inv == "biereNoHoublon" && m3.inv == 0 && m2.timer == 0){
               m2.inv = 0;
               m3.inv = "biereNoHoublon";
               dispValid5.setFrame(0);
@@ -2527,9 +2897,9 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (player3.inv == "houblon" && m2.inv == "biereMachine2"){
-              player3.inv = 0;
+            else if (m2.inv == "houblon" && m2.timer == 0){
               console.log("En préparation !!");
+              m2.timer = 1;
               dispHoublon.setFrame(1);
               setTimeout(
                 () => {
@@ -2549,6 +2919,7 @@ class map3 extends Phaser.Scene{
                                   console.log("Prêt !!");
                                   dispValid2.setFrame(1);
                                   m2.inv = "biereHoublon";
+                                  m2.timer = 0;
                                   console.log('inventaire joueur 3 : ', player3.inv);
                                   console.log('inventaire machine 2 : ', m2.inv);
                                 },
@@ -2567,7 +2938,7 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (m2.inv == "biereHoublon"){
+            else if (m2.inv == "biereHoublon" && m3.inv == 0 && m2.timer == 0){
               m2.inv = 0;
               m3.inv = "biereHoublon";
               dispValid5.setFrame(0);
@@ -2586,11 +2957,22 @@ class map3 extends Phaser.Scene{
               );
             }
           }
+  //-----------------------Choix Levure--------------------------------
+          else if ((bodyA.id == '28' && bodyB.id == '44') && (player3.pad.buttons[2].pressed)) {
+              if (m3.inv == "biereHoublon") {
+                m3.inv = "biereHoublon1";
+                dispSucre.setFrame(1);
+              }
+              else if (m3.inv == "biereNoHoublon") {
+                m3.inv = "biereNoHoublon1";
+                dispSucre.setFrame(1);
+              }
+          }
   //-----------------------Filtrage--------------------------------
-          else if ((bodyA.id == '19' && bodyB.id == '23') && (player3.pad.buttons[2].pressed)) {
-            if (player3.inv == 0 && m3.inv == "biereNoHoublon"){
-              player3.inv = 0;
+          else if ((bodyA.id == '23' && bodyB.id == '28') && (player3.pad.buttons[2].pressed)) {
+            if (m3.inv == "biereNoHoublon" && m3.timer == 0){
               console.log("En préparation !!");
+              m3.timer = 1;
               setTimeout(
                 () => {
                   timer3.setFrame(1);
@@ -2609,6 +2991,7 @@ class map3 extends Phaser.Scene{
                                   dispValid3.setFrame(1);
                                   console.log("Prêt !!");
                                   m3.inv = "biereNoHoublonNoLevure";
+                                  m3.timer = 0;
                                   console.log('inventaire joueur 3 : ', player3.inv);
                                   console.log('inventaire machine 3 : ', m3.inv);
                                 },
@@ -2627,19 +3010,19 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (m3.inv == "biereNoHoublonNoLevure" && player3.inv == 0) {
+            else if (m3.inv == "biereNoHoublonNoLevure" && player3.inv == 0 && m3.timer == 0) {
               dispValid3.setFrame(0);
               timer3.setFrame(0);
               player3.inv = "biereNoHoublonNoLevure";
               m3.inv = 0;
               dispValid6.setFrame(0);
-              console.log('inventaire joueur 3 : ', player3.inv);
+              console.log('inventaire joueur 1 : ', player3.inv);
               console.log('inventaire machine 3 : ', m3.inv);
             }
 
-            else if (player3.inv == 0 && m3.inv == "biereHoublon"){
-              player3.inv = 0;
+            else if (m3.inv == "biereHoublon" && m3.timer == 0){
               console.log("En préparation !!");
+              m3.timer = 1;
               setTimeout(
                 () => {
                   timer3.setFrame(1);
@@ -2658,6 +3041,7 @@ class map3 extends Phaser.Scene{
                                   dispValid3.setFrame(1);
                                   console.log("Prêt !!");
                                   m3.inv = "biereHoublonNoLevure";
+                                  m3.timer = 0;
                                   console.log('inventaire joueur 3 : ', player3.inv);
                                   console.log('inventaire machine 3 : ', m3.inv);
                                 },
@@ -2676,19 +3060,19 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (m3.inv == "biereHoublonNoLevure" && player3.inv == 0) {
+            else if (m3.inv == "biereHoublonNoLevure" && player3.inv == 0 && m3.timer == 0) {
               dispValid3.setFrame(0);
               timer3.setFrame(0);
               player3.inv = "biereHoublonNoLevure";
               m3.inv = 0;
               dispValid6.setFrame(0);
-              console.log('inventaire joueur 1 : ', player3.inv);
+              console.log('inventaire joueur 3 : ', player3.inv);
               console.log('inventaire machine 3 : ', m3.inv);
             }
-            else if (player3.inv == "levure" && m3.inv == "biereNoHoublon"){
+            else if (m3.inv == "biereNoHoublon1" && m3.timer == 0){
               player3.inv = 0;
-              dispSucre.setFrame(1);
               console.log("En préparation !!");
+              m3.timer = 1;
               setTimeout(
                 () => {
                   timer3.setFrame(1);
@@ -2707,6 +3091,7 @@ class map3 extends Phaser.Scene{
                                   dispValid3.setFrame(1);
                                   console.log("Prêt !!");
                                   m3.inv = "biereNoHoublonLevure";
+                                  m3.timer = 0;
                                   console.log('inventaire joueur 3 : ', player3.inv);
                                   console.log('inventaire machine 3 : ', m3.inv);
                                 },
@@ -2725,21 +3110,22 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (m3.inv == "biereNoHoublonLevure" && player3.inv == 0) {
+            else if (m3.inv == "biereNoHoublonLevure" && player3.inv == 0 && m3.timer == 0) {
               timer3.setFrame(0);
               dispValid3.setFrame(0);
               dispSucre.setFrame(0);
               dispValid6.setFrame(0);
               player3.inv = "biereNoHoublonLevure";
               m3.inv = 0;
-              console.log('inventaire joueur 1 : ', player3.inv);
+              console.log('inventaire joueur 3 : ', player3.inv);
               console.log('inventaire broyeur : ', m3.inv);
             }
 
-            else if (player3.inv == "levure" && m3.inv == "biereHoublon"){
+            else if (m3.inv == "biereHoublon1" && m3.timer == 0){
               player3.inv = 0;
               dispSucre.setFrame(1);
               console.log("En préparation !!");
+              m3.timer = 1;
               setTimeout(
                 () => {
                   timer3.setFrame(1);
@@ -2758,6 +3144,7 @@ class map3 extends Phaser.Scene{
                                   timer3.setFrame(5);
                                   console.log("Prêt !!");
                                   m3.inv = "biereHoublonLevure";
+                                  m3.timer = 0;
                                   console.log('inventaire joueur 3 : ', player3.inv);
                                   console.log('inventaire machine 3 : ', m3.inv);
                                 },
@@ -2776,7 +3163,7 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (m3.inv == "biereHoublonLevure" && player3.inv == 0) {
+            else if (m3.inv == "biereHoublonLevure" && player3.inv == 0 && m3.timer == 0) {
               timer3.setFrame(0);
               dispValid3.setFrame(0);
               dispSucre.setFrame(0);
@@ -2787,12 +3174,131 @@ class map3 extends Phaser.Scene{
               console.log('inventaire machine 3 : ', m3.inv);
             }
           }
+  //-----------------------Controle qualité--------------------------------
+          else if ((bodyA.id == '18' && bodyB.id == '28') && (player3.pad.buttons[2].pressed)) {
+              if (player3.inv == "biereHoublonLevure") {
+                let good = getRandomInt(10);
+                if(good == 0){
+                  player3.inv = 0;
+                  dispValid7.setFrame(2);
+                  setTimeout(
+                    () => {
+                      dispValid7.setFrame(0);
+                    },
+                    1 * 1000
+                  );
+                }
+                else{
+                  player3.inv = "biereHoublonLevure2";
+                  dispValid7.setFrame(1);
+                  setTimeout(
+                    () => {
+                      dispValid7.setFrame(0);
+                    },
+                    1 * 1000
+                  );
+                }
+              }
+              else if (player3.inv == "biereNoHoublonLevure") {
+                let good = getRandomInt(10);
+                if(good == 0){
+                  player3.inv = 0;
+                  dispValid7.setFrame(2);
+                  setTimeout(
+                    () => {
+                      dispValid7.setFrame(0);
+                    },
+                    1 * 1000
+                  );
+                }
+                else{
+                  player3.inv = "biereNoHoublonLevure2";
+                  dispValid7.setFrame(1);
+                  setTimeout(
+                    () => {
+                      dispValid7.setFrame(0);
+                    },
+                    1 * 1000
+                  );
+                }
+              }
+              else if (player3.inv == "biereHoublonNoLevure") {
+                let good = getRandomInt(10);
+                if(good == 0){
+                  player3.inv = 0;
+                  dispValid7.setFrame(2);
+                  setTimeout(
+                    () => {
+                      dispValid7.setFrame(0);
+                    },
+                    1 * 1000
+                  );
+                }
+                else{
+                  player3.inv = "biereHoublonNoLevure2";
+                  dispValid7.setFrame(1);
+                  setTimeout(
+                    () => {
+                      dispValid7.setFrame(0);
+                    },
+                    1 * 1000
+                  );
+                }
+              }
+              else if (player3.inv == "biereNoHoublonNoLevure") {
+                let good = getRandomInt(10);
+                if(good == 0){
+                  dispValid7.setFrame(2);
+                  player3.inv = 0;
+                  setTimeout(
+                    () => {
+                      dispValid7.setFrame(0);
+                    },
+                    1 * 1000
+                  );
+                }
+                else{
+                  player3.inv = "biereNoHoublonNoLevure2";
+                  dispValid7.setFrame(1);
+                  setTimeout(
+                    () => {
+                      dispValid7.setFrame(0);
+                    },
+                    1 * 1000
+                  );
+                }
+              }
+          }
   //----------------------Livraison---------------------------------
-          else if ((bodyA.id == '12' && bodyB.id == '23')) {
-            if(player3.inv == "biereHoublonLevure"){
+          else if ((bodyA.id == '14' && bodyB.id == '28')) {
+            if(player3.inv == "biereHoublonLevure2"){
               player3.inv = "0";
               console.log('inventaire joueur 3 : ', player3.inv);
               dispValid4.setFrame(1);
+              for(let i = 0; i < liste.length; i++){
+                if(liste[i] == "biereHoublonLevure"){
+                  if (i == 0){
+                    score += commande1.temps;
+                  }
+                  else if (i == 1){
+                    score += commande2.temps;
+                  }
+                  else if (i == 2){
+                    score += commande3.temps;
+                  }
+                  else if (i == 3){
+                    score += commande4.temps;
+                  }
+                  liste.splice(i, 1);
+                  commande1.temps = commande2.temps;
+                  commande2.temps = commande3.temps;
+                  commande3.temps = commande4.temps;
+                  commande4.temps = 0;
+                  commande4.img.setFrame(0);
+                  break;
+                }
+              }
+              console.log(score);
               setTimeout(
                 () => {
                   dispValid4.setFrame(0);
@@ -2800,10 +3306,34 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if(player3.inv == "biereNoHoublonNoLevure"){
+            else if(player3.inv == "biereNoHoublonNoLevure2"){
               player3.inv = "0";
               console.log('inventaire joueur 3 : ', player3.inv);
               dispValid4.setFrame(1);
+              for(let i = 0; i < liste.length; i++){
+                if(liste[i] == "biereNoHoublonNoLevure"){
+                  if (i == 0){
+                    score += commande1.temps;
+                  }
+                  else if (i == 1){
+                    score += commande2.temps;
+                  }
+                  else if (i == 2){
+                    score += commande3.temps;
+                  }
+                  else if (i == 3){
+                    score += commande4.temps;
+                  }
+                  liste.splice(i, 1);
+                  commande1.temps = commande2.temps;
+                  commande2.temps = commande3.temps;
+                  commande3.temps = commande4.temps;
+                  commande4.temps = 0;
+                  commande4.img.setFrame(0);
+                  break;
+                }
+              }
+              console.log(score);
               setTimeout(
                 () => {
                   dispValid4.setFrame(0);
@@ -2811,10 +3341,34 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if(player3.inv == "biereNoHoublonLevure"){
-              player3.inv = "0";
+            else if(player3.inv == "biereNoHoublonLevure2"){
+              player1.inv = "0";
               console.log('inventaire joueur 1 : ', player3.inv);
               dispValid4.setFrame(1);
+              for(let i = 0; i < liste.length; i++){
+                if(liste[i] == "biereNoHoublonLevure"){
+                  if (i == 0){
+                    score += commande1.temps;
+                  }
+                  else if (i == 1){
+                    score += commande2.temps;
+                  }
+                  else if (i == 2){
+                    score += commande3.temps;
+                  }
+                  else if (i == 3){
+                    score += commande4.temps;
+                  }
+                  liste.splice(i, 1);
+                  commande1.temps = commande2.temps;
+                  commande2.temps = commande3.temps;
+                  commande3.temps = commande4.temps;
+                  commande4.temps = 0;
+                  commande4.img.setFrame(0);
+                  break;
+                }
+              }
+              console.log(score);
               setTimeout(
                 () => {
                   dispValid4.setFrame(0);
@@ -2822,10 +3376,34 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if(player3.inv == "biereHoublonNoLevure"){
+            else if(player3.inv == "biereHoublonNoLevure2"){
               player3.inv = "0";
               console.log('inventaire joueur 1 : ', player3.inv);
               dispValid4.setFrame(1);
+              for(let i = 0; i < liste.length; i++){
+                if(liste[i] == "biereHoublonNoLevure"){
+                  if (i == 0){
+                    score += commande1.temps;
+                  }
+                  else if (i == 1){
+                    score += commande2.temps;
+                  }
+                  else if (i == 2){
+                    score += commande3.temps;
+                  }
+                  else if (i == 3){
+                    score += commande4.temps;
+                  }
+                  liste.splice(i, 1);
+                  commande1.temps = commande2.temps;
+                  commande2.temps = commande3.temps;
+                  commande3.temps = commande4.temps;
+                  commande4.temps = 0;
+                  commande4.img.setFrame(0);
+                  break;
+                }
+              }
+              console.log(score);
               setTimeout(
                 () => {
                   dispValid4.setFrame(0);
@@ -2835,47 +3413,21 @@ class map3 extends Phaser.Scene{
             }
           }
         }
-  //-----------------------------------JOUEUR 4---------------------------------------------------------------------------------------------------------------------------------------
+  //-----------------------------------JOUEUR 1-----------------------------------------------------------------------------------------------------------------------------
         if(player4.pad != undefined){
   //---------------------Poubelle----------------------------
-          if ((bodyA.id == '24' && bodyB.id == '30') && (player4.pad.buttons[2].pressed)) {
+          if (bodyB.id == '28' && (bodyA.id == '20' || bodyA.id == '21' || bodyA.id == '22') && (player4.pad.buttons[2].pressed)) {
               if (player4.inv != 0) {
                 player4.inv = 0;
                 console.log('inventaire joueur 4 : ', player4.inv);
               }
           }
-  //------------------matières premières----------------------
-          else if ((bodyA.id == '24' && bodyB.id == '28') && (player4.pad.buttons[2].pressed)) {
-            if (player4.inv == 0) {
-              player4.inv = "malt";
-              console.log('inventaire joueur 4 : ', player4.inv);
-              console.log(temps);
-            }
-          }
-          else if ((bodyA.id == '24' && bodyB.id == '25') && (player4.pad.buttons[2].pressed)) {
-              if (player1.inv == 0) {
-                player1.inv = "eau";
-                console.log('inventaire joueur 4 : ', player4.inv);
-              }
-          }
-          else if ((bodyA.id == '24' && bodyB.id == '26') && (player4.pad.buttons[2].pressed)) {
-              if (player4.inv == 0) {
-                player4.inv = "levure";
-                console.log('inventaire joueur 1 : ', player4.inv);
-              }
-          }
-          else if ((bodyA.id == '24' && bodyB.id == '27') && (player4.pad.buttons[2].pressed)) {
-              if (player4.inv == 0) {
-                player4.inv = "houblon";
-                console.log('inventaire joueur 4 : ', player4.inv);
-              }
-          }
+
   //-------------------Concassage machine1-----------------------
-          else if ((bodyA.id == '24' && bodyB.id == '29') && (player4.pad.buttons[2].pressed)) {
-            if (player4.inv == "malt") {
+          else if ((bodyA.id == '28' && bodyB.id == '43') && (player4.pad.buttons[2].pressed)) {
+            if (machine3.inv == "malt" && machine3.timer == 0) {
               console.log("En préparation !!");
-              player4.inv = 0;
-              dispMalt.setFrame(1);
+              machine3.timer = 1;
               setTimeout(
                 () => {
                   timer.setFrame(1);
@@ -2894,6 +3446,7 @@ class map3 extends Phaser.Scene{
                                   dispValid.setFrame(1);
                                   console.log("Prêt !!");
                                   machine3.inv = "maltCon";
+                                  machine3.timer = 0;
                                   console.log('inventaire joueur 4 : ', player4.inv);
                                   console.log('inventaire broyeur : ', machine3.inv);
                                 },
@@ -2912,20 +3465,21 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (machine3.inv == "maltCon" && player4.inv == 0) {
+            else if (machine3.inv == "maltCon" && player4.inv == 0 && machine3.timer == 0) {
               timer.setFrame(0);
               dispValid.setFrame(0);
-              dispMalt.setFrame(0);
+              dispMalt.setFrame(1);
               player4.inv = "maltCon";
-              machine3.inv = 0;
+              machine3.inv = "malt";
               console.log('inventaire joueur 4 : ', player4.inv);
               console.log('inventaire broyeur : ', machine3.inv);
             }
           }
   //-------------------Empatage----------------------------------
-          else if ((bodyA.id == '17' && bodyB.id == '24') && (player4.pad.buttons[2].pressed)) {
-            if ((player4.inv == "eau" && m1.inv == "maltCon")||(player4.inv == "maltCon" && m1.inv == "eau")){
+          else if ((bodyA.id == '28' && bodyB.id == '34') && (player4.pad.buttons[2].pressed)) {
+            if (player4.inv == "maltCon" && m1.inv == "eau" && m1.timer == 0){
               console.log("En préparation !!");
+              m1.timer = 1;
               player4.inv = 0;
               dispEau.setFrame(1);
               dispMaltCon.setFrame(1);
@@ -2947,6 +3501,7 @@ class map3 extends Phaser.Scene{
                                   console.log("Prêt !!");
                                   dispValid1.setFrame(1);
                                   m1.inv = "biereMachine2";
+                                  m1.timer = 0;
                                   console.log('inventaire joueur 4 : ', player4.inv);
                                   console.log('inventaire machine 1 : ', m1.inv);
                                 },
@@ -2965,13 +3520,13 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (m1.inv == "biereMachine2"){
+            else if (m1.inv == "biereMachine2" && m2.inv == 0 && m1.timer == 0){
               dispArrow.setFrame(1);
               dispValid1.setFrame(0);
-              dispEau.setFrame(0);
+              dispEau.setFrame(1);
               dispMaltCon.setFrame(0);
               timer1.setFrame(0);
-              m1.inv = 0;
+              m1.inv = "eau";
               m2.inv = "biereMachine2";
               dispValid5.setFrame(1);
               console.log('inventaire machine 1 : ', m1.inv);
@@ -2983,27 +3538,19 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (player4.inv == "eau" && m1.inv == 0){
-              player4.inv = 0;
-              m1.inv = "eau";
-              dispEau.setFrame(1);
-              console.log('inventaire joueur 4 : ', player4.inv);
-              console.log('inventaire machine 1 : ', m1.inv);
-            }
-            else if (player4.inv == "maltCon" && m1.inv == 0) {
-              player4.inv = 0;
-              dispMaltCon.setFrame(1);
-              m1.inv = "maltCon";
-              console.log('inventaire joueur 4 : ', player4.inv);
-              console.log('inventaire machine 1 : ', m1.inv);
-            }
-
+          }
+  //----------------------Choix Houblon---------------------------
+          else if ((bodyA.id == '28' && bodyB.id == '32') && (player4.pad.buttons[2].pressed)) {
+              if (m2.inv == "biereMachine2") {
+                m2.inv = "houblon";
+                dispHoublon.setFrame(1);
+              }
           }
   //-----------------------Réfrigérant---------------------------
-          else if ((bodyA.id == '18' && bodyB.id == '24') && (player4.pad.buttons[2].pressed)) {
-            if (player4.inv == 0 && m2.inv == "biereMachine2"){
-              player4.inv = 0;
+          else if ((bodyA.id == '24' && bodyB.id == '28') && (player4.pad.buttons[2].pressed)) {
+            if (m2.inv == "biereMachine2" && m2.timer == 0){
               console.log("En préparation !!");
+              m2.timer = 1;
               setTimeout(
                 () => {
                   timer2.setFrame(1);
@@ -3022,6 +3569,7 @@ class map3 extends Phaser.Scene{
                                   console.log("Prêt !!");
                                   dispValid2.setFrame(1);
                                   m2.inv = "biereNoHoublon";
+                                  m2.timer = 0;
                                   console.log('inventaire joueur 4 : ', player4.inv);
                                   console.log('inventaire machine 2 : ', m2.inv);
                                 },
@@ -3040,7 +3588,7 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (m2.inv == "biereNoHoublon"){
+            else if (m2.inv == "biereNoHoublon" && m3.inv == 0 && m2.timer == 0){
               m2.inv = 0;
               m3.inv = "biereNoHoublon";
               dispValid5.setFrame(0);
@@ -3058,9 +3606,9 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (player4.inv == "houblon" && m2.inv == "biereMachine2"){
-              player4.inv = 0;
+            else if (m2.inv == "houblon" && m2.timer == 0){
               console.log("En préparation !!");
+              m2.timer = 1;
               dispHoublon.setFrame(1);
               setTimeout(
                 () => {
@@ -3080,6 +3628,7 @@ class map3 extends Phaser.Scene{
                                   console.log("Prêt !!");
                                   dispValid2.setFrame(1);
                                   m2.inv = "biereHoublon";
+                                  m2.timer = 0;
                                   console.log('inventaire joueur 4 : ', player4.inv);
                                   console.log('inventaire machine 2 : ', m2.inv);
                                 },
@@ -3098,7 +3647,7 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (m2.inv == "biereHoublon"){
+            else if (m2.inv == "biereHoublon" && m3.inv == 0 && m2.timer == 0){
               m2.inv = 0;
               m3.inv = "biereHoublon";
               dispValid5.setFrame(0);
@@ -3117,11 +3666,22 @@ class map3 extends Phaser.Scene{
               );
             }
           }
+  //-----------------------Choix Levure--------------------------------
+          else if ((bodyA.id == '28' && bodyB.id == '44') && (player4.pad.buttons[2].pressed)) {
+              if (m3.inv == "biereHoublon") {
+                m3.inv = "biereHoublon1";
+                dispSucre.setFrame(1);
+              }
+              else if (m3.inv == "biereNoHoublon") {
+                m3.inv = "biereNoHoublon1";
+                dispSucre.setFrame(1);
+              }
+          }
   //-----------------------Filtrage--------------------------------
-          else if ((bodyA.id == '19' && bodyB.id == '24') && (player4.pad.buttons[2].pressed)) {
-            if (player4.inv == 0 && m3.inv == "biereNoHoublon"){
-              player4.inv = 0;
+          else if ((bodyA.id == '23' && bodyB.id == '28') && (player4.pad.buttons[2].pressed)) {
+            if (m3.inv == "biereNoHoublon" && m3.timer == 0){
               console.log("En préparation !!");
+              m3.timer = 1;
               setTimeout(
                 () => {
                   timer3.setFrame(1);
@@ -3140,6 +3700,7 @@ class map3 extends Phaser.Scene{
                                   dispValid3.setFrame(1);
                                   console.log("Prêt !!");
                                   m3.inv = "biereNoHoublonNoLevure";
+                                  m3.timer = 0;
                                   console.log('inventaire joueur 4 : ', player4.inv);
                                   console.log('inventaire machine 3 : ', m3.inv);
                                 },
@@ -3158,19 +3719,19 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (m3.inv == "biereNoHoublonNoLevure" && player4.inv == 0) {
+            else if (m3.inv == "biereNoHoublonNoLevure" && player4.inv == 0 && m3.timer == 0) {
               dispValid3.setFrame(0);
               timer3.setFrame(0);
               player4.inv = "biereNoHoublonNoLevure";
               m3.inv = 0;
               dispValid6.setFrame(0);
-              console.log('inventaire joueur 1 : ', player4.inv);
+              console.log('inventaire joueur 4 : ', player4.inv);
               console.log('inventaire machine 3 : ', m3.inv);
             }
 
-            else if (player4.inv == 0 && m3.inv == "biereHoublon"){
-              player4.inv = 0;
+            else if (m3.inv == "biereHoublon" && m3.timer == 0){
               console.log("En préparation !!");
+              m3.timer = 1;
               setTimeout(
                 () => {
                   timer3.setFrame(1);
@@ -3189,6 +3750,110 @@ class map3 extends Phaser.Scene{
                                   dispValid3.setFrame(1);
                                   console.log("Prêt !!");
                                   m3.inv = "biereHoublonNoLevure";
+                                  m3.timer = 0;
+                                  console.log('inventaire joueur 4 : ', player4.inv);
+                                  console.log('inventaire machine 3 : ', m3.inv);
+                                },
+                                1 * 1000
+                              );
+                            },
+                            1 * 1000
+                          );
+                        },
+                        1 * 1000
+                      );
+                    },
+                    1 * 1000
+                  );
+                },
+                1 * 1000
+              );
+            }
+            else if (m3.inv == "biereHoublonNoLevure" && player1.inv == 0 && m3.timer == 0) {
+              dispValid3.setFrame(0);
+              timer3.setFrame(0);
+              player4.inv = "biereHoublonNoLevure";
+              m3.inv = 0;
+              dispValid6.setFrame(0);
+              console.log('inventaire joueur 4 : ', player4.inv);
+              console.log('inventaire machine 3 : ', m3.inv);
+            }
+            else if (m3.inv == "biereNoHoublon1" && m3.timer == 0){
+              player4.inv = 0;
+              console.log("En préparation !!");
+              m3.timer = 1;
+              setTimeout(
+                () => {
+                  timer3.setFrame(1);
+                  setTimeout(
+                    () => {
+                      timer3.setFrame(2);
+                      setTimeout(
+                        () => {
+                          timer3.setFrame(3);
+                          setTimeout(
+                            () => {
+                              timer3.setFrame(4);
+                              setTimeout(
+                                () => {
+                                  timer3.setFrame(5);
+                                  dispValid3.setFrame(1);
+                                  console.log("Prêt !!");
+                                  m3.inv = "biereNoHoublonLevure";
+                                  m3.timer = 0;
+                                  console.log('inventaire joueur 4 : ', player4.inv);
+                                  console.log('inventaire machine 3 : ', m3.inv);
+                                },
+                                1 * 1000
+                              );
+                            },
+                            1 * 1000
+                          );
+                        },
+                        1 * 1000
+                      );
+                    },
+                    1 * 1000
+                  );
+                },
+                1 * 1000
+              );
+            }
+            else if (m3.inv == "biereNoHoublonLevure" && player1.inv == 0 && m3.timer == 0) {
+              timer3.setFrame(0);
+              dispValid3.setFrame(0);
+              dispSucre.setFrame(0);
+              dispValid6.setFrame(0);
+              player4.inv = "biereNoHoublonLevure";
+              m3.inv = 0;
+              console.log('inventaire joueur 4 : ', player4.inv);
+              console.log('inventaire broyeur : ', m3.inv);
+            }
+
+            else if (m3.inv == "biereHoublon1" && m3.timer == 0){
+              player4.inv = 0;
+              dispSucre.setFrame(1);
+              console.log("En préparation !!");
+              m3.timer = 1;
+              setTimeout(
+                () => {
+                  timer3.setFrame(1);
+                  setTimeout(
+                    () => {
+                      timer3.setFrame(2);
+                      setTimeout(
+                        () => {
+                          timer3.setFrame(3);
+                          setTimeout(
+                            () => {
+                              timer3.setFrame(4);
+                              setTimeout(
+                                () => {
+                                  dispValid3.setFrame(1);
+                                  timer3.setFrame(5);
+                                  console.log("Prêt !!");
+                                  m3.inv = "biereHoublonLevure";
+                                  m3.timer = 0;
                                   console.log('inventaire joueur 1 : ', player4.inv);
                                   console.log('inventaire machine 3 : ', m3.inv);
                                 },
@@ -3207,123 +3872,142 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if (m3.inv == "biereHoublonNoLevure" && player4.inv == 0) {
-              dispValid3.setFrame(0);
-              timer3.setFrame(0);
-              player4.inv = "biereHoublonNoLevure";
-              m3.inv = 0;
-              dispValid6.setFrame(0);
-              console.log('inventaire joueur 4 : ', player4.inv);
-              console.log('inventaire machine 3 : ', m3.inv);
-            }
-            else if (player4.inv == "levure" && m3.inv == "biereNoHoublon"){
-              player4.inv = 0;
-              dispSucre.setFrame(1);
-              console.log("En préparation !!");
-              setTimeout(
-                () => {
-                  timer3.setFrame(1);
-                  setTimeout(
-                    () => {
-                      timer3.setFrame(2);
-                      setTimeout(
-                        () => {
-                          timer3.setFrame(3);
-                          setTimeout(
-                            () => {
-                              timer3.setFrame(4);
-                              setTimeout(
-                                () => {
-                                  timer3.setFrame(5);
-                                  dispValid3.setFrame(1);
-                                  console.log("Prêt !!");
-                                  m3.inv = "biereNoHoublonLevure";
-                                  console.log('inventaire joueur 4 : ', player4.inv);
-                                  console.log('inventaire machine 3 : ', m3.inv);
-                                },
-                                1 * 1000
-                              );
-                            },
-                            1 * 1000
-                          );
-                        },
-                        1 * 1000
-                      );
-                    },
-                    1 * 1000
-                  );
-                },
-                1 * 1000
-              );
-            }
-            else if (m3.inv == "biereNoHoublonLevure" && player4.inv == 0) {
-              timer3.setFrame(0);
-              dispValid3.setFrame(0);
-              dispSucre.setFrame(0);
-              dispValid6.setFrame(0);
-              player4.inv = "biereNoHoublonLevure";
-              m3.inv = 0;
-              console.log('inventaire joueur 4 : ', player4.inv);
-              console.log('inventaire broyeur : ', m3.inv);
-            }
-
-            else if (player4.inv == "levure" && m3.inv == "biereHoublon"){
-              player4.inv = 0;
-              dispSucre.setFrame(1);
-              console.log("En préparation !!");
-              setTimeout(
-                () => {
-                  timer3.setFrame(1);
-                  setTimeout(
-                    () => {
-                      timer3.setFrame(2);
-                      setTimeout(
-                        () => {
-                          timer3.setFrame(3);
-                          setTimeout(
-                            () => {
-                              timer3.setFrame(4);
-                              setTimeout(
-                                () => {
-                                  dispValid3.setFrame(1);
-                                  timer3.setFrame(5);
-                                  console.log("Prêt !!");
-                                  m3.inv = "biereHoublonLevure";
-                                  console.log('inventaire joueur 4 : ', player4.inv);
-                                  console.log('inventaire machine 3 : ', m3.inv);
-                                },
-                                1 * 1000
-                              );
-                            },
-                            1 * 1000
-                          );
-                        },
-                        1 * 1000
-                      );
-                    },
-                    1 * 1000
-                  );
-                },
-                1 * 1000
-              );
-            }
-            else if (m3.inv == "biereHoublonLevure" && player4.inv == 0) {
+            else if (m3.inv == "biereHoublonLevure" && player1.inv == 0 && m3.timer == 0) {
               timer3.setFrame(0);
               dispValid3.setFrame(0);
               dispSucre.setFrame(0);
               dispValid6.setFrame(0);
               player4.inv = "biereHoublonLevure";
               m3.inv = 0;
-              console.log('inventaire joueur 4 : ', player4.inv);
+              console.log('inventaire joueur 1 : ', player4.inv);
               console.log('inventaire machine 3 : ', m3.inv);
             }
           }
+  //-----------------------Controle qualité--------------------------------
+          else if ((bodyA.id == '18' && bodyB.id == '28') && (player4.pad.buttons[2].pressed)) {
+              if (player4.inv == "biereHoublonLevure") {
+                let good = getRandomInt(10);
+                if(good == 0){
+                  player4.inv = 0;
+                  dispValid7.setFrame(2);
+                  setTimeout(
+                    () => {
+                      dispValid7.setFrame(0);
+                    },
+                    1 * 1000
+                  );
+                }
+                else{
+                  player4.inv = "biereHoublonLevure2";
+                  dispValid7.setFrame(1);
+                  setTimeout(
+                    () => {
+                      dispValid7.setFrame(0);
+                    },
+                    1 * 1000
+                  );
+                }
+              }
+              else if (player4.inv == "biereNoHoublonLevure") {
+                let good = getRandomInt(10);
+                if(good == 0){
+                  player4.inv = 0;
+                  dispValid7.setFrame(2);
+                  setTimeout(
+                    () => {
+                      dispValid7.setFrame(0);
+                    },
+                    1 * 1000
+                  );
+                }
+                else{
+                  player4.inv = "biereNoHoublonLevure2";
+                  dispValid7.setFrame(1);
+                  setTimeout(
+                    () => {
+                      dispValid7.setFrame(0);
+                    },
+                    1 * 1000
+                  );
+                }
+              }
+              else if (player4.inv == "biereHoublonNoLevure") {
+                let good = getRandomInt(10);
+                if(good == 0){
+                  player4.inv = 0;
+                  dispValid7.setFrame(2);
+                  setTimeout(
+                    () => {
+                      dispValid7.setFrame(0);
+                    },
+                    1 * 1000
+                  );
+                }
+                else{
+                  player4.inv = "biereHoublonNoLevure2";
+                  dispValid7.setFrame(1);
+                  setTimeout(
+                    () => {
+                      dispValid7.setFrame(0);
+                    },
+                    1 * 1000
+                  );
+                }
+              }
+              else if (player4.inv == "biereNoHoublonNoLevure") {
+                let good = getRandomInt(10);
+                if(good == 0){
+                  dispValid7.setFrame(2);
+                  player4.inv = 0;
+                  setTimeout(
+                    () => {
+                      dispValid7.setFrame(0);
+                    },
+                    1 * 1000
+                  );
+                }
+                else{
+                  player4.inv = "biereNoHoublonNoLevure2";
+                  dispValid7.setFrame(1);
+                  setTimeout(
+                    () => {
+                      dispValid7.setFrame(0);
+                    },
+                    1 * 1000
+                  );
+                }
+              }
+          }
   //----------------------Livraison---------------------------------
-          else if ((bodyA.id == '12' && bodyB.id == '24')) {
-            if(player4.inv == "biereHoublonLevure"){
+          else if ((bodyA.id == '14' && bodyB.id == '28')) {
+            if(player4.inv == "biereHoublonLevure2"){
               player4.inv = "0";
               console.log('inventaire joueur 4 : ', player4.inv);
               dispValid4.setFrame(1);
+              for(let i = 0; i < liste.length; i++){
+                if(liste[i] == "biereHoublonLevure"){
+                  if (i == 0){
+                    score += commande1.temps;
+                  }
+                  else if (i == 1){
+                    score += commande2.temps;
+                  }
+                  else if (i == 2){
+                    score += commande3.temps;
+                  }
+                  else if (i == 3){
+                    score += commande4.temps;
+                  }
+                  liste.splice(i, 1);
+                  commande1.temps = commande2.temps;
+                  commande2.temps = commande3.temps;
+                  commande3.temps = commande4.temps;
+                  commande4.temps = 0;
+                  commande4.img.setFrame(0);
+                  break;
+                }
+              }
+              console.log(score);
               setTimeout(
                 () => {
                   dispValid4.setFrame(0);
@@ -3331,10 +4015,34 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if(player4.inv == "biereNoHoublonNoLevure"){
+            else if(player4.inv == "biereNoHoublonNoLevure2"){
               player4.inv = "0";
               console.log('inventaire joueur 4 : ', player4.inv);
               dispValid4.setFrame(1);
+              for(let i = 0; i < liste.length; i++){
+                if(liste[i] == "biereNoHoublonNoLevure"){
+                  if (i == 0){
+                    score += commande1.temps;
+                  }
+                  else if (i == 1){
+                    score += commande2.temps;
+                  }
+                  else if (i == 2){
+                    score += commande3.temps;
+                  }
+                  else if (i == 3){
+                    score += commande4.temps;
+                  }
+                  liste.splice(i, 1);
+                  commande1.temps = commande2.temps;
+                  commande2.temps = commande3.temps;
+                  commande3.temps = commande4.temps;
+                  commande4.temps = 0;
+                  commande4.img.setFrame(0);
+                  break;
+                }
+              }
+              console.log(score);
               setTimeout(
                 () => {
                   dispValid4.setFrame(0);
@@ -3342,10 +4050,34 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if(player4.inv == "biereNoHoublonLevure"){
+            else if(player4.inv == "biereNoHoublonLevure2"){
               player4.inv = "0";
-              console.log('inventaire joueur 4 : ', player4.inv);
+              console.log('inventaire joueur 1 : ', player4.inv);
               dispValid4.setFrame(1);
+              for(let i = 0; i < liste.length; i++){
+                if(liste[i] == "biereNoHoublonLevure"){
+                  if (i == 0){
+                    score += commande1.temps;
+                  }
+                  else if (i == 1){
+                    score += commande2.temps;
+                  }
+                  else if (i == 2){
+                    score += commande3.temps;
+                  }
+                  else if (i == 3){
+                    score += commande4.temps;
+                  }
+                  liste.splice(i, 1);
+                  commande1.temps = commande2.temps;
+                  commande2.temps = commande3.temps;
+                  commande3.temps = commande4.temps;
+                  commande4.temps = 0;
+                  commande4.img.setFrame(0);
+                  break;
+                }
+              }
+              console.log(score);
               setTimeout(
                 () => {
                   dispValid4.setFrame(0);
@@ -3353,10 +4085,34 @@ class map3 extends Phaser.Scene{
                 1 * 1000
               );
             }
-            else if(player4.inv == "biereHoublonNoLevure"){
+            else if(player4.inv == "biereHoublonNoLevure2"){
               player4.inv = "0";
-              console.log('inventaire joueur 4 : ', player4.inv);
+              console.log('inventaire joueur 1 : ', player4.inv);
               dispValid4.setFrame(1);
+              for(let i = 0; i < liste.length; i++){
+                if(liste[i] == "biereHoublonNoLevure"){
+                  if (i == 0){
+                    score += commande1.temps;
+                  }
+                  else if (i == 1){
+                    score += commande2.temps;
+                  }
+                  else if (i == 2){
+                    score += commande3.temps;
+                  }
+                  else if (i == 3){
+                    score += commande4.temps;
+                  }
+                  liste.splice(i, 1);
+                  commande1.temps = commande2.temps;
+                  commande2.temps = commande3.temps;
+                  commande3.temps = commande4.temps;
+                  commande4.temps = 0;
+                  commande4.img.setFrame(0);
+                  break;
+                }
+              }
+              console.log(score);
               setTimeout(
                 () => {
                   dispValid4.setFrame(0);
@@ -3366,20 +4122,8 @@ class map3 extends Phaser.Scene{
             }
           }
         }
-
       }
     }, this);
-
-    //Fonction pour récup qui touche
-    function getRootBody(body) {
-        if (body.parent === body) {
-            return body;
-        }
-        while (body.parent !== body) {
-            body = body.parent;
-        }
-        return body;
-    }
   }
   update(){
 
@@ -3923,7 +4667,113 @@ class map3 extends Phaser.Scene{
     else {
       control4.anims.play('manette4',true);
     }
+    function getRandomInt(max) {
+      return Math.floor(Math.random() * max);
+    }
+    function getRandomCommande(liste){
+      random = getRandomInt(4);
+      if(random == 0){
+        liste.push("biereHoublonLevure");
+      }
+      else if(random == 1){
+        liste.push("biereHoublonNoLevure");
+      }
+      else if(random == 2){
+        liste.push("biereNoHoublonLevure");
+      }
+      else if(random == 3){
+        liste.push("biereNoHoublonNoLevure");
+      }
+    }
+    commande1.nom = liste[0];
+    commande2.nom = liste[1];
+    commande3.nom = liste[2];
+    commande4.nom = liste[3];
+    if(commande1.temps <= 0){
+      liste.shift();
+      score -= 5;
+      commande1.temps = commande2.temps;
+      commande2.temps = commande3.temps;
+      commande3.temps = commande4.temps;
+      commande4.temps = 0;
+      commande4.img.setFrame(0);
+    }
+    if (liste.length == 0){
+      getRandomCommande(liste);
+      commande1.temps = 50;
+    }
+    if ((liste.length == 1) && (commande1.temps <= 35)){
+      getRandomCommande(liste);
+      commande2.temps = 50;
+    }
+    if ((liste.length == 2) && (commande2.temps <= 35)){
+      getRandomCommande(liste);
+      commande3.temps = 50;
+    }
+    if ((liste.length == 3) && (commande3.temps <= 35)){
+      getRandomCommande(liste);
+      commande4.temps = 50;
+    }
+    if (commande1.nom == undefined){
+      commande1.img.setFrame(0);
+    }
+    else if (commande1.nom == "biereHoublonLevure"){
+        commande1.img.setFrame(1);
+    }
+    else if (commande1.nom == "biereHoublonNoLevure"){
+        commande1.img.setFrame(2);
+    }
+    else if (commande1.nom == "biereNoHoublonLevure"){
+        commande1.img.setFrame(3);
+    }
+    else if (commande1.nom == "biereNoHoublonNoLevure"){
+        commande1.img.setFrame(4);
+    }
+    if (commande2.nom == undefined){
+      commande2.img.setFrame(0);
+    }
+    else if (commande2.nom == "biereHoublonLevure"){
+        commande2.img.setFrame(1);
+    }
+    else if (commande2.nom == "biereHoublonNoLevure"){
+        commande2.img.setFrame(2);
+    }
+    else if (commande2.nom == "biereNoHoublonLevure"){
+        commande2.img.setFrame(3);
+    }
+    else if (commande2.nom == "biereNoHoublonNoLevure"){
+        commande2.img.setFrame(4);
+    }
+    if (commande3.nom == undefined){
+      commande3.img.setFrame(0);
+    }
+    else if (commande3.nom == "biereHoublonLevure"){
+        commande3.img.setFrame(1);
+    }
+    else if (commande3.nom == "biereHoublonNoLevure"){
+        commande3.img.setFrame(2);
+    }
+    else if (commande3.nom == "biereNoHoublonLevure"){
+        commande3.img.setFrame(3);
+    }
+    else if (commande3.nom == "biereNoHoublonNoLevure"){
+        commande3.img.setFrame(4);
+    }
+    if (commande4.nom == undefined){
+      commande4.img.setFrame(0);
+    }
+    else if (commande4.nom == "biereHoublonLevure"){
+        commande4.img.setFrame(1);
+    }
+    else if (commande4.nom == "biereHoublonNoLevure"){
+        commande4.img.setFrame(2);
+    }
+    else if (commande4.nom == "biereNoHoublonLevure"){
+        commande4.img.setFrame(3);
+    }
+    else if (commande4.nom == "biereNoHoublonNoLevure"){
+        commande4.img.setFrame(4);
+    }
   }
 }
-
 module.exports = {map3};

@@ -67,6 +67,7 @@ class map1 extends Phaser.Scene{
     this.load.image('levure', 'assets/images/pot_levure.png');
     this.load.image('malt', 'assets/images/pot_malt.png');
     this.load.image('water', 'assets/images/pot_eau.png');
+    this.load.image('retour', 'assets/images/retour_menu.png');
   }
 
   create(){
@@ -1133,23 +1134,45 @@ class map1 extends Phaser.Scene{
     }
     function onEvent ()
     {
-        this.initialTime -= 1; // One second
-        text.setText(formatTime(this.initialTime));
-        if (commande1.nom != undefined){
-          commande1.temps -= 1; // One second
-          commande1.text.setText(formatTime(commande1.temps));
+        if (this.initialTime != 0){
+          this.initialTime -= 1; // One second
+          text.setText(formatTime(this.initialTime));
         }
-        if (commande2.nom != undefined){
-          commande2.temps -= 1; // One second
-          commande2.text.setText(formatTime(commande2.temps));
+        else{
+          var r2 = this.add.rectangle(620, 200, 750, 550, 0xB9B9B9).setOrigin(0.0,0.0);
+          r2.setStrokeStyle(4, 0x0000);
+          var texto = this.add.text(650, 400, "Score : " + score, 128);
+          texto.setFill('#000');
+          texto.setFontSize(100);
+
+          this.noice = this.add.sprite(980, 650, "retour").setInteractive();
+          this.noice.on('pointerdown', () => {
+              this.scene.start("Menu_Principal");
+          })
         }
-        if (commande3.nom != undefined){
-          commande3.temps -= 1; // One second
-          commande3.text.setText(formatTime(commande3.temps));
+        if (commande1.temps != 0){
+          if (commande1.nom != undefined){
+            commande1.temps -= 1; // One second
+            commande1.text.setText(formatTime(commande1.temps));
+          }
         }
-        if (commande4.nom != undefined){
-          commande4.temps -= 1; // One second
-          commande4.text.setText(formatTime(commande4.temps));
+        if (commande2.temps != 0){
+          if (commande2.nom != undefined){
+            commande2.temps -= 1; // One second
+            commande2.text.setText(formatTime(commande2.temps));
+          }
+        }
+        if (commande3.temps != 0){
+          if (commande3.nom != undefined){
+            commande3.temps -= 1; // One second
+            commande3.text.setText(formatTime(commande3.temps));
+          }
+        }
+        if (commande4.temps != 0){
+          if (commande4.nom != undefined){
+            commande4.temps -= 1; // One second
+            commande4.text.setText(formatTime(commande4.temps));
+          }
         }
     }
 
@@ -1158,7 +1181,7 @@ class map1 extends Phaser.Scene{
     commande3.temps = 0;
     commande4.temps = 0;
 
-    this.initialTime = 180;
+    this.initialTime = 240;
     var style = { font: "bold 150px Arial", fill: "#fff", boundsAlignH: "center", boundsAlignV: "middle" };
     text = this.add.text(800, 995, formatTime(this.initialTime));
     text.setFontSize(65);
@@ -1217,40 +1240,40 @@ class map1 extends Phaser.Scene{
   //-----------------------------------JOUEUR 1-----------------------------------------------------------------------------------------------------------------------------
         if(player1.pad != undefined){
   //---------------------Poubelle----------------------------
-          if ((bodyA.id == '23' && bodyB.id == '32') && (player1.pad.buttons[2].pressed)) {
+          if ((bodyA.id == '26' && bodyB.id == '35') && (player1.pad.buttons[2].pressed)) {
               if (player1.inv != 0) {
                 player1.inv = 0;
                 console.log('inventaire joueur 1 : ', player1.inv);
               }
           }
   //------------------matières premières----------------------
-          else if ((bodyA.id == '23' && bodyB.id == '30') && (player1.pad.buttons[2].pressed)) {
+          else if ((bodyA.id == '26' && bodyB.id == '33') && (player1.pad.buttons[2].pressed)) {
             if (player1.inv == 0) {
               player1.inv = "malt";
               console.log('inventaire joueur 1 : ', player1.inv);
               console.log(temps);
             }
           }
-          else if ((bodyA.id == '23' && bodyB.id == '27') && (player1.pad.buttons[2].pressed)) {
+          else if ((bodyA.id == '26' && bodyB.id == '30') && (player1.pad.buttons[2].pressed)) {
               if (player1.inv == 0) {
                 player1.inv = "eau";
                 console.log('inventaire joueur 1 : ', player1.inv);
               }
           }
-          else if ((bodyA.id == '23' && bodyB.id == '28') && (player1.pad.buttons[2].pressed)) {
+          else if ((bodyA.id == '26' && bodyB.id == '31') && (player1.pad.buttons[2].pressed)) {
               if (player1.inv == 0) {
                 player1.inv = "levure";
                 console.log('inventaire joueur 1 : ', player1.inv);
               }
           }
-          else if ((bodyA.id == '23' && bodyB.id == '29') && (player1.pad.buttons[2].pressed)) {
+          else if ((bodyA.id == '26' && bodyB.id == '32') && (player1.pad.buttons[2].pressed)) {
               if (player1.inv == 0) {
                 player1.inv = "houblon";
                 console.log('inventaire joueur 1 : ', player1.inv);
               }
           }
   //-------------------Concassage machine1-----------------------
-          else if ((bodyA.id == '23' && bodyB.id == '31') && (player1.pad.buttons[2].pressed)) {
+          else if ((bodyA.id == '26' && bodyB.id == '34') && (player1.pad.buttons[2].pressed)) {
             if (player1.inv == "malt") {
               console.log("En préparation !!");
               player1.inv = 0;
@@ -1302,7 +1325,7 @@ class map1 extends Phaser.Scene{
             }
           }
   //-------------------Empatage----------------------------------
-          else if ((bodyA.id == '19' && bodyB.id == '23') && (player1.pad.buttons[2].pressed)) {
+          else if ((bodyA.id == '22' && bodyB.id == '26') && (player1.pad.buttons[2].pressed)) {
             if ((player1.inv == "eau" && m1.inv == "maltCon")||(player1.inv == "maltCon" && m1.inv == "eau") && m1.timer == 0){
               console.log("En préparation !!");
               m1.timer = 1;
@@ -1380,7 +1403,7 @@ class map1 extends Phaser.Scene{
             }
           }
   //-----------------------Réfrigérant---------------------------
-          else if ((bodyA.id == '20' && bodyB.id == '23') && (player1.pad.buttons[2].pressed)) {
+          else if ((bodyA.id == '23' && bodyB.id == '26') && (player1.pad.buttons[2].pressed)) {
             if (player1.inv != "houblon" && m2.inv == "biereMachine2" && m2.timer == 0){
               console.log("En préparation !!");
               m2.timer = 1;
@@ -1501,7 +1524,7 @@ class map1 extends Phaser.Scene{
             }
           }
   //-----------------------Filtrage--------------------------------
-          else if ((bodyA.id == '21' && bodyB.id == '23') && (player1.pad.buttons[2].pressed)) {
+          else if ((bodyA.id == '24' && bodyB.id == '26') && (player1.pad.buttons[2].pressed)) {
             if (player1.inv != "levure" && m3.inv == "biereNoHoublon" && m3.timer == 0){
               console.log("En préparation !!");
               m3.timer = 1;
@@ -1708,7 +1731,7 @@ class map1 extends Phaser.Scene{
             }
           }
   //----------------------Livraison---------------------------------
-          else if ((bodyA.id == '14' && bodyB.id == '23')) {
+          else if ((bodyA.id == '17' && bodyB.id == '26')) {
             if(player1.inv == "biereHoublonLevure"){
               player1.inv = "0";
               console.log('inventaire joueur 1 : ', player1.inv);
@@ -1854,40 +1877,40 @@ class map1 extends Phaser.Scene{
   //-----------------------------------JOUEUR 2-----------------------------------------------------------------------------------------------------------------------------------
         if(player2.pad != undefined){
   //---------------------Poubelle----------------------------
-          if ((bodyA.id == '24' && bodyB.id == '32') && (player2.pad.buttons[2].pressed)) {
+          if ((bodyA.id == '27' && bodyB.id == '35') && (player2.pad.buttons[2].pressed)) {
               if (player2.inv != 0) {
                 player2.inv = 0;
                 console.log('inventaire joueur 2 : ', player2.inv);
               }
           }
   //------------------matières premières----------------------
-          else if ((bodyA.id == '24' && bodyB.id == '30') && (player2.pad.buttons[2].pressed)) {
+          else if ((bodyA.id == '27' && bodyB.id == '33') && (player2.pad.buttons[2].pressed)) {
             if (player2.inv == 0) {
               player2.inv = "malt";
               console.log('inventaire joueur 2 : ', player2.inv);
               console.log(temps);
             }
           }
-          else if ((bodyA.id == '24' && bodyB.id == '27') && (player2.pad.buttons[2].pressed)) {
+          else if ((bodyA.id == '27' && bodyB.id == '30') && (player2.pad.buttons[2].pressed)) {
               if (player2.inv == 0) {
                 player2.inv = "eau";
                 console.log('inventaire joueur 1 : ', player2.inv);
               }
           }
-          else if ((bodyA.id == '24' && bodyB.id == '28') && (player2.pad.buttons[2].pressed)) {
+          else if ((bodyA.id == '27' && bodyB.id == '31') && (player2.pad.buttons[2].pressed)) {
               if (player2.inv == 0) {
                 player2.inv = "levure";
                 console.log('inventaire joueur 2 : ', player2.inv);
               }
           }
-          else if ((bodyA.id == '24' && bodyB.id == '29') && (player2.pad.buttons[2].pressed)) {
+          else if ((bodyA.id == '27' && bodyB.id == '32') && (player2.pad.buttons[2].pressed)) {
               if (player2.inv == 0) {
                 player2.inv = "houblon";
                 console.log('inventaire joueur 2 : ', player2.inv);
               }
           }
   //-------------------Concassage machine1-----------------------
-          else if ((bodyA.id == '24' && bodyB.id == '31') && (player2.pad.buttons[2].pressed)) {
+          else if ((bodyA.id == '27' && bodyB.id == '34') && (player2.pad.buttons[2].pressed)) {
             if (player2.inv == "malt") {
               console.log("En préparation !!");
               player2.inv = 0;
@@ -1939,7 +1962,7 @@ class map1 extends Phaser.Scene{
             }
           }
   //-------------------Empatage----------------------------------
-          else if ((bodyA.id == '19' && bodyB.id == '24') && (player2.pad.buttons[2].pressed)) {
+          else if ((bodyA.id == '22' && bodyB.id == '27') && (player2.pad.buttons[2].pressed)) {
             if ((player2.inv == "eau" && m1.inv == "maltCon")||(player2.inv == "maltCon" && m1.inv == "eau") && m1.timer == 0){
               console.log("En préparation !!");
               m1.timer = 1;
@@ -2018,7 +2041,7 @@ class map1 extends Phaser.Scene{
 
           }
   //-----------------------Réfrigérant---------------------------
-          else if ((bodyA.id == '20' && bodyB.id == '24') && (player2.pad.buttons[2].pressed)) {
+          else if ((bodyA.id == '23' && bodyB.id == '27') && (player2.pad.buttons[2].pressed)) {
             if (player2.inv != "houblon" && m2.inv == "biereMachine2" && m2.timer == 0){
               console.log("En préparation !!");
               m2.timer = 1;
@@ -2139,7 +2162,7 @@ class map1 extends Phaser.Scene{
             }
           }
   //-----------------------Filtrage--------------------------------
-          else if ((bodyA.id == '21' && bodyB.id == '24') && (player2.pad.buttons[2].pressed)) {
+          else if ((bodyA.id == '24' && bodyB.id == '27') && (player2.pad.buttons[2].pressed)) {
             if (player2.inv != "levure" && m3.inv == "biereNoHoublon" && m3.timer == 0){
               console.log("En préparation !!");
               m3.timer = 1;
@@ -2346,7 +2369,7 @@ class map1 extends Phaser.Scene{
             }
           }
   //----------------------Livraison---------------------------------
-          else if ((bodyA.id == '14' && bodyB.id == '24')) {
+          else if ((bodyA.id == '17' && bodyB.id == '27')) {
             if(player2.inv == "biereHoublonLevure"){
               player2.inv = "0";
               console.log('inventaire joueur 2 : ', player2.inv);
@@ -2492,40 +2515,40 @@ class map1 extends Phaser.Scene{
   //-----------------------------------JOUEUR 3------------------------------------------------------------------------------------------------------------------------------------------
   //---------------------Poubelle----------------------------
         if(player3.pad != undefined){
-          if ((bodyA.id == '25' && bodyB.id == '32') && (player3.pad.buttons[2].pressed)) {
+          if ((bodyA.id == '28' && bodyB.id == '35') && (player3.pad.buttons[2].pressed)) {
               if (player3.inv != 0) {
                 player3.inv = 0;
                 console.log('inventaire joueur 3 : ', player3.inv);
               }
           }
   //------------------matières premières----------------------
-          else if ((bodyA.id == '25' && bodyB.id == '30') && (player3.pad.buttons[2].pressed)) {
+          else if ((bodyA.id == '28' && bodyB.id == '33') && (player3.pad.buttons[2].pressed)) {
             if (player3.inv == 0) {
               player3.inv = "malt";
               console.log('inventaire joueur 3 : ', player3.inv);
               console.log(temps);
             }
           }
-          else if ((bodyA.id == '25' && bodyB.id == '27') && (player3.pad.buttons[2].pressed)) {
+          else if ((bodyA.id == '28' && bodyB.id == '30') && (player3.pad.buttons[2].pressed)) {
               if (player3.inv == 0) {
                 player3.inv = "eau";
                 console.log('inventaire joueur 3 : ', player3.inv);
               }
           }
-          else if ((bodyA.id == '25' && bodyB.id == '28') && (player3.pad.buttons[2].pressed)) {
+          else if ((bodyA.id == '28' && bodyB.id == '31') && (player3.pad.buttons[2].pressed)) {
               if (player3.inv == 0) {
                 player3.inv = "levure";
                 console.log('inventaire joueur 3 : ', player3.inv);
               }
           }
-          else if ((bodyA.id == '25' && bodyB.id == '29') && (player3.pad.buttons[2].pressed)) {
+          else if ((bodyA.id == '28' && bodyB.id == '32') && (player3.pad.buttons[2].pressed)) {
               if (player3.inv == 0) {
                 player3.inv = "houblon";
                 console.log('inventaire joueur 3 : ', player3.inv);
               }
           }
   //-------------------Concassage machine1-----------------------
-          else if ((bodyA.id == '25' && bodyB.id == '31') && (player3.pad.buttons[2].pressed)) {
+          else if ((bodyA.id == '28' && bodyB.id == '34') && (player3.pad.buttons[2].pressed)) {
             if (player3.inv == "malt") {
               console.log("En préparation !!");
               player3.inv = 0;
@@ -2577,7 +2600,7 @@ class map1 extends Phaser.Scene{
             }
           }
   //-------------------Empatage----------------------------------
-          else if ((bodyA.id == '19' && bodyB.id == '25') && (player3.pad.buttons[2].pressed)) {
+          else if ((bodyA.id == '22' && bodyB.id == '28') && (player3.pad.buttons[2].pressed)) {
             if ((player3.inv == "eau" && m1.inv == "maltCon")||(player3.inv == "maltCon" && m1.inv == "eau") && m1.timer == 0){
               console.log("En préparation !!");
               m1.timer = 1;
@@ -2656,7 +2679,7 @@ class map1 extends Phaser.Scene{
 
           }
   //-----------------------Réfrigérant---------------------------
-          else if ((bodyA.id == '20' && bodyB.id == '25') && (player3.pad.buttons[2].pressed)) {
+          else if ((bodyA.id == '23' && bodyB.id == '28') && (player3.pad.buttons[2].pressed)) {
             if (player3.inv != "houblon" && m2.inv == "biereMachine2" && m2.timer == 0){
               console.log("En préparation !!");
               m2.timer = 1;
@@ -2777,7 +2800,7 @@ class map1 extends Phaser.Scene{
             }
           }
   //-----------------------Filtrage--------------------------------
-          else if ((bodyA.id == '21' && bodyB.id == '25') && (player3.pad.buttons[2].pressed)) {
+          else if ((bodyA.id == '23' && bodyB.id == '28') && (player3.pad.buttons[2].pressed)) {
             if (player3.inv != "levure" && m3.inv == "biereNoHoublon" && m3.timer == 0){
               console.log("En préparation !!");
               m3.timer = 1;
@@ -2984,7 +3007,7 @@ class map1 extends Phaser.Scene{
             }
           }
   //----------------------Livraison---------------------------------
-          else if ((bodyA.id == '14' && bodyB.id == '25')) {
+          else if ((bodyA.id == '17' && bodyB.id == '28')) {
             if(player3.inv == "biereHoublonLevure"){
               player3.inv = "0";
               console.log('inventaire joueur 3 : ', player3.inv);
@@ -3130,40 +3153,40 @@ class map1 extends Phaser.Scene{
   //-----------------------------------JOUEUR 4---------------------------------------------------------------------------------------------------------------------------------------
         if(player4.pad != undefined){
   //---------------------Poubelle----------------------------
-          if ((bodyA.id == '26' && bodyB.id == '32') && (player4.pad.buttons[2].pressed)) {
+          if ((bodyA.id == '29' && bodyB.id == '35') && (player4.pad.buttons[2].pressed)) {
               if (player4.inv != 0) {
                 player4.inv = 0;
                 console.log('inventaire joueur 4 : ', player4.inv);
               }
           }
   //------------------matières premières----------------------
-          else if ((bodyA.id == '26' && bodyB.id == '30') && (player4.pad.buttons[2].pressed)) {
+          else if ((bodyA.id == '29' && bodyB.id == '33') && (player4.pad.buttons[2].pressed)) {
             if (player4.inv == 0) {
               player4.inv = "malt";
               console.log('inventaire joueur 4 : ', player4.inv);
               console.log(temps);
             }
           }
-          else if ((bodyA.id == '26' && bodyB.id == '27') && (player4.pad.buttons[2].pressed)) {
+          else if ((bodyA.id == '29' && bodyB.id == '30') && (player4.pad.buttons[2].pressed)) {
               if (player1.inv == 0) {
                 player1.inv = "eau";
                 console.log('inventaire joueur 4 : ', player4.inv);
               }
           }
-          else if ((bodyA.id == '26' && bodyB.id == '28') && (player4.pad.buttons[2].pressed)) {
+          else if ((bodyA.id == '29' && bodyB.id == '31') && (player4.pad.buttons[2].pressed)) {
               if (player4.inv == 0) {
                 player4.inv = "levure";
                 console.log('inventaire joueur 1 : ', player4.inv);
               }
           }
-          else if ((bodyA.id == '26' && bodyB.id == '29') && (player4.pad.buttons[2].pressed)) {
+          else if ((bodyA.id == '29' && bodyB.id == '32') && (player4.pad.buttons[2].pressed)) {
               if (player4.inv == 0) {
                 player4.inv = "houblon";
                 console.log('inventaire joueur 4 : ', player4.inv);
               }
           }
   //-------------------Concassage machine1-----------------------
-          else if ((bodyA.id == '26' && bodyB.id == '31') && (player4.pad.buttons[2].pressed)) {
+          else if ((bodyA.id == '29' && bodyB.id == '34') && (player4.pad.buttons[2].pressed)) {
             if (player4.inv == "malt") {
               console.log("En préparation !!");
               player4.inv = 0;
@@ -3215,7 +3238,7 @@ class map1 extends Phaser.Scene{
             }
           }
   //-------------------Empatage----------------------------------
-          else if ((bodyA.id == '19' && bodyB.id == '26') && (player4.pad.buttons[2].pressed)) {
+          else if ((bodyA.id == '22' && bodyB.id == '29') && (player4.pad.buttons[2].pressed)) {
             if ((player4.inv == "eau" && m1.inv == "maltCon")||(player4.inv == "maltCon" && m1.inv == "eau") && m1.timer == 0){
               console.log("En préparation !!");
               m1.timer = 1;
@@ -3294,7 +3317,7 @@ class map1 extends Phaser.Scene{
 
           }
   //-----------------------Réfrigérant---------------------------
-          else if ((bodyA.id == '20' && bodyB.id == '26') && (player4.pad.buttons[2].pressed)) {
+          else if ((bodyA.id == '23' && bodyB.id == '29') && (player4.pad.buttons[2].pressed)) {
             if (player4.inv != "houblon" && m2.inv == "biereMachine2" && m2.timer == 0){
               console.log("En préparation !!");
               m2.timer = 1;
@@ -3415,7 +3438,7 @@ class map1 extends Phaser.Scene{
             }
           }
   //-----------------------Filtrage--------------------------------
-          else if ((bodyA.id == '21' && bodyB.id == '26') && (player4.pad.buttons[2].pressed)) {
+          else if ((bodyA.id == '24' && bodyB.id == '29') && (player4.pad.buttons[2].pressed)) {
             if (player4.inv != "levure" && m3.inv == "biereNoHoublon" && m3.timer == 0){
               console.log("En préparation !!");
               m3.timer = 1;
@@ -3622,7 +3645,7 @@ class map1 extends Phaser.Scene{
             }
           }
   //----------------------Livraison---------------------------------
-          else if ((bodyA.id == '14' && bodyB.id == '26')) {
+          else if ((bodyA.id == '17' && bodyB.id == '29')) {
             if(player4.inv == "biereHoublonLevure"){
               player4.inv = "0";
               console.log('inventaire joueur 4 : ', player4.inv);
@@ -4312,8 +4335,8 @@ class map1 extends Phaser.Scene{
               player4.img.anims.play('turn3',true);
             }
           }
-          player4.img.x += 10 * axisH;
-          player4.img.y += 10 * axisV;
+          player4.img.x += 4 * axisH;
+          player4.img.y += 4 * axisV;
 
           player4.img.flipX = (axisH > 0);
       }

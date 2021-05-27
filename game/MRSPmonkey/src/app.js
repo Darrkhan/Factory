@@ -4,7 +4,7 @@ const {player, machine, commande} = require("./class.js");
 const {map1} = require('./map1.js');
 const {map2} = require('./map2.js');
 const {map3} = require('./map3.js');
-const {map4} = require('./newmap.js');
+const {map4} = require('./map4.js');
 const {Menu_Principal} = require("./Menu.js");
 const {Selection_Niveaux} = require("./Selection_Niveaux.js");
 
@@ -30,9 +30,8 @@ window.onload = function(){
               }
           }
       },
-      scene: [map3,Menu_Principal, Selection_Niveaux]
+      scene: [map4,Menu_Principal, Selection_Niveaux, map1, map2, map3]
   };
 
   var game = new Phaser.Game(config);
-  game.scene.start(Menu_Principal);
 }
